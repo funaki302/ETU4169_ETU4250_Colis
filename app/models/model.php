@@ -58,7 +58,10 @@ class ProductModel {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
-    public function getBenefitParJour() {
-    
+
+    public function getBenefitParAnne() {
+        $sql = "SELECT * FROM V_gc_BeneficeAnnee";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

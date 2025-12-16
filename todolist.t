@@ -69,4 +69,4 @@
 
             - [] BeneficeParMois.php : afficher les benefice par mois 
 
-            - [] BeneficeParMois.php : afficher les benefice par annee 
+            - [] BeneficeParAnne.php : afficher les benefice par annee 
