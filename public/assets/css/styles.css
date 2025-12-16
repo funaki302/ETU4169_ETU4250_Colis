@@ -1,0 +1,197 @@
+/* ===============================
+   FONTS
+================================ */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ===============================
+   BASE
+================================ */
+body {
+  background: #f1f4f9;
+  color: #2c2c2c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 95%;
+  max-width: 1300px;
+  margin: auto;
+}
+
+/* ===============================
+   HEADER
+================================ */
+header {
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+}
+
+.menu a {
+  color: #eaf0ff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.25s;
+}
+
+.menu a:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ===============================
+   MAIN
+================================ */
+main {
+  padding: 30px 0 40px;
+  flex: 1;
+}
+
+.product-list h2 {
+  margin-bottom: 18px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e3c72;
+}
+
+/* ===============================
+   TABLE
+================================ */
+.table-responsive {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Table base */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+thead {
+  background: #f6f8fc;
+}
+
+thead th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #5b6b8b;
+  border-bottom: 2px solid #e6eaf2;
+}
+
+tbody td {
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  color: #333;
+  border-bottom: 1px solid #eef1f6;
+}
+
+/* Zebra striping */
+tbody tr:nth-child(even) {
+  background: #fafbff;
+}
+
+/* Hover row */
+tbody tr:hover {
+  background: #eef4ff;
+  transition: background 0.2s;
+}
+
+/* Money column */
+tbody td:nth-child(11) {
+  font-weight: 700;
+  color: #2a5298;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.product-list p {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #777;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+/* ===============================
+   FOOTER
+================================ */
+footer {
+  background: #1e3c72;
+  color: #e0e6f2;
+  text-align: center;
+  padding: 14px 0;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .menu {
+    gap: 10px;
+  }
+
+  .menu a {
+    padding: 5px 8px;
+    font-size: 0.9rem;
+  }
+
+  product-list h2 {
+    font-size: 1.3rem;
+  }
+}
