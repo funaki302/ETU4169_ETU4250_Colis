@@ -195,3 +195,85 @@ footer {
     font-size: 1.3rem;
   }
 }
+
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 95%;
+    max-width: 1300px;
+    margin: 40px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2c3e50;
+}
+
+.bloc {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.bloc h2 {
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #34495e;
+    color: #ffffff;
+}
+
+th, td {
+    padding: 12px 14px;
+    text-align: center;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* États */
+.gain {
+    background-color: #e8f8f0;
+    color: #1e8449;
+    font-weight: 600;
+}
+
+.perte {
+    background-color: #fdecea;
+    color: #c0392b;
+    font-weight: 600;
+}
+
+.neutre {
+    background-color: #f2f3f4;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+.etat {
+    display: block;
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+

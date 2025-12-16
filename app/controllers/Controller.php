@@ -91,4 +91,18 @@ class ProductController {
     public function getTrajetsByDate(){
         return $this->model->getTrajetsByDate(); 
     }
+
+    public function getBenefitParAnne() {
+        return $this->model->getBenefitParAnne();
+    }
+
+    public function getBenefitParMois() {
+        return $this->model->getBenefitParMois();
+    }
+
+    public function getBenefitParJour() {
+        return $this->model->getBenefitParJour();
+    }
+
+
 }
