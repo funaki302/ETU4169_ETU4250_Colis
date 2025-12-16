@@ -39,15 +39,17 @@
                         }
                         ?>
                         <tr>
-                            <td><?= htmlspecialchars($row['id_colis'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['nom_expediteur'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['adresse_expediteur'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['nom_destinataire'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['adresse_destinataire'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['date_expedition'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['date_livraison'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['kilos'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($statut) ?></td>
+                            <a href="/colis/<?= $row['id_colis'] ?>" style="color: black; text-decoration: none;">
+                                <td><?= htmlspecialchars($row['id_colis'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['nom_expediteur'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['adresse_expediteur'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['nom_destinataire'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['adresse_destinataire'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['date_expedition'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['date_livraison'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($row['kilos'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($statut) ?></td>
+                            </a>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
