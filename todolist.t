@@ -91,9 +91,32 @@
                      -> [] function getBeneficeMois() utilisant la view V_gc_BeneficeMois
                      -> [] function getBeneficeAnne() utilisant la view V_gc_BeneficeAnne
 
+<<<<<<< HEAD
                 - [] controllers/controller.php
                 -> [] appel des fonction pour avoir les donnes
 
                 - [] config/routes.php
                 -> [] prendre les donner et les envoyer dans Benfice.php
                 -> [] ajout dans le header (voir tous benefice)
+=======
+            - [] BeneficeParMois.php : afficher les benefice par annee 
+
+            - [] home.php : page d accueil avec la liste des colis
+              - FONCTION:
+                - [ok] getColis() : recuperer la liste des colis
+                - [ok] addColis() : ajouter un colis   
+                - [ok] updateColis() : modifier un colis
+                - [ok] deleteColis() : supprimer un colis 
+              - Page:
+                - [ok] Afficher la liste des colis dans un tableau
+                - [] Lier chaque colis a une page de details (lien sur l id du colis)
+            
+            - [] detailsColis.php : page de details d un colis
+              - FONCTION:
+                - [] getColisById($id) : recuperer les details d un colis
+              - Page:
+                - [] Afficher les details du colis
+                - [] Formulaire pour modifier le colis
+                - [] Bouton pour modifier le colis
+                - [] Bouton pour supprimer le colis
+>>>>>>> b0ae561fe2b51626273a76cc1cc4b22c8902cadb
