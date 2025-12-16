@@ -56,4 +56,18 @@ class Controller {
     public function getColisById($id) {
         return $this->model->getColisById($id);
     }
+
+    public function getBenefitParAnne() {
+        return $this->model->getBenefitParAnne();
+    }
+
+    public function getBenefitParMois() {
+        return $this->model->getBenefitParMois();
+    }
+
+    public function getBenefitParJour() {
+        return $this->model->getBenefitParJour();
+    }
+
+
 }

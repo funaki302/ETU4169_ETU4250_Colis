@@ -65,10 +65,40 @@
 
         - [] Creation des pages web (HTML, CSS, JS, PHP) :
         - [] Page :
-            - [] BeneficeParJour.php : afficher les benefice par jour 
+            - [] Benefice.php : afficher les benefice
+              - [] creation de view dans data/view.sql :
+                   -> [] V_gc_BeneficeJour
+                        - [] afficher le jour
+                        - [] calcul de tout les depense journaliere (carburant , salaire livreur)
+                        - [] benefice par kg
+                        - [] difference entre le deux donne le benefice ou perte
+                   
+                   -> [] V_gc_BeneficeMois
+                        - [] afficher le mois
+                        - [] calcul de tout les depense Monsuelle (carburant , salaire livreur)
+                        - [] benefice par kg
+                        - [] difference entre le deux donne le benefice ou perte
+                   
+                   -> [] V_gc_BeneficeAnne
+                        - [] afficher lannee
+                        - [] calcul de tout les depense Annuelle (carburant , salaire livreur)
+                        - [] benefice par kg
+                        - [] difference entre le deux donne le benefice ou perte
 
-            - [] BeneficeParMois.php : afficher les benefice par mois 
+                - [] models/model.php :
+                -> [] creation de fonction:
+                     -> [] function getBeneficeJour() utilisant la view V_gc_BeneficeJour
+                     -> [] function getBeneficeMois() utilisant la view V_gc_BeneficeMois
+                     -> [] function getBeneficeAnne() utilisant la view V_gc_BeneficeAnne
 
+<<<<<<< HEAD
+                - [] controllers/controller.php
+                -> [] appel des fonction pour avoir les donnes
+
+                - [] config/routes.php
+                -> [] prendre les donner et les envoyer dans Benfice.php
+                -> [] ajout dans le header (voir tous benefice)
+=======
             - [] BeneficeParMois.php : afficher les benefice par annee 
 
             - [] home.php : page d accueil avec la liste des colis
@@ -89,3 +119,4 @@
                 - [] Formulaire pour modifier le colis
                 - [] Bouton pour modifier le colis
                 - [] Bouton pour supprimer le colis
+>>>>>>> b0ae561fe2b51626273a76cc1cc4b22c8902cadb
