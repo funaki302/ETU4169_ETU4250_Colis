@@ -28,4 +28,44 @@ $router->group('', function (Router $router) use ($app) {
     });
 
 
+$router->post('/insertColis', function() use ($app) {
+
+    $controller = new Controller($app);
+
+    $nom = $_POST['nom'] ?? '';
+    $nom_expediteur = $_POST['nom_expediteur'] ?? '';
+    $adresse_expediteur = $_POST['adresse_expediteur'] ?? '';
+    $nom_destinataire = $_POST['nom_destinataire'] ?? '';
+    $adresse_destinataire = $_POST['adresse_destinataire'] ?? '';
+    $date_expedition = $_POST['date_expedition'] ?? null;
+    $date_livraison = $_POST['date_livraison'] ?? null;
+    $kilos = $_POST['kilos'] ?? 0;
+
+    $controller->InsertColis(
+        $nom,
+        $nom_expediteur,
+        $adresse_expediteur,
+        $nom_destinataire,
+        $adresse_destinataire,
+        $date_expedition,
+        $date_livraison,
+        $kilos
+    );
+
+    \Flight::redirect('/');
+
+});
+
+
+$router->get('/formInsert', function() use ($app) {
+
+    // Affiche la page InsertColis.php
+    $app->render('InsertColis', [
+        'csp_nonce' => \Flight::get('csp_nonce')
+    ]);
+
+});
+
+
+
 }, [SecurityHeadersMiddleware::class]);

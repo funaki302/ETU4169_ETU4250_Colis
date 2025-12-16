@@ -90,4 +90,13 @@ class Model
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos){
+        $sql = "INSERT INTO gc_colis 
+        (nom, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }
