@@ -91,9 +91,20 @@
                      -> [ok] function getBeneficeMois() utilisant la view V_gc_BeneficeMois
                      -> [ok] function getBeneficeAnne() utilisant la view V_gc_BeneficeAnne
 
+<<<<<<< HEAD:todolist.t
+                - [] controllers/controller.php
+                -> [] appel des fonction pour avoir les donnes
+
+                - [] config/routes.php
+                -> [] prendre les donner et les envoyer dans Benfice.php
+                -> [] ajout dans le header (voir tous benefice)
+
+            - [] BeneficeParMois.php : afficher les benefice par annee 
+=======
 
                 - [ok] controllers/controller.php
                 -> [ok] appel des fonction pour avoir les donnes
+>>>>>>> 238fe68ee42be61b8ef09cbb586e233bd87bc08b:todolistFunaki.t
 
                 - [ok] config/routes.php
                 -> [ok] prendre les donner et les envoyer dans Benfice.php
@@ -160,4 +171,7 @@
                 - [] Formulaire pour modifier le colis
                 - [] Bouton pour modifier le colis
                 - [] Bouton pour supprimer le colis
+<<<<<<< HEAD:todolist.t
+=======
 
+>>>>>>> 238fe68ee42be61b8ef09cbb586e233bd87bc08b:todolistFunaki.t

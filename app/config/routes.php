@@ -13,7 +13,6 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('home' , ['liste' => $controller->getColis() , 'csp_nonce' => Flight::get('csp_nonce')]);
     });
 
-  
     $router->get('/benefices', function () use ($app) {
         $controller = new Controller($app);
         $beneficeAnne = $controller->getBenefitParAnne();
@@ -25,6 +24,19 @@ $router->group('', function (Router $router) use ($app) {
             'beneficeJour' => $beneficeJour,
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
+    });
+
+    $router->get('/colis/@id', function($id) use ($app) {
+        $controller = new Controller($app);
+        $app->render('detailsColis' , [
+            'colis' => $controller->getColisById($id) ,
+            'statuts' => $controller->getStatuts(),
+            'csp_nonce' => Flight::get('csp_nonce')]);
+    });
+
+    $router->post('/colis/update/', function() use ($app) {
+        $controller = new Controller($app);
+        $controller->updateColis();
     });
 
 

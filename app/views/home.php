@@ -10,6 +10,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Nom colis</th>
                             <th>Nom Expéditeur</th>
                             <th>Adresse Expéditeur</th>
                             <th>Nom Destinataire</th>
@@ -22,8 +23,9 @@
                     </thead>
                     <tbody>
                     <?php foreach ($liste as $row): ?>
-                        <?php $statut = "";
-                        switch ($row['id_statut']) {
+                        <?php
+                        $statut = "";
+                        switch ($row['id_statut'] ?? $row['id_statut'] ?? null) {
                             case 1:
                                 $statut = "En attente";
                                 break;
@@ -37,19 +39,20 @@
                                 $statut = "Inconnu";
                                 break;
                         }
+                        $id = $row['id_colis'] ?? '';
                         ?>
                         <tr>
-                            <a href="/colis/<?= $row['id_colis'] ?>" style="color: black; text-decoration: none;">
-                                <td><?= htmlspecialchars($row['id_colis'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['nom_expediteur'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['adresse_expediteur'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['nom_destinataire'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['adresse_destinataire'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['date_expedition'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['date_livraison'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['kilos'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($statut) ?></td>
-                            </a>
+                            <td><?= htmlspecialchars($id) ?></td>
+                            <td><?= htmlspecialchars($row['nom_colis'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['nom_expediteur'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['adresse_expediteur'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['nom_destinataire'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['adresse_destinataire'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['date_expedition'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['date_livraison'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['kilos'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($statut) ?></td>
+                            <td><a href="/colis/<?= htmlspecialchars($id) ?>" class="btn btn-sm btn-primary">Détails</a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

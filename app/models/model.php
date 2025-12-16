@@ -39,58 +39,81 @@ class Model
 
     public function updateColis($data)
     {
+        $id = $data['id_colis'] ?? null;
+        if ($id === null) { return; }
+
+        $date_expedition = !empty($data['date_expedition'])
+            ? $data['date_expedition']
+            : null;
+
+        $date_livraison = !empty($data['date_livraison'])
+            ? $data['date_livraison']
+            : null;
+
         $sql = "UPDATE gc_colis SET nom_expediteur = ?, adresse_expediteur = ?,
-            nom_destinataire = ?, adresse_destinataire = ?, date_expedition = ?, 
-            date_livraison = ?, kilos = ? , id_statut = ?
-        WHERE id=?";
+            nom_destinataire = ?, adresse_destinataire = ?, date_expedition = ?,
+            date_livraison = ?, kilos = ? , id_statut = ?, nom_colis = ?
+        WHERE id_colis = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['nom_expediteur'] ?? '',
             $data['adresse_expediteur'] ?? '',
             $data['nom_destinataire'] ?? '',
             $data['adresse_destinataire'] ?? '',
-            $data['date_expedition'] ?? null,
-            $data['date_livraison'] ?? null,   
+            $date_expedition,  
+            $date_livraison, 
             $data['kilos'] ?? 0,
             $data['id_statut'] ?? 1,
-            $data['id']
+            $data['nom_colis'] ?? '',
+            $id
         ]);
     }
 
     public function addColis($data)
     {
+        $date_expedition = !empty($data['date_expedition'])
+            ? $data['date_expedition']
+            : null;
+
+        $date_livraison = !empty($data['date_livraison'])
+            ? $data['date_livraison']
+            : null;
         $sql = "INSERT INTO gc_colis 
             (nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, 
-            date_expedition, date_livraison, kilos, id_statut) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            date_expedition, date_livraison, kilos, id_statut,nom_colis) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['nom_expediteur'] ?? '',
             $data['adresse_expediteur'] ?? '',
             $data['nom_destinataire'] ?? '',
             $data['adresse_destinataire'] ?? '',
-            $data['date_expedition'] ?? null,
-            $data['date_livraison'] ?? null,   
+            $date_expedition,  
+            $date_livraison,  
             $data['kilos'] ?? 0,
-            $data['id_statut'] ?? 1
+            $data['id_statut'] ?? 1,
+            $data['nom_colis'] ?? ''
         ]);
         return $this->db->lastInsertId();
     }
 
-    public function deleteColis($data)
+    public function deleteColis($id)
     {
-        $sql = "DELETE FROM gc_colis WHERE id=?";
+        if ($id === null) { return; }
+        $sql = "DELETE FROM gc_colis WHERE id_colis = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$data['id']]);
+        $stmt->execute([$id]);
     }
     public function getColisById($id)
     {
-        $sql = "SELECT * FROM gc_colis WHERE id=?";
+        if ($id === null) { return; }
+        $sql = "SELECT * FROM gc_colis WHERE id_colis = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+<<<<<<< HEAD
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos){
         $sql = "INSERT INTO gc_colis 
         (nom, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
@@ -98,5 +121,12 @@ class Model
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+=======
+    public function getStatuts()
+    {
+        $sql = "SELECT * FROM gc_statut_trajet";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+>>>>>>> 66100808dae98ea52c69a95821f2fadeeb33dd73
     }
 }
