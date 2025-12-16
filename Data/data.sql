@@ -149,3 +149,7 @@ VALUES
 INSERT INTO gc_tarifs (unite, prix) VALUES
 ('kg', 2500),
 ('colis', 15000);
+
+/* Ajouter colonne non dans colis */
+ALTER TABLE gc_colis
+ADD COLUMN nom_colis VARCHAR(255) ;

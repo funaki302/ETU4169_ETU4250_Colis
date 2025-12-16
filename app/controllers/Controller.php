@@ -69,5 +69,8 @@ class Controller {
         return $this->model->getBenefitParJour();
     }
 
+    public function getStatuts() {
+        return $this->model->getStatuts();
+    }
 
 }

@@ -1,0 +1,18 @@
+- [] home.php : page d accueil avec la liste des colis
+              - FONCTION:
+                - [ok] getColis() : recuperer la liste des colis
+                - [ok] addColis() : ajouter un colis   
+                - [ok] updateColis() : modifier un colis
+                - [ok] deleteColis() : supprimer un colis 
+              - Page:
+                - [ok] Afficher la liste des colis dans un tableau
+                - [] Lier chaque colis a une page de details (lien sur l id du colis)
+            
+- [] detailsColis.php : page de details d un colis
+  - FONCTION:
+    - [ok] getColisById($id) : recuperer les details d un colis
+    - [] getStatuts() : recuperer la liste des statuts pour le formulaire de modification
+  - Page:
+    - [ok] Afficher les details du colis
+    - [] Formulaire pour modifier le colis : Formulaire pres remplit avec les donnees actuelles du colis
+    - [] Bouton pour modifier le colis

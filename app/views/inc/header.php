@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - E-commerce</title>
+    <title>Home - Gestion Colis</title>
     <link href="/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/icons/bootstrap-icons.min.css" rel="stylesheet">
     <link href="/assets/css/styles.css" rel="stylesheet">
