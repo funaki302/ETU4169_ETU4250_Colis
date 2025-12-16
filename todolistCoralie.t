@@ -14,5 +14,6 @@
     - [] getStatuts() : recuperer la liste des statuts pour le formulaire de modification
   - Page:
     - [ok] Afficher les details du colis
-    - [] Formulaire pour modifier le colis : Formulaire pres remplit avec les donnees actuelles du colis
-    - [] Bouton pour modifier le colis
+    - [ok] Formulaire pour modifier le colis : Formulaire pres remplit avec les donnees actuelles du colis
+    - [ok] Bouton pour modifier le colis
+
