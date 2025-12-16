@@ -70,3 +70,13 @@
             - [] BeneficeParMois.php : afficher les benefice par mois 
 
             - [] BeneficeParMois.php : afficher les benefice par annee 
+
+            - [] Home.php : page d accueil avec la liste des colis
+              - FONCTION:
+                - [] getColis() : recuperer la liste des colis
+                - [] addColis() : ajouter un colis   
+                - [] updateColis() : modifier un colis
+                - [] deleteColis() : supprimer un colis             
+            
+
+        
