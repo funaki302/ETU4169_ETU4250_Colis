@@ -32,7 +32,8 @@
                - [ok] email_chauffeur (varchar)
                - [ok] id_voiture (int, FK)
                - [ok] date_dassignation (date)
-               - [ok] salaires_journaliers (double)
+               - [] salaires_parLiv (double)
+               - [] id_livraison (int , FK ) 
             
             - [ok] table : gc_voiture
                - [ok] id_voiture (int, PK, AI)
