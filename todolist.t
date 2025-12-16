@@ -1,38 +1,71 @@
+ TODO LIST ETU4169 ETU4250
+  - [] Creation dun systeme de gestion de colis :
+     - [ok] creation de databse (Mysql) :
+       - [ok] dans le dossier Data/data.sql 
+       - [ok] Base de donnee : gestion_colis :
+           - [ok] table : gc_colis
+               - [ok] id_colis (int, PK, AI)
+               - [ok] nom_expediteur (varchar)
+               - [ok] adresse_expediteur (varchar)
+               - [ok] nom_destinataire (varchar)
+               - [ok] adresse_destinataire (varchar)
+               - [ok] date_expedition (date)
+               - [ok] date_livraison (date)
+               - [ok] id_statut (int , FK) 
+               - [ok] kilos (double)
 
+           - [ok] table : gc_trajet_colis
+               - [ok] id_trajet (int, PK, AI)
+               - [ok] id_colis (int, FK)
+               - [ok] adresse_depart (varchar) : entrepôt de la société, 1 seul entrepôt 
+               - [ok] adresse_arrivee (varchar)
+             
+           - [ok] table : gc_statut_trajet
+               - [ok] id_statut (int, PK, AI)
+               - [ok] description_statut (varchar) : en attente , livre ,annule     
+           
+           - [ok] table : gc_chauffeur
+               - [ok] id_chauffeur (int, PK, AI)
+               - [ok] nom_chauffeur (varchar)
+               - [ok] prenom_chauffeur (varchar)
+               - [ok] telephone_chauffeur (varchar)
+               - [ok] email_chauffeur (varchar)
+               - [ok] id_voiture (int, FK)
+               - [ok] date_dassignation (date)
+               - [ok] salaires_journaliers (double)
+            
+            - [ok] table : gc_voiture
+               - [ok] id_voiture (int, PK, AI)
+               - [ok] immatriculation (varchar)
+               - [ok] marque (varchar)
+               - [ok] modele (varchar)
+               - [ok] capacite (int)
+               - [ok] statut_voiture (varchar) : disponible, en cours de livraison, en maintenance
+               - [ok] id_carburant (int , FK )
 
-- [ok] Creation Base de donne Mysql:
-     [ok] table :
-      -> [ok] trajet (idTrajet ,dateHeureDebut , dateHeureFin, distance, idChauffeur, idVehicule, idRecette, idCarburant, String pointDepart,String pointArrivee)
-      -> [ok] chauffeur (idChauffeur ,nom, prenom, telephone, adresse, email, salaire)
-      -> [ok] vehicule ( idVehicule , marque, modele)
-      -> [ok] recette (idRecette , montant , date)
-      -> [ok] salaire (idSalaire , montant , datePaiement, idChauffeur)
-      -> [ok] carburant (idCarburant ,idVehicule , prixLitre , quantite , dateAchat)
+            - [ok] table : gc_livraison :
+               - [ok] id_livraison (int, PK, AI)
+               - [ok] id_colis (int, FK)
+               - [ok] id_chauffeur (int, FK)
+               - [ok] date_livraison (date)
+               - [ok] heure_livraison (time)
+               - [ok] id_statut (int, FK)   
 
-- [ok] connection pour se connecterr a la base de donne Mysql
-   - [ok] config/database.php :
-      [ok] fonction connect() : connexion a la base de donne Mysql avec PDO.
+            - [ok] table : gc_carburant :
+               - [ok] id_carburant (int, PK, AI)
+               - [ok] type_carburant (varchar)
+               - [ok] prix_litre (double)
+               - [ok] date_dernier_approvisionnement (date)
 
-- [] Home.php :
-    [ok] Afficher la liste de trajet avec les informations du chauffeur et du vehicule par jour.
-       - [ok] fonction getTrajetsByDate()
-       -> [ok] creation de la vue V_gt_trajet_detaillee pour faciliter la recuperation des donnees.       
-          -> [ok] union entre les tables trajet, chauffeur et vehicule et recette.
+            - [ok] table : gc_tarifs :
+               - [ok] id_tarifs (int , PK , AI)
+               - [ok] unite (kg ,litre , ml , .. )
+               - [ok] prix
 
-    [] Affichage total benefice par vehicule .
-       - [] fonction getBeneficeByVehicule()
-       -> [] recuperation des donnees de la table recette et trajet pour le calcul du benefice par vehicule.
-          -> [] Creation de la vue V_gt_benefice_par_vehicule pour faciliter la recuperation des donnees.
-             -> [] somme de tout les depenses de carburant par vehicule.
+        - [] Creation des pages web (HTML, CSS, JS, PHP) :
+        - [] Page :
+            - [] BeneficeParJour.php : afficher les benefice par jour 
 
-    [] Affichage total benefice par jour .
-       - [] fonction getBeneficeByDate($date)
-       ->[] recuperation des donnees de la table recette et trajet pour le calcul du benefice par jour.
+            - [] BeneficeParMois.php : afficher les benefice par mois 
 
-    [] Affichage Trajet le plus rentable par jour .
-       - [] fonction getTrajetLePlusRentableByDate($date)
-       -> [] recuperation des donnees de la table recette et trajet pour identifier le trajet le plus rentable par jour.       
-
-    - [] Amelioration :
-    [] Ajouter un nouveau trajet.
-  
+            - [] BeneficeParMois.php : afficher les benefice par annee 
