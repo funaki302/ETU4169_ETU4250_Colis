@@ -71,10 +71,21 @@
 
             - [] BeneficeParMois.php : afficher les benefice par annee 
 
-            - [] Home.php : page d accueil avec la liste des colis
+            - [] home.php : page d accueil avec la liste des colis
               - FONCTION:
-                - [] getColis() : recuperer la liste des colis
-                - [] addColis() : ajouter un colis   
-                - [] updateColis() : modifier un colis
-                - [] deleteColis() : supprimer un colis             
+                - [ok] getColis() : recuperer la liste des colis
+                - [ok] addColis() : ajouter un colis   
+                - [ok] updateColis() : modifier un colis
+                - [ok] deleteColis() : supprimer un colis 
+              - Page:
+                - [ok] Afficher la liste des colis dans un tableau
+                - [] Lier chaque colis a une page de details (lien sur l id du colis)
             
+            - [] detailsColis.php : page de details d un colis
+              - FONCTION:
+                - [] getColisById($id) : recuperer les details d un colis
+              - Page:
+                - [] Afficher les details du colis
+                - [] Formulaire pour modifier le colis
+                - [] Bouton pour modifier le colis
+                - [] Bouton pour supprimer le colis

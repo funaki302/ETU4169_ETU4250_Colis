@@ -1,51 +1,60 @@
 
-
     <?php include ("inc/header.php"); ?>
 
     <main class="container">
         <section class="product-list">
             <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
-                <h2>Liste des trajets</h2>
+                <h2>Liste des colis</h2>
                 <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Début</th>
-                            <th>Fin</th>
-                            <th>Distance</th>
-                            <th>Départ</th>
-                            <th>Arrivée</th>
-                            <th>Chauffeur</th>
-                            <th>Téléphone</th>
-                            <th>Email</th>
-                            <th>Véhicule</th>
-                            <th>Recette</th>
-                            <th>Date Recette</th>
+                            <th>Nom Expéditeur</th>
+                            <th>Adresse Expéditeur</th>
+                            <th>Nom Destinataire</th>
+                            <th>Adresse Destinataire</th>
+                            <th>Date Expédition</th>
+                            <th>Date Livraison</th>
+                            <th>Kilos</th>
+                            <th>Statut (id)</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($liste as $row): ?>
+                        <?php $statut = "";
+                        switch ($row['id_statut']) {
+                            case 1:
+                                $statut = "En attente";
+                                break;
+                            case 2:
+                                $statut = "Livré";
+                                break;
+                            case 3:
+                                $statut = "Annulé";
+                                break;
+                            default:
+                                $statut = "Inconnu";
+                                break;
+                        }
+                        ?>
                         <tr>
-                            <td><?= htmlspecialchars($row['idTrajet'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['dateHeureDebut'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['dateHeureFin'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['distance'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['pointDepart'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['pointArrivee'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['chauffeur_nom_complet'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['chauffeur_telephone'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['chauffeur_email'] ?? '') ?></td>
-                            <td><?= htmlspecialchars((($row['vehicule_marque'] ?? '') . ' ' . ($row['vehicule_modele'] ?? '')) ) ?></td>
-                            <td><?= htmlspecialchars($row['recette_montant'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($row['recette_date'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['id_colis'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['nom_expediteur'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['adresse_expediteur'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['nom_destinataire'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['adresse_destinataire'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['date_expedition'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['date_livraison'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['kilos'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($statut) ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
                 </div>
             <?php else: ?>
-                <p>Aucun trajet trouvé.</p>
+                <p>Aucun colis trouvé.</p>
             <?php endif; ?>
         </section>
     </main>
