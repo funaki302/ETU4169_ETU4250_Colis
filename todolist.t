@@ -69,7 +69,6 @@
 
             - [] BeneficeParMois.php : afficher les benefice par mois 
 
-<<<<<<< HEAD
             - [] BeneficeParMois.php : afficher les benefice par annee 
 
             - [] Home.php : page d accueil avec la liste des colis
@@ -79,8 +78,3 @@
                 - [] updateColis() : modifier un colis
                 - [] deleteColis() : supprimer un colis             
             
-
-        
-=======
-            - [] BeneficeParAnne.php : afficher les benefice par annee 
->>>>>>> f41ed7d55908494ceb7d4db4e708504b7b74581d
