@@ -65,43 +65,83 @@
 
         - [] Creation des pages web (HTML, CSS, JS, PHP) :
         - [] Page :
-            - [] Benefice.php : afficher les benefice
-              - [] creation de view dans data/view.sql :
-                   -> [] V_gc_BeneficeJour
-                        - [] afficher le jour
-                        - [] calcul de tout les depense journaliere (carburant , salaire livreur)
-                        - [] benefice par kg
-                        - [] difference entre le deux donne le benefice ou perte
+            - [ok] Benefice.php : afficher les benefice
+              - [ok] creation de view dans data/view.sql :
+                   -> [ok] V_gc_BeneficeJour
+                        - [ok] afficher le jour
+                        - [ok] calcul de tout les depense journaliere (carburant , salaire livreur)
+                        - [ok] benefice par kg
+                        - [ok] difference entre le deux donne le benefice ou perte
                    
-                   -> [] V_gc_BeneficeMois
-                        - [] afficher le mois
-                        - [] calcul de tout les depense Monsuelle (carburant , salaire livreur)
-                        - [] benefice par kg
-                        - [] difference entre le deux donne le benefice ou perte
+                   -> [ok] V_gc_BeneficeMois
+                        - [ok] afficher le mois
+                        - [ok] calcul de tout les depense Monsuelle (carburant , salaire livreur)
+                        - [ok] benefice par kg
+                        - [ok] difference entre le deux donne le benefice ou perte
                    
-                   -> [] V_gc_BeneficeAnne
-                        - [] afficher lannee
-                        - [] calcul de tout les depense Annuelle (carburant , salaire livreur)
-                        - [] benefice par kg
-                        - [] difference entre le deux donne le benefice ou perte
+                   -> [ok] V_gc_BeneficeAnne
+                        - [ok] afficher lannee
+                        - [ok] calcul de tout les depense Annuelle (carburant , salaire livreur)
+                        - [ok] benefice par kg
+                        - [ok] difference entre le deux donne le benefice ou perte
 
-                - [] models/model.php :
-                -> [] creation de fonction:
-                     -> [] function getBeneficeJour() utilisant la view V_gc_BeneficeJour
-                     -> [] function getBeneficeMois() utilisant la view V_gc_BeneficeMois
-                     -> [] function getBeneficeAnne() utilisant la view V_gc_BeneficeAnne
+                - [ok] models/model.php :
+                -> [ok] creation de fonction:
+                     -> [ok] function getBeneficeJour() utilisant la view V_gc_BeneficeJour
+                     -> [ok] function getBeneficeMois() utilisant la view V_gc_BeneficeMois
+                     -> [ok] function getBeneficeAnne() utilisant la view V_gc_BeneficeAnne
 
-<<<<<<< HEAD
-                - [] controllers/controller.php
-                -> [] appel des fonction pour avoir les donnes
 
-                - [] config/routes.php
-                -> [] prendre les donner et les envoyer dans Benfice.php
-                -> [] ajout dans le header (voir tous benefice)
-=======
-            - [] BeneficeParMois.php : afficher les benefice par annee 
+                - [ok] controllers/controller.php
+                -> [ok] appel des fonction pour avoir les donnes
 
-            - [] home.php : page d accueil avec la liste des colis
+                - [ok] config/routes.php
+                -> [ok] prendre les donner et les envoyer dans Benfice.php
+                -> [ok] ajout dans le header (voir tous benefice)
+        
+            - [] InsertionsColis.php :
+                -> [] creation de form pour prendre les donner :
+                    -> [] nom
+                       [] nom_expediteur 
+                       [] adresse_expediteur 
+                       [] nom_destinataire 
+                       [] adresse_destinataire 
+                       [] date_expedition 
+                       [] date_livraison 
+                       [] kilos 
+                       [] id_statut par defaut on mettra 1 en attente
+
+                  -> [] creation fonction insertColis() : 
+                         pour inserer les colis dans la bases dans modele.php:
+
+                  -> [] utilisation dans controller.php 
+
+                - [] routes.php :
+                  -> [] condition pour le lien InsertColis
+                  -> [] prendre touts les donner insertion 
+                  -> [] Appler la function insertColis et entrer tous 
+                  -> [] redirections vers home avec /
+
+                  
+                        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            - [ok] home.php : page d accueil avec la liste des colis
               - FONCTION:
                 - [ok] getColis() : recuperer la liste des colis
                 - [ok] addColis() : ajouter un colis   
@@ -111,6 +151,7 @@
                 - [ok] Afficher la liste des colis dans un tableau
                 - [] Lier chaque colis a une page de details (lien sur l id du colis)
             
+           
             - [] detailsColis.php : page de details d un colis
               - FONCTION:
                 - [] getColisById($id) : recuperer les details d un colis
@@ -119,4 +160,4 @@
                 - [] Formulaire pour modifier le colis
                 - [] Bouton pour modifier le colis
                 - [] Bouton pour supprimer le colis
->>>>>>> b0ae561fe2b51626273a76cc1cc4b22c8902cadb
+

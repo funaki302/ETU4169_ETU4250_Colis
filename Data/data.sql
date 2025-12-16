@@ -105,47 +105,8 @@ ADD FOREIGN KEY (id_voiture) REFERENCES gc_voiture(id_voiture);
 ALTER TABLE gc_chauffeur
 ADD FOREIGN KEY (id_livraison) REFERENCES gc_livraison(id_livraison);
 
-/* =========================
-   DONNÉES DE TEST
-========================= */
-
-INSERT INTO gc_statut_trajet (description_statut) VALUES
-('en attente'),
-('livré'),
-('annulé');
-
-INSERT INTO gc_carburant (type_carburant, prix_litre, date_dernier_approvisionnement) VALUES
-('Diesel', 5200, '2025-11-01'),
-('Essence', 5400, '2025-11-05'),
-('Electrique', 1200, '2025-11-10');
-
-INSERT INTO gc_voiture (immatriculation, marque, modele, capacite, statut_voiture, id_carburant) VALUES
-('AB-1234-TN', 'Toyota', 'Hilux', 1200, 'disponible', 1),
-('CD-5678-TN', 'Isuzu', 'D-Max', 1500, 'en cours de livraison', 1),
-('EF-9012-TN', 'Nissan', 'Navara', 1300, 'maintenance', 2);
-
-INSERT INTO gc_colis
-(nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
-VALUES
-('Société Alpha', 'Antananarivo', 'Client A', 'Antsirabe', '2025-11-10', NULL, 25.5, 1),
-('Entreprise Beta', 'Toamasina', 'Client B', 'Mahajanga', '2025-11-09', NULL, 10.2, 2),
-('Particulier Gamma', 'Fianarantsoa', 'Client C', 'Toliara', '2025-11-05', '2025-11-12', 5.0, 3);
-
-INSERT INTO gc_trajet_colis (id_colis, adresse_depart, adresse_arrivee) VALUES
-(1, 'Entrepôt Central Antananarivo', 'Antsirabe'),
-(2, 'Entrepôt Central Antananarivo', 'Mahajanga'),
-(3, 'Entrepôt Central Antananarivo', 'Toliara');
-
-INSERT INTO gc_livraison (id_colis, date_livraison, heure_livraison, id_statut) VALUES
-(2, '2025-11-11', '14:30:00', 2),
-(3, '2025-11-12', '09:15:00', 2);
-
-INSERT INTO gc_chauffeur
-(nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur, date_dassignation, salaires_parLiv, id_voiture, id_livraison)
-VALUES
-('Rakoto', 'Jean', '0341234567', 'jean.rakoto@mail.com', '2025-11-01', 15000, 1, 1),
-('Rabe', 'Marc', '0339876543', 'marc.rabe@mail.com', '2025-11-03', 18000, 2, 2);
-
-INSERT INTO gc_tarifs (unite, prix) VALUES
-('kg', 2500),
-('colis', 15000);
+CREATE TABLE gc_photos_colis(
+    id_colis int ,
+    imageColis VARCHAR(50),
+    FOREIGN KEY (id_colis) REFERENCES gc_colis(id_colis)
+);
