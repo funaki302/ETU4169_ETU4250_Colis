@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class ProductModel {
+class Model {
     protected $db;
 
     public function __construct($db) {
@@ -58,9 +58,23 @@ class ProductModel {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
+<<<<<<< HEAD
 
     public function getBenefitParAnne() {
         $sql = "SELECT * FROM V_gc_BeneficeAnnee";
+=======
+    public function getBenefitParJour() {
+
+    }
+    public function getBenefitParJour() {
+        $sql = "SELECT * FROM V_gc_BeneficeJour";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getBenefitParMois() {
+        $sql = "SELECT * FROM V_gc_BeneficeMois";
+>>>>>>> dd706f236a0fcfc6544de7e14e148a2a2c2dd978
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
