@@ -13,8 +13,8 @@ class Model
     public function getBenefitParAnne()
     {
         $sql = "SELECT * FROM V_gc_BeneficeAnnee";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(["" => $this->getTrajetsByDate()]);
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function getBenefitParJour()
     {
