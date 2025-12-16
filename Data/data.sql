@@ -105,7 +105,6 @@ ADD FOREIGN KEY (id_voiture) REFERENCES gc_voiture(id_voiture);
 ALTER TABLE gc_chauffeur
 ADD FOREIGN KEY (id_livraison) REFERENCES gc_livraison(id_livraison);
 
-<<<<<<< HEAD
 /* =========================
    DONNÉES DE TEST
 ========================= */
@@ -154,10 +153,9 @@ INSERT INTO gc_tarifs (unite, prix) VALUES
 /* Ajouter colonne non dans colis */
 ALTER TABLE gc_colis
 ADD COLUMN nom_colis VARCHAR(255) ;
-=======
+
 CREATE TABLE gc_photos_colis(
     id_colis int ,
     imageColis VARCHAR(50),
     FOREIGN KEY (id_colis) REFERENCES gc_colis(id_colis)
 );
->>>>>>> 238fe68ee42be61b8ef09cbb586e233bd87bc08b
