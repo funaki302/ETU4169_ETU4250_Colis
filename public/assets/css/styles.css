@@ -277,3 +277,73 @@ tbody tr:hover {
     margin-top: 4px;
 }
 
+/* ===============================
+   INSERT COLIS – CSS SCOPÉ
+================================ */
+
+.insert-colis-page {
+    background: #f4f7fb;
+    padding: 60px 15px;
+}
+
+.insert-colis-container {
+    max-width: 620px;
+    margin: auto;
+    background: #ffffff;
+    padding: 35px 40px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.insert-colis-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1e3c72;
+    font-size: 1.8rem;
+}
+
+/* Form groups */
+.insert-colis-group {
+    margin-bottom: 20px;
+}
+
+.insert-colis-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.insert-colis-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccd4e0;
+    font-size: 14px;
+    transition: border 0.25s, box-shadow 0.25s;
+}
+
+.insert-colis-group input:focus {
+    outline: none;
+    border-color: #2a5298;
+    box-shadow: 0 0 0 3px rgba(42,82,152,0.15);
+}
+
+/* Button */
+.insert-colis-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.insert-colis-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(42,82,152,0.35);
+}

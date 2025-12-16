@@ -91,87 +91,48 @@
                      -> [ok] function getBeneficeMois() utilisant la view V_gc_BeneficeMois
                      -> [ok] function getBeneficeAnne() utilisant la view V_gc_BeneficeAnne
 
-<<<<<<< HEAD:todolist.t
-                - [] controllers/controller.php
-                -> [] appel des fonction pour avoir les donnes
-
-                - [] config/routes.php
-                -> [] prendre les donner et les envoyer dans Benfice.php
-                -> [] ajout dans le header (voir tous benefice)
-
-            - [] BeneficeParMois.php : afficher les benefice par annee 
-=======
 
                 - [ok] controllers/controller.php
                 -> [ok] appel des fonction pour avoir les donnes
->>>>>>> 238fe68ee42be61b8ef09cbb586e233bd87bc08b:todolistFunaki.t
+
+                - [ok] config/routes.php
+                -> [ok] prendre les donner et les envoyer dans Benfice.php
+                -> [ok] ajout dans le header (voir tous benefice)
+
+            - [ok] BeneficeParMois.php : afficher les benefice par annee 
+
+
+                - [ok] controllers/controller.php
+                -> [ok] appel des fonction pour avoir les donnes
+
 
                 - [ok] config/routes.php
                 -> [ok] prendre les donner et les envoyer dans Benfice.php
                 -> [ok] ajout dans le header (voir tous benefice)
         
-            - [] InsertionsColis.php :
-                -> [] creation de form pour prendre les donner :
-                    -> [] nom
-                       [] nom_expediteur 
-                       [] adresse_expediteur 
-                       [] nom_destinataire 
-                       [] adresse_destinataire 
-                       [] date_expedition 
-                       [] date_livraison 
-                       [] kilos 
-                       [] id_statut par defaut on mettra 1 en attente
+            - [ok] InsertionsColis.php :
+                -> [ok] creation de form pour prendre les donner :
+                    -> [ok] nom
+                       [ok] nom_expediteur 
+                       [ok] adresse_expediteur 
+                       [ok] nom_destinataire 
+                       [ok] adresse_destinataire 
+                       [ok] date_expedition 
+                       [ok] date_livraison 
+                       [ok] kilos 
+                       [ok] id_statut par defaut on mettra 1 en attente
 
-                  -> [] creation fonction insertColis() : 
+                  -> [ok] creation fonction insertColis() : 
                          pour inserer les colis dans la bases dans modele.php:
 
-                  -> [] utilisation dans controller.php 
+                  -> [ok] utilisation dans controller.php 
 
-                - [] routes.php :
-                  -> [] condition pour le lien InsertColis
-                  -> [] prendre touts les donner insertion 
-                  -> [] Appler la function insertColis et entrer tous 
-                  -> [] redirections vers home avec /
+                - [ok] routes.php :
+                  -> [ok] condition pour le lien InsertColis
+                  -> [ok] prendre touts les donner insertion 
+                  -> [ok] Appler la function insertColis et entrer tous 
+                  -> [ok] redirections vers home avec /
 
                   
                         
           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            - [ok] home.php : page d accueil avec la liste des colis
-              - FONCTION:
-                - [ok] getColis() : recuperer la liste des colis
-                - [ok] addColis() : ajouter un colis   
-                - [ok] updateColis() : modifier un colis
-                - [ok] deleteColis() : supprimer un colis 
-              - Page:
-                - [ok] Afficher la liste des colis dans un tableau
-                - [] Lier chaque colis a une page de details (lien sur l id du colis)
-            
-           
-            - [] detailsColis.php : page de details d un colis
-              - FONCTION:
-                - [] getColisById($id) : recuperer les details d un colis
-              - Page:
-                - [] Afficher les details du colis
-                - [] Formulaire pour modifier le colis
-                - [] Bouton pour modifier le colis
-                - [] Bouton pour supprimer le colis
-<<<<<<< HEAD:todolist.t
-=======
-
->>>>>>> 238fe68ee42be61b8ef09cbb586e233bd87bc08b:todolistFunaki.t
