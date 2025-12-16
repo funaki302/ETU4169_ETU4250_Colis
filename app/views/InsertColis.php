@@ -45,11 +45,6 @@
                     </div>
 
                     <div class="insert-colis-group">
-                        <label>Date livraison</label>
-                        <input type="date" name="date_livraison">
-                    </div>
-
-                    <div class="insert-colis-group">
                         <label>Kilos</label>
                         <input type="number" step="0.1" name="kilos" required>
                     </div>

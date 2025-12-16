@@ -69,16 +69,15 @@ class Controller {
         return $this->model->getBenefitParJour();
     }
 
-<<<<<<< HEAD
+
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos){
         return $this->model->InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, 
         $adresse_destinataire, $date_expedition, $date_livraison, $kilos);       
     }
 
-=======
     public function getStatuts() {
         return $this->model->getStatuts();
     }
->>>>>>> 66100808dae98ea52c69a95821f2fadeeb33dd73
+
 
 }
