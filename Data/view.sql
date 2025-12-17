@@ -51,3 +51,22 @@ JOIN gc_carburant cb ON v.id_carburant = cb.id_carburant
 JOIN gc_tarifs t ON t.unite = 'kg'
 WHERE l.id_statut = 2
 GROUP BY YEAR(l.date_livraison);
+
+
+CREATE VIEW V_gc_ColisImg AS
+SELECT 
+    c.id_colis,
+    c.nom_colis,                
+    c.nom_expediteur,
+    c.adresse_expediteur,
+    c.nom_destinataire,
+    c.adresse_destinataire,
+    c.date_expedition,
+    c.date_livraison,
+    c.kilos,
+    c.id_statut,
+    p.imageColis                
+FROM 
+    gc_colis AS c
+LEFT JOIN 
+    gc_photos_colis AS p ON c.id_colis = p.id_colis;
