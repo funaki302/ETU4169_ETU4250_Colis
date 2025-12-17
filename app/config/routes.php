@@ -52,6 +52,7 @@ $router->post('/insertColis', function() use ($app) {
     $date_expedition = $_POST['date_expedition'] ?? null;
     $date_livraison = $_POST['date_livraison'] ?? null;
     $kilos = $_POST['kilos'] ?? 0;
+    $images = $_FILES['imageColis'] ?? null;
 
     $controller->InsertColis(
         $nom,
@@ -61,7 +62,8 @@ $router->post('/insertColis', function() use ($app) {
         $adresse_destinataire,
         $date_expedition,
         $date_livraison,
-        $kilos
+        $kilos,
+        $images
     );
 
     \Flight::redirect('/');
