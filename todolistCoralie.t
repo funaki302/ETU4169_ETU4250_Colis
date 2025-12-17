@@ -24,13 +24,16 @@
     - [ok] addVoiture()
     - [ok] updateVoiture()
     - [ok] deleteVoiture()
+    - [ok] getCarburants()
+    - [ok] getCarburantById($id)
+    - [ok] getStatut_voiture()
   - Page :
-    - [] Afficher la liste de tous les voitures
-    - [] Bouton ajouter nouvelles voitures
-      - [] un formulaire pour ajouter une nouvelle voiture
-    - [] Bouton modifier une voiture
-      - [] un formulaire pour modifier une voiture
-    - [] Bouton supprimer une voiture
+    - [ok] Afficher la liste de tous les voitures
+    - [ok] Bouton ajouter nouvelles voitures
+      - [ok] un formulaire pour ajouter une nouvelle voiture
+    - [ok] Bouton modifier une voiture
+      - [ok] un formulaire pour modifier une voiture
+    - [ok] Bouton supprimer une voiture
 
 - [] InserChauffeur.php : page pour ajouter un nouveau chauffeur 
   - FONCTION :

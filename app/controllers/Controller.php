@@ -127,10 +127,31 @@ class Controller
         return $this->model->getVoitureById($id);
     }
 
+<<<<<<< HEAD
+    public function getCarburantById($id){
+        return $this->model->getCarburantById($id);
+    }
+
+    public function getCarburants(){
+        return $this->model->getCarburants();
+    }
+
+    public function getStatut_voiture(){
+        $statut = 
+        [
+            'disponible',
+            'en cours de livraison',
+            'maintenance'
+        ];
+        return $statut;
+    }
+    
+=======
     function getImgColis()
     {
         return $this->model->getImgColis();
     }
+>>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
 
     public function listeColisAvecFiltres()
     {
