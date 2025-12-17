@@ -18,8 +18,6 @@
                     <th>Email</th>
                     <th>Date d'assignation</th>
                     <th>Salaire par livraison</th>
-                    <th>ID Voiture</th>
-                    <th>ID Livraison</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -33,8 +31,6 @@
                         <td><?= htmlspecialchars($row['email_chauffeur'] ?? '') ?></td>
                         <td><?= htmlspecialchars($row['date_dassignation'] ?? '') ?></td>
                         <td><?= htmlspecialchars($row['salaires_parLiv'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['id_voiture'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['id_livraison'] ?? '') ?></td>
                         <td>
                             <form method="post" action="/chauffeurs/delete/<?= htmlspecialchars($row['id_chauffeur'] ?? '') ?>" style="display:inline-block;">
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce chauffeur ?')">Supprimer</button>
@@ -79,16 +75,6 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Salaire par livraison</label>
                         <input name="salaires_parLiv" type="number" step="0.01" class="form-control" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">ID Voiture</label>
-                        <input name="id_voiture" type="number" class="form-control" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">ID Livraison</label>
-                        <input name="id_livraison" type="number" class="form-control" />
                     </div>
                 </div>
                 <button class="btn btn-primary">Enregistrer</button>
