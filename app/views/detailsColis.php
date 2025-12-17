@@ -7,7 +7,7 @@
             <h2>Détails du colis #<?= htmlspecialchars($id) ?></h2>
             <div class="card">
                 <div class="card-body">
-                    <form action="/colis/update/" method="post">
+                    <form action="/colis/update/" method="post" enctype="multipart/form-data">
                         <table class="table table-borderless">
 
                             <tr>
@@ -93,6 +93,13 @@
                                         </option>
                                     <?php endforeach; ?>
                                     </select>
+                                </td>
+                            </tr>
+
+                             <tr>
+                                <th>Ajouter un image</th>
+                                <td>
+                                    <input type="file" name="imageColis" accept="image/*">
                                 </td>
                             </tr>
 

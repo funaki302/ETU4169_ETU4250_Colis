@@ -27,9 +27,23 @@ class Controller
     public function updateColis()
     {
         $request = Flight::request();
+
+        // Récupère les données POST normales
         $data = $request->data->getData();
 
+        // Récupère manuellement le fichier uploadé depuis $_FILES
+        $imageFile = $_FILES['imageColis'] ?? null;
+
+        // Si un fichier est uploadé, on l'ajoute aux données
+        if ($imageFile && $imageFile['error'] === UPLOAD_ERR_OK) {
+            $data['imageColis'] = $imageFile;  // On passe le tableau complet
+        } else {
+            $data['imageColis'] = null;
+        }
+
+        // On passe les données (texte + fichier) au modèle
         $this->model->updateColis($data);
+
         Flight::redirect('/');
     }
     public function addColis()
