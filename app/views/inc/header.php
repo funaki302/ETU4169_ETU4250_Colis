@@ -32,6 +32,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/formInsert">Inserer des colis</a></li>
             <li><a class="dropdown-item" href="/voitures">Voitures</a></li>
+            <li><a class="dropdown-item" href="/chauffeurs">Chauffeurs</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>

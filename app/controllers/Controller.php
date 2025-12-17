@@ -164,4 +164,27 @@ class Controller
         return $this->model->critereColis($statut, $dateMin, $dateMax, $nom);
     }
 
+    public function getChauffeur()
+    {
+        return $this->model->getChauffeur();
+    }
+
+    public function addChauffeur()
+    {
+        $request = Flight::request();
+        $data = $request->data->getData();
+
+        $this->model->addChauffeur($data);
+    }
+
+    public function getChauffeurById($id)
+    {
+        return $this->model->getChauffeurById($id);
+    }
+
+    public function deleteChauffeur($id)
+    {
+        return $this->model->deleteChauffeur($id);
+    }
+
 }
