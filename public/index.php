@@ -1,12 +1,5 @@
 <?php
-<<<<<<< HEAD
-  require 'vendor/autoload.php';
-  require 'config/config.php';
-  require 'routes/web.php';
-Flight::start();
-  $ds = DIRECTORY_SEPARATOR;
-  require('app' . $ds . 'config' . $ds . 'bootstrap.php');
-=======
+
 
 /*
  * FlightPHP Framework
@@ -34,4 +27,4 @@ Flight::start();
 */
 $ds = DIRECTORY_SEPARATOR;
 require(__DIR__. $ds . '..' . $ds . 'app' . $ds . 'config' . $ds . 'bootstrap.php');
->>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
+
