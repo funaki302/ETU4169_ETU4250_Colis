@@ -39,9 +39,14 @@ class Model
 
     public function updateColis($data)
     {
+
+        $id = $data['id_colis'] ?? null;
+        if ($id === null) {
+            return;
+        }
+
         $id = $data['id'] ?? $data['id_colis'] ?? null;
         if ($id === null) { return; }
-
         $date_expedition = !empty($data['date_expedition'])
             ? $data['date_expedition']
             : null;
@@ -73,58 +78,119 @@ class Model
         ]);
     }
 
-    public function addColis($data)
-    {
-        $date_expedition = !empty($data['date_expedition'])
-            ? $data['date_expedition']
-            : null;
-
-        $date_livraison = !empty($data['date_livraison'])
-            ? $data['date_livraison']
-            : null;
-        $sql = "INSERT INTO gc_colis 
-            (nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, 
-            date_expedition, date_livraison, kilos, id_statut,nom_colis) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            $data['nom_expediteur'] ?? '',
-            $data['adresse_expediteur'] ?? '',
-            $data['nom_destinataire'] ?? '',
-            $data['adresse_destinataire'] ?? '',
-            $date_expedition,  
-            $date_livraison,  
-            $data['kilos'] ?? 0,
-            $data['id_statut'] ?? 1,
-            $data['nom_colis'] ?? ''
-        ]);
-        return $this->db->lastInsertId();
-    }
-
     public function deleteColis($id)
     {
-        if ($id === null) { return; }
+        if ($id === null) {
+            return;
+        }
         $sql = "DELETE FROM gc_colis WHERE id_colis = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
     public function getColisById($id)
     {
-        if ($id === null) { return; }
+        if ($id === null) {
+            return;
+        }
         $sql = "SELECT * FROM gc_colis WHERE id_colis = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+<<<<<<< HEAD
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos){
         $sql = "INSERT INTO gc_colis 
         (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+=======
+    public function upload($file)
+    {
+        // Debug : affiche ce qu'on reçoit
+        error_log("Fichier reçu dans upload : " . print_r($file, true));
+
+        if (!$file || !isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+            $errorCode = $file['error'] ?? 'inconnu';
+            error_log("Erreur upload - Code : " . $errorCode);
+            return null;
+        }
+
+        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowed)) {
+            error_log("Extension non autorisée : " . $ext);
+            return null;
+        }
+
+        $uploadDir = __DIR__ . '/../../public/images/';
+
+        // Vérifie que le dossier existe
+        if (!is_dir($uploadDir)) {
+            error_log("Dossier d'upload inexistant : " . $uploadDir);
+            if (!mkdir($uploadDir, 0777, true)) {
+                error_log("Échec création dossier");
+                return null;
+            }
+        }
+
+        // Vérifie que c'est écrivable
+        if (!is_writable($uploadDir)) {
+            error_log("Dossier non écrivable : " . $uploadDir);
+            return null;
+        }
+
+        $uniqueName = uniqid('colis_', true) . '.' . $ext;
+        $targetPath = $uploadDir . $uniqueName;
+
+        error_log("Tentative de déplacement vers : " . $targetPath);
+
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            error_log("Upload réussi : " . $uniqueName);
+            return $uniqueName;
+        }
+
+        error_log("Échec move_uploaded_file. tmp_name : " . $file['tmp_name']);
+        return null;
+    }
+
+    function insertImageColis($idColis, $image)
+    {
+        $sql = 'INSERT into gc_photos_colis (id_colis , imageColis) values (?,?)';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$idColis, $image]);
+
+    }
+
+
+    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null)
+    {
+        $sql = "INSERT INTO gc_colis
+            (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+
+>>>>>>> 0abd9af9737ff5b6eaa33b3c6f1f3877f08bce21
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        $idColis = $this->db->lastInsertId();
+        error_log("Colis inséré avec ID : " . $idColis);
+
+        if ($imageFile && $imageFile['error'] === UPLOAD_ERR_OK) {
+            $newname = $this->upload($imageFile);
+            if ($newname) {
+                $this->insertImageColis($idColis, $newname);
+                error_log("Image liée au colis : " . $newname);
+            } else {
+                error_log("Échec upload de l'image pour colis " . $idColis);
+            }
+        } else {
+            error_log("Aucun fichier image valide reçu");
+        }
+
+        return $idColis;
     }
+
     public function getStatuts()
     {
         $sql = "SELECT * FROM gc_statut_trajet";

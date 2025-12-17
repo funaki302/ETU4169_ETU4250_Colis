@@ -121,9 +121,15 @@
                        [ok] date_livraison 
                        [ok] kilos 
                        [ok] id_statut par defaut on mettra 1 en attente
-
+                       [ok] images colis
+ 
                   -> [ok] creation fonction insertColis() : 
                          pour inserer les colis dans la bases dans modele.php:
+
+                  -> [ok] creation fonction upload() qui controlle et insert dans public/images/ :
+                         retourne un nom dimage completement different       
+                  
+                  -> [ok] utilisation des fonction dans insertColis()
 
                   -> [ok] utilisation dans controller.php 
 

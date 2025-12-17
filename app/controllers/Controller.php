@@ -13,25 +13,6 @@ class Controller {
         $this->app = $app;
         $this->model = new model(Flight::db());
     }
-    private function upload($file, $currentImage)
-    {
-        if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
-            return $currentImage;
-        }
-
-        $uploadDir = __DIR__ . '/../../public/images/';
-        $tmpName = $file['tmp_name'];
-        $fileName = basename($file['name']);
-        $uniqueName = time() . '_' . $fileName;
-        $targetPath = $uploadDir . $uniqueName;
-
-        if (move_uploaded_file($tmpName, $targetPath)) {
-            return $uniqueName;
-        }
-
-        return $currentImage;
-    }
-
     public function getColis() {
         return $this->model->getColis();
     }
@@ -70,9 +51,9 @@ class Controller {
     }
 
 
-    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos){
+    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos,$imageColis){
         return $this->model->InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, 
-        $adresse_destinataire, $date_expedition, $date_livraison, $kilos);       
+        $adresse_destinataire, $date_expedition, $date_livraison, $kilos,$imageColis);       
     }
 
     public function getStatuts() {
