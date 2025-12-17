@@ -39,16 +39,14 @@ class Model
 
     public function updateColis($data)
     {
-<<<<<<< HEAD
+
         $id = $data['id_colis'] ?? null;
         if ($id === null) {
             return;
         }
-=======
+
         $id = $data['id'] ?? $data['id_colis'] ?? null;
         if ($id === null) { return; }
->>>>>>> 71d1595358ac89081c97153dfb0ec7d74b5bd2ff
-
         $date_expedition = !empty($data['date_expedition'])
             ? $data['date_expedition']
             : null;
