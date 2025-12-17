@@ -1,48 +1,97 @@
 <?php include ("inc/header.php"); ?>
 
-<main class="container">
-    <div class="d-flex align-items-center justify-content-between mt-4 mb-3">
-        <h2 class="mb-0">Liste des chauffeurs</h2>
+<main class="container my-5">
+    <h2 class="mb-4 text-center fw-bold">Liste des Chauffeurs
         <button id="btnAddChauffeur" class="btn btn-success">+ Ajouter</button>
+    </h2>
+
+    <!-- Formulaire de filtres -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form method="get" action="/chauffeurs" class="row g-3">
+                <div class="col-md-3">
+                    <label for="nom" class="form-label">Nom du chauffeur</label>
+                    <input type="text" name="nom" id="nom" class="form-control" placeholder="Rechercher..." value="<?= htmlspecialchars($_GET['nom'] ?? '') ?>">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="salaire_min" class="form-label">Salaire par livraison ≥</label>
+                    <input type="number" name="salaire_min" id="salaire_min" class="form-control" value="<?= htmlspecialchars($_GET['salaire_min'] ?? '') ?>">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="salaire_max" class="form-label">Salaire par livraison ≤</label>
+                    <input type="number" name="salaire_max" id="salaire_max" class="form-control" value="<?= htmlspecialchars($_GET['salaire_max'] ?? '') ?>">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="statut" class="form-label">Statut</label>
+                    <select name="statut" id="statut" class="form-select">
+                        <option value="tous">Tous les statuts</option>
+                        <?php foreach ($statut_chauffeur as $statut): ?>
+                            <option value="<?= $statut?>" ><?= $statut ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col-md-12 text-end">
+                    <button type="submit" class="btn btn-primary me-2">Filtrer</button>
+                    <a href="/" class="btn btn-outline-secondary">Réinitialiser</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Téléphone</th>
-                    <th>Email</th>
-                    <th>Date d'assignation</th>
-                    <th>Salaire par livraison</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($liste as $row): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($row['id_chauffeur'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['nom_chauffeur'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['prenom_chauffeur'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['telephone_chauffeur'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['email_chauffeur'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['date_dassignation'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($row['salaires_parLiv'] ?? '') ?></td>
-                        <td>
-                            <form method="post" action="/chauffeurs/delete/<?= htmlspecialchars($row['id_chauffeur'] ?? '') ?>" style="display:inline-block;">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce chauffeur ?')">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <?php foreach ($liste as $row): ?>
+                <?php 
+                    if ($row['statut'] === 'disponible') {
+                        $class = 'bg-success';
+                    } else if ($row['statut'] === 'en plein livraison'){
+                        $class = 'bg-warning';
+                    }  else if ($row['statut'] === 'en congé'){
+                        $class = 'bg-danger';
+                    }
+                ?>
+                <div class="col">
+                    <div class="card h-100 shadow-sm hover-shadow transition">
+                        <div class="position-absolute top-0 start-0 p-2 z-index-10">
+                            <span class="badge <?= $class ?> fs-6"><?= $row['statut'] ?></span>
+                        </div>
+
+                        <div class="text-center bg-light" style="height: 250px; overflow: hidden;">
+                            <?php if ($row['profile']): ?>
+                                <img src="/images/<?= htmlspecialchars($row['profile']) ?>" class="card-img-top img-fluid h-100 w-100" style="object-fit: cover;" alt="<?= $row['nom'] ?>">
+                            <?php else: ?>
+                                <div class="d-flex flex-column justify-content-center align-items-center h-100 text-muted">
+                                    <i class="bi bi-image fs-1 mb-3"></i>
+                                    <p class="mb-0">Pas de profile</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-center mb-3"><?= $row['nom_chauffeur'] ?> <?= $row['prenom_chauffeur'] ?></h5>
+                            <div class="small text-muted mb-3">
+                                <div><strong>Telephone :</strong> <?= htmlspecialchars($row['telephone_chauffeur'] ?? '') ?></div>
+                                <div><strong>Email :</strong> <?= htmlspecialchars($row['email_chauffeur'] ?? '') ?></div>
+                                <div><strong>Date d'assignation :</strong> <?= htmlspecialchars($row['date_dassignation'] ?? '') ?></div>
+                                <div><strong>Salaire par livraison :</strong> <?= htmlspecialchars($row['salaires_parLiv'] ?? '') ?> $</div>
+                            </div>
+                            <div class="mt-auto text-center">
+                                <a href="/chauffeur/<?= htmlspecialchars($row['id_chauffeur']) ?>" class="btn btn-primary btn-sm px-4">Plus d'nformations</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     <?php else: ?>
-        <p>Aucun chauffeur trouvé.</p>
+        <div class="text-center py-5">
+            <i class="bi bi-box-seam fs-1 text-muted mb-3"></i>
+            <p class="text-muted fs-5">Aucun chauffeur correspondant aux critères.</p>
+        </div>
     <?php endif; ?>
 
     <div id="formChauffeur" class="card mt-4" style="display:none;">
@@ -82,7 +131,6 @@
             </form>
         </div>
     </div>
-
 </main>
 
 <?php include ("inc/footer.php"); ?>

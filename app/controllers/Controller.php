@@ -74,7 +74,6 @@ class Controller
         return $this->model->getBenefitParJour();
     }
 
-
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageColis)
     {
         return $this->model->InsertColis(
@@ -185,6 +184,24 @@ class Controller
     public function deleteChauffeur($id)
     {
         return $this->model->deleteChauffeur($id);
+    }
+
+    public function getStatut_chauffeur(){
+        $statut = 
+        [
+            'disponible',
+            'en plein livraison',
+            'en congé'
+        ];
+        return $statut;
+    }
+
+    public function updateChauffeur()
+    {
+        $request = Flight::request();
+        $data = $request->data->getData();
+        $this->model->updateChauffeur($data);
+        Flight::redirect('/chauffeurs');
     }
 
 }

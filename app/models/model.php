@@ -361,7 +361,7 @@ class Model
         $sql = "UPDATE gc_chauffeur SET nom_chauffeur = ?, prenom_chauffeur = ?, 
         telephone_chauffeur = ?, email_chauffeur = ?,
         date_dassignation = ?, salaires_parLiv = ?, 
-        id_voiture = ?, id_livraison = ?
+        profile = ?, statut = ?
         WHERE id_chauffeur = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -370,7 +370,9 @@ class Model
             $data['telephone_chauffeur'] ?? '',
             $data['email_chauffeur'] ??'',
             $data['date_dassignation'] ?? null,
-            $data['salaires_parLiv'] ?? 0.0,
+            $data['salaires_parLiv'] ?? 0,
+            $data['profile'] ?? '',
+            $data['statut'] ?? 'disponible',
             $id
         ]);
     }
@@ -378,8 +380,8 @@ class Model
     public function addChauffeur($data){
         $sql = "INSERT INTO gc_chauffeur 
         (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
-        date_dassignation, salaires_parLiv)
-        VALUES (?, ?, ?, ?, ?, ?)";
+        date_dassignation, salaires_parLiv,profile, statut)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['nom_chauffeur'] ?? '',
@@ -387,7 +389,9 @@ class Model
             $data['telephone_chauffeur'] ?? '',
             $data['email_chauffeur'] ??'',
             $data['date_dassignation'] ?? null,
-            $data['salaires_parLiv'] ?? 0.0
+            $data['salaires_parLiv'] ?? 0.0,
+            $data['profile'] ?? '',
+            $data['statut'] ?? 'disponible'
         ]);
         return $this->db->lastInsertId();
     }

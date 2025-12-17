@@ -132,3 +132,15 @@ ALTER TABLE gc_livraison add id_chauffeur int,
 add id_voiture int,
 add FOREIGN KEY (id_chauffeur) REFERENCES gc_chauffeur (id_chauffeur),
 add FOREIGN KEY (id_voiture) REFERENCES gc_voiture (id_voiture);
+
+/* Ajouter colonne profile dans gc_chauffeur */
+ALTER TABLE gc_chauffeur
+ADD COLUMN profile VARCHAR(255);
+
+/* Ajouter colonne statut dans gc_chauffeur */
+ALTER TABLE gc_chauffeur
+ADD COLUMN statut ENUM (
+            'disponible',
+            'en plein livraison',
+            'en congé'
+        ) DEFAULT 'disponible';
