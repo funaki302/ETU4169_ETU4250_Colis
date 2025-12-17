@@ -145,9 +145,9 @@ class Controller
         return $statut;
     }
     
-    function getImgColis()
+    function getImgColis($id_colis)
     {
-        return $this->model->getImgColis();
+        return $this->model->getImgColis($id_colis);
     }
 
     public function listeColisAvecFiltres()

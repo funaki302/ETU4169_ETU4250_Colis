@@ -347,3 +347,317 @@ tbody tr:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(42,82,152,0.35);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Navbar moderne rouge-bleu avec position fixe */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%) !important;
+    background-size: 300% 300% !important;
+    animation: gradientFlow 12s ease infinite;
+    padding: 1rem 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Ajustement pour le contenu en dessous */
+body {
+    padding-top: 80px;
+}
+
+/* Conteneur navbar */
+.navbar .container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Logo/Brand */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar-brand:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Bouton toggle pour mobile */
+.navbar-toggler {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Items de navigation */
+.navbar-nav {
+    gap: 0.5rem;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover::before {
+    left: 0;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 50%, rgba(79, 172, 254, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: dropdownSlide 0.3s ease;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    color: #fff !important;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: translateX(5px);
+    color: #fff !important;
+}
+
+.dropdown-item:active {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.3);
+    margin: 0.75rem 0;
+}
+
+/* Lien désactivé */
+.nav-link.disabled {
+    color: rgba(255, 255, 255, 0.4) !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.nav-link.disabled:hover {
+    background: transparent !important;
+    transform: none;
+}
+
+/* Icône dropdown */
+.dropdown-toggle::after {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Effet de brillance */
+@keyframes shine {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 8s infinite;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    .navbar-collapse {
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        border-radius: 15px;
+        margin-top: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .navbar-nav {
+        gap: 0.5rem;
+    }
+    
+    .dropdown-menu {
+        background: rgba(118, 75, 162, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar .container-fluid {
+        padding: 0 1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        letter-spacing: 1px;
+    }
+}
+
+  .hover-shadow {
+        transition: all 0.3s ease;
+    }
+
+    .hover-shadow:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .hover-shadow img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Scroll horizontal fluide et discret */
+    .overflow-auto::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .overflow-auto::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .overflow-auto::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #0d6efd, #dc3545);
+        border-radius: 10px;
+    }
+
+    .overflow-auto::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #0a58ca, #c82333);
+    }
+
+    /* Hover amélioré */
+    .hover-shadow {
+        transition: all 0.4s ease;
+    }
+
+    .hover-shadow:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .hover-shadow img:hover {
+        transform: scale(1.1);
+    }
