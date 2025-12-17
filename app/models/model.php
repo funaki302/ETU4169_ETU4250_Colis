@@ -260,19 +260,18 @@ class Model
         return $this->db->lastInsertId();
     }
 
-<<<<<<< HEAD
     public function getCarburants(){
         $sql = "SELECT * FROM gc_carburant";
-=======
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     public function getImgColis()
     {
         $sql = "SELECT * from V_gc_ColisImg ";
->>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-<<<<<<< HEAD
     public function getCarburantById($id){
         if ($id === null) { return; }
         $sql = "SELECT * FROM gc_carburant WHERE id_carburant = ? LIMIT 1";
@@ -280,7 +279,6 @@ class Model
         $stmt->execute([$id]);
     }
 
-=======
     public function critereColis($statut = null, $dateMin = null, $dateMax = null, $nom = null)
     {
         $sql = "SELECT * FROM V_gc_ColisImg WHERE 1=1";
@@ -312,6 +310,5 @@ class Model
         $stmt->execute($params);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
->>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
 
 }
