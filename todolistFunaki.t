@@ -142,7 +142,10 @@
         - [] Afficher les images des colis dans Home.php et les faires en div en non en tables :
                - [] home.php : 
                    -> [] transformer l affichage en div et non en tables
-                   -> [] function getImgColis()
+                   -> [] function getImgColis($id)
+
+               - [] routes.php :
+                   -> [] inserer la fonction pour avoir les images
                   
                         
           

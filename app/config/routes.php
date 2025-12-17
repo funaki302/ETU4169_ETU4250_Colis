@@ -39,9 +39,6 @@ $router->group('', function (Router $router) use ($app) {
         $controller->updateColis();
     });
 
-<<<<<<< HEAD
-    $router->post('/insertColis', function() use ($app) {
-=======
     $router->get('/voitures', function() use ($app) {
         $controller = new Controller($app);
         $app->render('voitures', [
@@ -63,8 +60,6 @@ $router->group('', function (Router $router) use ($app) {
 
 
 $router->post('/insertColis', function() use ($app) {
->>>>>>> c38168b7b442cc5607ee369e2089a3633ec3a13f
-
     $controller = new Controller($app);
 
     $nom = $_POST['nom'] ?? '';
