@@ -67,7 +67,6 @@ $router->group('', function (Router $router) use ($app) {
         Flight::redirect('/voitures');
     });
 
-<<<<<<< HEAD
     $router->post('/voitures/update/', function() use ($app) {
         $controller = new Controller($app);
         $controller->updateVoiture();
@@ -109,7 +108,6 @@ $router->group('', function (Router $router) use ($app) {
             'csp_nonce' => \Flight::get('csp_nonce')
         ]);
 
-=======
     $router->post('/insertColis', function () use ($app) {
         $controller = new Controller($app);
 
@@ -145,8 +143,6 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('InsertColis', [
             'csp_nonce' => \Flight::get('csp_nonce')
         ]);
-
->>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
     });
 
 

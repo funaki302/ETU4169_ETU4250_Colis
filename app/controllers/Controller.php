@@ -127,7 +127,7 @@ class Controller
         return $this->model->getVoitureById($id);
     }
 
-<<<<<<< HEAD
+
     public function getCarburantById($id){
         return $this->model->getCarburantById($id);
     }
@@ -146,12 +146,10 @@ class Controller
         return $statut;
     }
     
-=======
     function getImgColis()
     {
         return $this->model->getImgColis();
     }
->>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
 
     public function listeColisAvecFiltres()
     {
