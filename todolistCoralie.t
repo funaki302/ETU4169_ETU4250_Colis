@@ -1,19 +1,49 @@
-- [] home.php : page d accueil avec la liste des colis
-              - FONCTION:
-                - [ok] getColis() : recuperer la liste des colis
-                - [ok] addColis() : ajouter un colis   
-                - [ok] updateColis() : modifier un colis
-                - [ok] deleteColis() : supprimer un colis 
-              - Page:
-                - [ok] Afficher la liste des colis dans un tableau
-                - [] Lier chaque colis a une page de details (lien sur l id du colis)
+- [ok] home.php : page d accueil avec la liste des colis
+  - FONCTION:
+    - [ok] getColis() : recuperer la liste des colis
+    - [ok] addColis() : ajouter un colis   
+    - [ok] updateColis() : modifier un colis
+    - [ok] deleteColis() : supprimer un colis 
+  - Page:
+    - [ok] Afficher la liste des colis dans un tableau
+    - [ok] Lier chaque colis a une page de details (lien sur l id du colis)
             
-- [] detailsColis.php : page de details d un colis
+- [ok] detailsColis.php : page de details d un colis
   - FONCTION:
     - [ok] getColisById($id) : recuperer les details d un colis
-    - [] getStatuts() : recuperer la liste des statuts pour le formulaire de modification
+    - [ok] getStatuts() : recuperer la liste des statuts pour le formulaire de modification
   - Page:
     - [ok] Afficher les details du colis
     - [ok] Formulaire pour modifier le colis : Formulaire pres remplit avec les donnees actuelles du colis
     - [ok] Bouton pour modifier le colis
+
+- [] voiture.php : page pour ajouter de nouvelles voiture 
+  - FONCTION :
+    - [ok] getVoiture()
+    - [ok] getVoitureById($id)
+    - [ok] addVoiture()
+    - [ok] updateVoiture()
+    - [ok] deleteVoiture()
+  - Page :
+    - [] Afficher la liste de tous les voitures
+    - [] Bouton ajouter nouvelles voitures
+      - [] un formulaire pour ajouter une nouvelle voiture
+    - [] Bouton modifier une voiture
+      - [] un formulaire pour modifier une voiture
+    - [] Bouton supprimer une voiture
+
+- [] InserChauffeur.php : page pour ajouter un nouveau chauffeur 
+  - FONCTION :
+    - [] getChauffeur()
+    - [] getChauffeurById($id)
+    - [] addChauffeur()
+    - [] updateChauffeur()
+    - [] deleteChauffeur()
+  - Page :
+    - [] Afficher la liste de tous les chauffeurs
+    - [] Bouton ajouter nouveaux chauffeurs
+      - [] un formulaire pour ajouter un nouveau chauffeur
+    - [] Bouton modifier un chauffeur
+      - [] un formulaire pour modifier un chauffeur
+    - [] Bouton supprimer un chauffeur
 

@@ -79,5 +79,34 @@ class Controller {
         return $this->model->getStatuts();
     }
 
+    public function getVoiture() {
+        return $this->model->getVoiture();
+    }
+
+    public function addVoiture(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+
+        $this->model->addVoiture($data);
+        Flight::redirect('/voitures');
+    }
+
+    public function updateVoiture(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        $this->model->updateVoiture($data);
+        Flight::redirect('/voitures');
+    }
+
+    public function deleteVoiture($id){
+        return $this->model->deleteVoiture($id);
+    }
+
+    public function getVoitureById($id){
+        return $this->model->getVoitureById($id);
+    }
+
+    
+
 
 }
