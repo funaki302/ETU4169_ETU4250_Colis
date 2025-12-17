@@ -39,7 +39,31 @@ $router->group('', function (Router $router) use ($app) {
         $controller->updateColis();
     });
 
+<<<<<<< HEAD
     $router->post('/insertColis', function() use ($app) {
+=======
+    $router->get('/voitures', function() use ($app) {
+        $controller = new Controller($app);
+        $app->render('voitures', [
+            'liste' => $controller->getVoiture(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+    $router->post('/voitures/add', function() use ($app) {
+        $controller = new Controller($app);
+        $controller->addVoiture();
+    });
+
+    $router->post('/voitures/delete/@id', function($id) use ($app) {
+        $controller = new Controller($app);
+        $controller->deleteVoiture($id);
+        Flight::redirect('/voitures');
+    });
+
+
+$router->post('/insertColis', function() use ($app) {
+>>>>>>> c38168b7b442cc5607ee369e2089a3633ec3a13f
 
     $controller = new Controller($app);
 
@@ -69,7 +93,6 @@ $router->group('', function (Router $router) use ($app) {
 
 });
 
-
 $router->get('/formInsert', function() use ($app) {
 
     // Affiche la page InsertColis.php
@@ -78,7 +101,6 @@ $router->get('/formInsert', function() use ($app) {
     ]);
 
 });
-
 
 
 }, [SecurityHeadersMiddleware::class]);

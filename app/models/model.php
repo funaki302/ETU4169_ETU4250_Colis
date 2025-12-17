@@ -87,6 +87,7 @@ class Model
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
+
     public function getColisById($id)
     {
         if ($id === null) {
@@ -156,7 +157,6 @@ class Model
 
     }
 
-
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null)
     {
         $sql = "INSERT INTO gc_colis
@@ -191,4 +191,62 @@ class Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
+
+    public function getVoiture(){
+        $sql = "SELECT * FROM gc_voiture";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getVoitureById($id){
+        if ($id === null) { return; }
+        $sql = "SELECT * FROM gc_voiture WHERE id_voiture = ? LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function updateVoiture($data){
+        $id = $data['id_voiture'] ?? null;
+        if ($id === null) { return; }
+
+        $sql = "UPDATE gc_voiture SET immatriculation = ?, marque = ?, modele = ?,
+        capacite = ?,statut_voiture = ?, id_carburant = ? WHERE id_voiture = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['immatriculation'] ?? '',
+            $data['marque'] ??'',
+            $data['modele'] ?? '',
+            $data['capacite'] ?? 1,
+            $data['statut_voiture'] ?? '',
+            $data['id_carburant'] ?? 1,
+            $id
+        ]);
+    }
+
+    public function deleteVoiture($id)
+    {
+        if ($id === null) { return; }
+        $sql = "DELETE FROM gc_voiture WHERE id_voiture = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
+    public function addVoiture($data){
+        $sql = "INSERT INTO gc_voiture 
+        (immatriculation, marque, modele, capacite, statut_voiture, id_carburant)
+        VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['immatriculation'] ?? '',
+            $data['marque'] ??'',
+            $data['modele'] ?? '',
+            $data['capacite'] ?? 1,
+            $data['statut_voiture'] ?? '',
+            $data['id_carburant'] ?? 1
+        ]);
+        return $this->db->lastInsertId();
+    }
+
+
 }
