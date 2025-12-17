@@ -87,6 +87,7 @@ class Model
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
+
     public function getColisById($id)
     {
         if ($id === null) {
@@ -98,12 +99,6 @@ class Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-<<<<<<< HEAD
-    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos){
-        $sql = "INSERT INTO gc_colis 
-        (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
-=======
     public function upload($file)
     {
         // Debug : affiche ce qu'on reçoit
@@ -162,14 +157,12 @@ class Model
 
     }
 
-
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null)
     {
         $sql = "INSERT INTO gc_colis
             (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
->>>>>>> 0abd9af9737ff5b6eaa33b3c6f1f3877f08bce21
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos]);
 
@@ -255,5 +248,5 @@ class Model
         return $this->db->lastInsertId();
     }
 
-    
+
 }

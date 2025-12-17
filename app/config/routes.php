@@ -89,7 +89,6 @@ $router->post('/insertColis', function() use ($app) {
 
 });
 
-
 $router->get('/formInsert', function() use ($app) {
 
     // Affiche la page InsertColis.php
