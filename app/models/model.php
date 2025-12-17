@@ -376,8 +376,6 @@ class Model
             $data['email_chauffeur'] ?? '',
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0.0,
-            $data['id_voiture'] ?? 0,
-            $data['id_livraison'] ?? 0,
             $id
         ]);
     }
@@ -386,8 +384,8 @@ class Model
     {
         $sql = "INSERT INTO gc_chauffeur 
         (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
-        date_dassignation, salaires_parLiv, id_voiture, id_livraison)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        date_dassignation, salaires_parLiv)
+        VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['nom_chauffeur'] ?? '',
@@ -395,9 +393,7 @@ class Model
             $data['telephone_chauffeur'] ?? '',
             $data['email_chauffeur'] ?? '',
             $data['date_dassignation'] ?? null,
-            $data['salaires_parLiv'] ?? 0.0,
-            $data['id_voiture'] ?? 0,
-            $data['id_livraison'] ?? 0
+            $data['salaires_parLiv'] ?? 0.0
         ]);
         return $this->db->lastInsertId();
     }
