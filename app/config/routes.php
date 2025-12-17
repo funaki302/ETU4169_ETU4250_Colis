@@ -72,6 +72,26 @@ $router->group('', function (Router $router) use ($app) {
         $controller->updateVoiture();
     });
 
+    $router->get('/chauffeurs', function () use ($app) {
+        $controller = new Controller($app);
+        $app->render('Chauffeurs', [
+            'liste' => $controller->getChauffeur(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+    $router->post('/chauffeurs/add', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->addChauffeur();
+        Flight::redirect('/chauffeurs');
+    });
+
+    $router->post('/chauffeurs/delete/@id', function ($id) use ($app) {
+        $controller = new Controller($app);
+        $controller->deleteChauffeur($id);
+        Flight::redirect('/chauffeurs');
+    });
+
     $router->post('/insertColis', function () use ($app) {
         $controller = new Controller($app);
 

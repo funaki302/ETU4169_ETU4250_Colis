@@ -17,7 +17,7 @@
     - [ok] Formulaire pour modifier le colis : Formulaire pres remplit avec les donnees actuelles du colis
     - [ok] Bouton pour modifier le colis
 
-- [] voiture.php : page pour ajouter de nouvelles voiture 
+- [ok] voiture.php : page pour ajouter de nouvelles voiture 
   - FONCTION :
     - [ok] getVoiture()
     - [ok] getVoitureById($id)
@@ -35,13 +35,13 @@
       - [ok] un formulaire pour modifier une voiture
     - [ok] Bouton supprimer une voiture
 
-- [] InserChauffeur.php : page pour ajouter un nouveau chauffeur 
+- [] Chauffeurs.php : page pour ajouter un nouveau chauffeur 
   - FONCTION :
-    - [] getChauffeur()
-    - [] getChauffeurById($id)
-    - [] addChauffeur()
-    - [] updateChauffeur()
-    - [] deleteChauffeur()
+    - [ok] getChauffeur()
+    - [ok] getChauffeurById($id)
+    - [ok] addChauffeur()
+    - [ok] updateChauffeur()
+    - [ok] deleteChauffeur()
   - Page :
     - [] Afficher la liste de tous les chauffeurs
     - [] Bouton ajouter nouveaux chauffeurs
