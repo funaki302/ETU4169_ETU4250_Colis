@@ -39,18 +39,27 @@ class Model
 
     public function updateColis($data)
     {
+<<<<<<< HEAD
         $id = $data['id_colis'] ?? null;
         if ($id === null) {
             return;
         }
+=======
+        $id = $data['id'] ?? $data['id_colis'] ?? null;
+        if ($id === null) { return; }
+>>>>>>> 71d1595358ac89081c97153dfb0ec7d74b5bd2ff
 
         $date_expedition = !empty($data['date_expedition'])
             ? $data['date_expedition']
             : null;
 
-        $date_livraison = !empty($data['date_livraison'])
-            ? $data['date_livraison']
-            : null;
+        $provided_date_liv = $data['date_livraison'] ?? null;
+        $statutVal = $data['id_statut'] ?? null;
+        if (($statutVal == 2)) {
+            $date_livraison = !empty($provided_date_liv) ? $provided_date_liv : date('Y-m-d');
+        } else {
+            $date_livraison = null;
+        }
 
         $sql = "UPDATE gc_colis SET nom_expediteur = ?, adresse_expediteur = ?,
             nom_destinataire = ?, adresse_destinataire = ?, date_expedition = ?,
