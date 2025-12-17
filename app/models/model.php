@@ -6,7 +6,7 @@ class Model
 {
     protected $db;
 
-     public function upload($file)
+    public function upload($file)
     {
         // Debug : affiche ce qu'on reçoit
         error_log("Fichier reçu dans upload : " . print_r($file, true));
@@ -97,65 +97,54 @@ class Model
 
     public function updateColis($data)
     {
-
         $id = $data['id_colis'] ?? null;
-        if ($id === null) {
+        if (!$id) {
             return;
         }
 
-        $id = $data['id'] ?? $data['id_colis'] ?? null;
-        if ($id === null) {
-            return;
-        }
-        $date_expedition = !empty($data['date_expedition'])
-            ? $data['date_expedition']
-            : null;
-
-        $image = !empty($data['imageColis'])
-            ? $data['imageColis']
-            : null;
-
-        if ($image != null) { 
-        if ($image && $image['error'] === UPLOAD_ERR_OK) {
-            $newname = $this->upload($image);
+        // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+        if (isset($data['imageColis']) && is_array($data['imageColis']) && $data['imageColis']['error'] === UPLOAD_ERR_OK) {
+            $newname = $this->upload($data['imageColis']);
             if ($newname) {
                 $this->insertImageColis($id, $newname);
-                error_log("Image liée au colis : " . $newname);
+                error_log("Image ajoutée avec succès pour le colis $id : $newname");
             } else {
-                error_log("Échec upload de l'image pour colis " . $id);
+                error_log("Échec de l'upload pour le colis $id");
             }
-        } else {
-            error_log("Aucun fichier image valide reçu");
-        }
         }
 
-        $provided_date_liv = $data['date_livraison'] ?? null;
-        $statutVal = $data['id_statut'] ?? null;
-        if (($statutVal == 2)) {
-            $date_livraison = !empty($provided_date_liv) ? $provided_date_liv : date('Y-m-d');
-        } else {
-            $date_livraison = null;
+        // === GESTION DATE LIVRAISON SELON STATUT ===
+        $date_livraison = null;
+        if (isset($data['id_statut']) && $data['id_statut'] == 2) {
+            $date_livraison = !empty($data['date_livraison']) ? $data['date_livraison'] : date('Y-m-d');
         }
 
-        $sql = "UPDATE gc_colis SET nom_expediteur = ?, adresse_expediteur = ?,
-            nom_destinataire = ?, adresse_destinataire = ?, date_expedition = ?,
-            date_livraison = ?, kilos = ? , id_statut = ?, nom_colis = ?
-        WHERE id_colis = ?";
+        // === MISE À JOUR DES CHAMPS DU COLIS ===
+        $sql = "UPDATE gc_colis SET
+                nom_colis = ?,
+                nom_expediteur = ?,
+                adresse_expediteur = ?,
+                nom_destinataire = ?,
+                adresse_destinataire = ?,
+                date_expedition = ?,
+                date_livraison = ?,
+                kilos = ?,
+                id_statut = ?
+            WHERE id_colis = ?";
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
+            $data['nom_colis'] ?? '',
             $data['nom_expediteur'] ?? '',
             $data['adresse_expediteur'] ?? '',
             $data['nom_destinataire'] ?? '',
             $data['adresse_destinataire'] ?? '',
-            $date_expedition,
+            $data['date_expedition'] ?? null,
             $date_livraison,
             $data['kilos'] ?? 0,
             $data['id_statut'] ?? 1,
-            $data['nom_colis'] ?? '',
             $id
         ]);
-
-
     }
 
     public function deleteColis($id)
@@ -280,20 +269,28 @@ class Model
         return $this->db->lastInsertId();
     }
 
-    public function getCarburants(){
+    public function getCarburants()
+    {
         $sql = "SELECT * FROM gc_carburant";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-    public function getImgColis()
+    public function getImgColis($id_colis)
     {
-        $sql = "SELECT * from V_gc_ColisImg ";
-        $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $sql = "SELECT imageColis FROM gc_photos_colis WHERE id_colis = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_colis]);
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Si pas de résultat → tableau vide
+        return $results ?: [];
     }
 
-    public function getCarburantById($id){
-        if ($id === null) { return; }
+    public function getCarburantById($id)
+    {
+        if ($id === null) {
+            return;
+        }
         $sql = "SELECT * FROM gc_carburant WHERE id_carburant = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
@@ -331,28 +328,36 @@ class Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getChauffeur(){
+    public function getChauffeur()
+    {
         $sql = "SELECT * FROM gc_chauffeur";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getChauffeurById($id){
-        if ($id === null) { return; }
+    public function getChauffeurById($id)
+    {
+        if ($id === null) {
+            return;
+        }
         $sql = "SELECT * FROM gc_chauffeur WHERE id_chauffeur = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function deleteChauffeur($id){
-        if ($id === null) { return; }   
+    public function deleteChauffeur($id)
+    {
+        if ($id === null) {
+            return;
+        }
         $sql = "DELETE FROM gc_chauffeur WHERE id_chauffeur = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
 
-    public function updateChauffeur($data){
+    public function updateChauffeur($data)
+    {
         $id = $data['id_chauffeur'] ?? null;
         if ($id === null) {
             return;
@@ -368,7 +373,7 @@ class Model
             $data['nom_chauffeur'] ?? '',
             $data['prenom_chauffeur'] ?? '',
             $data['telephone_chauffeur'] ?? '',
-            $data['email_chauffeur'] ??'',
+            $data['email_chauffeur'] ?? '',
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0,
             $data['profile'] ?? '',
@@ -377,7 +382,8 @@ class Model
         ]);
     }
 
-    public function addChauffeur($data){
+    public function addChauffeur($data)
+    {
         $sql = "INSERT INTO gc_chauffeur 
         (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
         date_dassignation, salaires_parLiv,profile, statut)
@@ -387,7 +393,7 @@ class Model
             $data['nom_chauffeur'] ?? '',
             $data['prenom_chauffeur'] ?? '',
             $data['telephone_chauffeur'] ?? '',
-            $data['email_chauffeur'] ??'',
+            $data['email_chauffeur'] ?? '',
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0.0,
             $data['profile'] ?? '',

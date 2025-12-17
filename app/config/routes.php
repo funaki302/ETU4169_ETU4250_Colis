@@ -37,6 +37,7 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatuts(),
+            'imageColis'=> $controller->getImgColis($id),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });

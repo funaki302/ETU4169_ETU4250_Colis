@@ -49,7 +49,7 @@ WHERE l.id_statut = 2
 GROUP BY YEAR(l.date_livraison);
 
 
-CREATE VIEW V_gc_ColisImg AS
+CREATE or replace VIEW  V_gc_ColisImg AS
 SELECT 
     c.id_colis,
     c.nom_colis,                
@@ -65,4 +65,4 @@ SELECT
 FROM 
     gc_colis AS c
 LEFT JOIN 
-    gc_photos_colis AS p ON c.id_colis = p.id_colis;
+    gc_photos_colis AS p ON c.id_colis = p.id_colis GROUP by c.id_colis;
