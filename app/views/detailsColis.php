@@ -159,14 +159,6 @@
                                     </select>
                                 </div>
 
-<<<<<<< HEAD
-                            <tr>
-                                <th>Ajouter un image</th>
-                                <td>
-                                    <input type="file" name="imageColis" accept="image/*">
-                                </td>
-                            </tr>
-=======
                                 <div class="col-md-6">
                                     <label for="imageColis" class="form-label fw-semibold text-dark">Ajouter une
                                         photo</label>
@@ -176,7 +168,6 @@
                                         plusieurs fois.</div>
                                 </div>
                             </div>
->>>>>>> 9a3dd79edd8d14c00f19ea3f57ea4a95759e666b
 
                             <!-- Boutons -->
                             <div class="text-center mt-5 pt-4 border-top">
