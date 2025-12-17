@@ -7,10 +7,16 @@ use flight\net\Router;
 
 
 $router->group('', function (Router $router) use ($app) {
-
-    $router->get('/', function() use ($app) {
+    $router->get('/', function () use ($app) {
         $controller = new Controller($app);
-        $app->render('home' , ['liste' => $controller->getColis() , 'csp_nonce' => Flight::get('csp_nonce')]);
+
+        // On utilise la nouvelle méthode avec filtres
+        $liste = $controller->listeColisAvecFiltres();
+
+        $app->render('home.php', [
+            'liste' => $liste,
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
     });
 
     $router->get('/benefices', function () use ($app) {
@@ -26,20 +32,21 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
-    $router->get('/colis/@id', function($id) use ($app) {
+    $router->get('/colis/@id', function ($id) use ($app) {
         $controller = new Controller($app);
-        $app->render('detailsColis' , [
-            'colis' => $controller->getColisById($id) ,
+        $app->render('detailsColis', [
+            'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatuts(),
-            'csp_nonce' => Flight::get('csp_nonce')]);
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
     });
 
-    $router->post('/colis/update/', function() use ($app) {
+    $router->post('/colis/update/', function () use ($app) {
         $controller = new Controller($app);
         $controller->updateColis();
     });
 
-    $router->get('/voitures', function() use ($app) {
+    $router->get('/voitures', function () use ($app) {
         $controller = new Controller($app);
         $app->render('voitures', [
             'liste' => $controller->getVoiture(),
@@ -49,17 +56,18 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
-    $router->post('/voitures/add', function() use ($app) {
+    $router->post('/voitures/add', function () use ($app) {
         $controller = new Controller($app);
         $controller->addVoiture();
     });
 
-    $router->post('/voitures/delete/@id', function($id) use ($app) {
+    $router->post('/voitures/delete/@id', function ($id) use ($app) {
         $controller = new Controller($app);
         $controller->deleteVoiture($id);
         Flight::redirect('/voitures');
     });
 
+<<<<<<< HEAD
     $router->post('/voitures/update/', function() use ($app) {
         $controller = new Controller($app);
         $controller->updateVoiture();
@@ -101,6 +109,44 @@ $router->group('', function (Router $router) use ($app) {
             'csp_nonce' => \Flight::get('csp_nonce')
         ]);
 
+=======
+    $router->post('/insertColis', function () use ($app) {
+        $controller = new Controller($app);
+
+        $nom = $_POST['nom'] ?? '';
+        $nom_expediteur = $_POST['nom_expediteur'] ?? '';
+        $adresse_expediteur = $_POST['adresse_expediteur'] ?? '';
+        $nom_destinataire = $_POST['nom_destinataire'] ?? '';
+        $adresse_destinataire = $_POST['adresse_destinataire'] ?? '';
+        $date_expedition = $_POST['date_expedition'] ?? null;
+        $date_livraison = $_POST['date_livraison'] ?? null;
+        $kilos = $_POST['kilos'] ?? 0;
+        $images = $_FILES['imageColis'] ?? null;
+
+        $controller->InsertColis(
+            $nom,
+            $nom_expediteur,
+            $adresse_expediteur,
+            $nom_destinataire,
+            $adresse_destinataire,
+            $date_expedition,
+            $date_livraison,
+            $kilos,
+            $images
+        );
+
+        \Flight::redirect('/');
+
+    });
+
+    $router->get('/formInsert', function () use ($app) {
+
+        // Affiche la page InsertColis.php
+        $app->render('InsertColis', [
+            'csp_nonce' => \Flight::get('csp_nonce')
+        ]);
+
+>>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
     });
 
 

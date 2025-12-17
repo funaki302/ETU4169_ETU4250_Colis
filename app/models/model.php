@@ -46,7 +46,9 @@ class Model
         }
 
         $id = $data['id'] ?? $data['id_colis'] ?? null;
-        if ($id === null) { return; }
+        if ($id === null) {
+            return;
+        }
         $date_expedition = !empty($data['date_expedition'])
             ? $data['date_expedition']
             : null;
@@ -192,30 +194,37 @@ class Model
 
     }
 
-    public function getVoiture(){
+    public function getVoiture()
+    {
         $sql = "SELECT * FROM gc_voiture";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getVoitureById($id){
-        if ($id === null) { return; }
+    public function getVoitureById($id)
+    {
+        if ($id === null) {
+            return;
+        }
         $sql = "SELECT * FROM gc_voiture WHERE id_voiture = ? LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function updateVoiture($data){
+    public function updateVoiture($data)
+    {
         $id = $data['id_voiture'] ?? null;
-        if ($id === null) { return; }
+        if ($id === null) {
+            return;
+        }
 
         $sql = "UPDATE gc_voiture SET immatriculation = ?, marque = ?, modele = ?,
         capacite = ?,statut_voiture = ?, id_carburant = ? WHERE id_voiture = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['immatriculation'] ?? '',
-            $data['marque'] ??'',
+            $data['marque'] ?? '',
             $data['modele'] ?? '',
             $data['capacite'] ?? 1,
             $data['statut_voiture'] ?? '',
@@ -226,20 +235,23 @@ class Model
 
     public function deleteVoiture($id)
     {
-        if ($id === null) { return; }
+        if ($id === null) {
+            return;
+        }
         $sql = "DELETE FROM gc_voiture WHERE id_voiture = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
 
-    public function addVoiture($data){
+    public function addVoiture($data)
+    {
         $sql = "INSERT INTO gc_voiture 
         (immatriculation, marque, modele, capacite, statut_voiture, id_carburant)
         VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['immatriculation'] ?? '',
-            $data['marque'] ??'',
+            $data['marque'] ?? '',
             $data['modele'] ?? '',
             $data['capacite'] ?? 1,
             $data['statut_voiture'] ?? '',
@@ -248,12 +260,19 @@ class Model
         return $this->db->lastInsertId();
     }
 
+<<<<<<< HEAD
     public function getCarburants(){
         $sql = "SELECT * FROM gc_carburant";
+=======
+    public function getImgColis()
+    {
+        $sql = "SELECT * from V_gc_ColisImg ";
+>>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+<<<<<<< HEAD
     public function getCarburantById($id){
         if ($id === null) { return; }
         $sql = "SELECT * FROM gc_carburant WHERE id_carburant = ? LIMIT 1";
@@ -261,5 +280,38 @@ class Model
         $stmt->execute([$id]);
     }
 
+=======
+    public function critereColis($statut = null, $dateMin = null, $dateMax = null, $nom = null)
+    {
+        $sql = "SELECT * FROM V_gc_ColisImg WHERE 1=1";
+        $params = [];
+
+        if ($statut !== null) {
+            $sql .= " AND id_statut = ?";
+            $params[] = (int) $statut;
+        }
+
+        if ($dateMin !== null) {
+            $sql .= " AND date_expedition >= ?";
+            $params[] = $dateMin;
+        }
+
+        if ($dateMax !== null) {
+            $sql .= " AND date_expedition <= ?";
+            $params[] = $dateMax;
+        }
+
+        if ($nom !== null) {
+            $sql .= " AND nom_colis LIKE ?";
+            $params[] = '%' . $nom . '%';
+        }
+
+        $sql .= " ORDER BY id_colis DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+>>>>>>> 7aa830df7afa98f60892bdfd45afe2d3c8142bdc
 
 }

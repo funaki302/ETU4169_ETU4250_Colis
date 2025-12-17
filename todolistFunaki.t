@@ -139,13 +139,32 @@
                   -> [ok] Appler la function insertColis et entrer tous 
                   -> [ok] redirections vers home avec /
         
-        - [] Afficher les images des colis dans Home.php et les faires en div en non en tables :
-               - [] home.php : 
-                   -> [] transformer l affichage en div et non en tables
-                   -> [] function getImgColis($id)
+        - [ok] Afficher les images des colis dans Home.php et les faires en div en non en tables :
+               - [ok] home.php : 
+                   -> [ok] transformer l affichage en div et non en tables
+                   -> [ok] function getImgColis($id)
 
-               - [] routes.php :
-                   -> [] inserer la fonction pour avoir les images
-                  
-                        
+               - [ok] routes.php :
+                   -> [ok] inserer la fonction pour avoir les images
+
+        - [ok] Ajouter un critere daffichage :
+             -> [ok] par status
+             -> [ok] date d expedition min 
+             -> [ok] date d expedition max
+             -> [ok] nom 
+             - [ok] home.php
+                 -> [ok] Ajout dun nouveau forme pour critere 
+
+             - [ok] model.php
+                 -> [ok] creation function critaireColis() 
+                       qui verifie les crietres en reference au view
+                       - [ok] on peut choisir un seule critere ou plusieur
+
+             - [ok] controller.php 
+                 -> [ok] appel de fonction critaireColis()           
+
+             - [ok] routes.php 
+                 -> [ok] gerer la form et appel de la fonction dans controller
+                 -> [ok] envoie le resultat dans home.php 
+
           
