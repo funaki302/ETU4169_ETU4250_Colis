@@ -114,3 +114,19 @@ CREATE TABLE gc_photos_colis(
     imageColis VARCHAR(50),
     FOREIGN KEY (id_colis) REFERENCES gc_colis(id_colis)
 );
+
+
+-- =========== CHANGEMENT BASE =============
+                -- CHAUFFEUR --
+                ALTER TABLE gc_chauffeur
+                DROP COLUMN id_livraison,
+                DROP COLUMN id_voiture;
+
+                -- lIVRAISON --
+                ALTER TABLE gc_livraison
+                add id_chauffeur int ,
+                add id_voiture int ,
+                add FOREIGN KEY (id_chauffeur) REFERENCES gc_chauffeur(id_chauffeur),
+                add FOREIGN KEY (id_voiture) REFERENCES gc_voiture(id_voiture);
+                
+               
