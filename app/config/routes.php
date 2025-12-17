@@ -72,12 +72,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller->updateVoiture();
     });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    $router->post('/insertColis', function() use ($app) {
-=======
     $router->get('/chauffeurs', function () use ($app) {
->>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
         $controller = new Controller($app);
         $app->render('Chauffeurs', [
             'liste' => $controller->getChauffeur(),
@@ -97,11 +92,6 @@ $router->group('', function (Router $router) use ($app) {
         Flight::redirect('/chauffeurs');
     });
 
-<<<<<<< HEAD
-=======
->>>>>>> 3b0f601295923f90600759e61035adc94e549efc
-=======
->>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
     $router->post('/insertColis', function () use ($app) {
         $controller = new Controller($app);
 
