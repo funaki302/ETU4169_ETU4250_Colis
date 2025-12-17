@@ -61,12 +61,6 @@ $router->group('', function (Router $router) use ($app) {
         $controller->addVoiture();
     });
 
-    $router->post('/voitures/delete/@id', function ($id) use ($app) {
-        $controller = new Controller($app);
-        $controller->deleteVoiture($id);
-        Flight::redirect('/voitures');
-    });
-
     $router->post('/voitures/update/', function() use ($app) {
         $controller = new Controller($app);
         $controller->updateVoiture();

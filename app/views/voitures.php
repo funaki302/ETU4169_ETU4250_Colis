@@ -31,9 +31,9 @@
                     <tr>
                         <form action="/voitures/update/" method="post">
                             <td>
-                                <?= htmlspecialchars($row['id_voiture'] ?? $row['id'] ?? '') ?>
+                                <?= htmlspecialchars($row['id_voiture'] ?? '') ?>
                                 <input type="hidden" name="id_voiture" 
-                                value="<?= htmlspecialchars($row['id_voiture'] ?? $row['id'] ?? '') ?>">
+                                value="<?= htmlspecialchars($row['id_voiture'] ?? '') ?>">
                             </td>
                             <td>
                                 <input type="text" name="immatriculation" 
@@ -84,11 +84,6 @@
                             </td>
                             <td>
                                 <input type="submit" class="btn btn-sm update" value="Update">
-                            </td>
-                            <td>
-                                <form method="post" action="/voitures/delete/<?= htmlspecialchars($row['id_voiture'] ?? $row['id'] ?? '') ?>" style="display:inline-block;">
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer cette voiture ?')">Supprimer</button>
-                                </form>
                             </td>
                         </form>
                     </tr>
