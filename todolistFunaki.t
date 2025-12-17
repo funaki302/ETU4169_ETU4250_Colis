@@ -138,7 +138,11 @@
                   -> [ok] prendre touts les donner insertion 
                   -> [ok] Appler la function insertColis et entrer tous 
                   -> [ok] redirections vers home avec /
-
+        
+        - [] Afficher les images des colis dans Home.php et les faires en div en non en tables :
+               - [] home.php : 
+                   -> [] transformer l affichage en div et non en tables
+                   -> [] function getImgColis()
                   
                         
           

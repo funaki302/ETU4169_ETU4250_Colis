@@ -39,8 +39,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller->updateColis();
     });
 
-
-$router->post('/insertColis', function() use ($app) {
+    $router->post('/insertColis', function() use ($app) {
 
     $controller = new Controller($app);
 
