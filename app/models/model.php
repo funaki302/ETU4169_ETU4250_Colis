@@ -281,6 +281,7 @@ class Model
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public function getCarburants(){
         $sql = "SELECT * FROM gc_carburant";
@@ -296,6 +297,13 @@ class Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 >>>>>>> 3b0f601295923f90600759e61035adc94e549efc
+=======
+    public function getCarburants(){
+        $sql = "SELECT * FROM gc_carburant";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+>>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
     public function getImgColis()
     {
         $sql = "SELECT * from V_gc_ColisImg ";
@@ -304,9 +312,12 @@ class Model
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 3b0f601295923f90600759e61035adc94e549efc
+=======
+>>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
     public function getCarburantById($id){
         if ($id === null) { return; }
         $sql = "SELECT * FROM gc_carburant WHERE id_carburant = ? LIMIT 1";
@@ -315,9 +326,12 @@ class Model
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 3b0f601295923f90600759e61035adc94e549efc
+=======
+>>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
     public function critereColis($statut = null, $dateMin = null, $dateMax = null, $nom = null)
     {
         $sql = "SELECT * FROM V_gc_ColisImg WHERE 1=1";
@@ -349,5 +363,73 @@ class Model
         $stmt->execute($params);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+    public function getChauffeur(){
+        $sql = "SELECT * FROM gc_chauffeur";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getChauffeurById($id){
+        if ($id === null) { return; }
+        $sql = "SELECT * FROM gc_chauffeur WHERE id_chauffeur = ? LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteChauffeur($id){
+        if ($id === null) { return; }   
+        $sql = "DELETE FROM gc_chauffeur WHERE id_chauffeur = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
+    public function updateChauffeur($data){
+        $id = $data['id_chauffeur'] ?? null;
+        if ($id === null) {
+            return;
+        }
+
+        $sql = "UPDATE gc_chauffeur SET nom_chauffeur = ?, prenom_chauffeur = ?, 
+        telephone_chauffeur = ?, email_chauffeur = ?,
+        date_dassignation = ?, salaires_parLiv = ?, 
+        id_voiture = ?, id_livraison = ?
+        WHERE id_chauffeur = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['nom_chauffeur'] ?? '',
+            $data['prenom_chauffeur'] ?? '',
+            $data['telephone_chauffeur'] ?? '',
+            $data['email_chauffeur'] ??'',
+            $data['date_dassignation'] ?? null,
+            $data['salaires_parLiv'] ?? 0.0,
+            $data['id_voiture'] ?? 0,
+            $data['id_livraison'] ?? 0,
+            $id
+        ]);
+    }
+
+    public function addChauffeur($data){
+        $sql = "INSERT INTO gc_chauffeur 
+        (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
+        date_dassignation, salaires_parLiv, id_voiture, id_livraison)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['nom_chauffeur'] ?? '',
+            $data['prenom_chauffeur'] ?? '',
+            $data['telephone_chauffeur'] ?? '',
+            $data['email_chauffeur'] ??'',
+            $data['date_dassignation'] ?? null,
+            $data['salaires_parLiv'] ?? 0.0,
+            $data['id_voiture'] ?? 0,
+            $data['id_livraison'] ?? 0
+        ]);
+        return $this->db->lastInsertId();
+    }
+>>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
 
 }

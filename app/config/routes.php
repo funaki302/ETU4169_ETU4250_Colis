@@ -73,44 +73,35 @@ $router->group('', function (Router $router) use ($app) {
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     $router->post('/insertColis', function() use ($app) {
+=======
+    $router->get('/chauffeurs', function () use ($app) {
+>>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
         $controller = new Controller($app);
-
-        $nom = $_POST['nom'] ?? '';
-        $nom_expediteur = $_POST['nom_expediteur'] ?? '';
-        $adresse_expediteur = $_POST['adresse_expediteur'] ?? '';
-        $nom_destinataire = $_POST['nom_destinataire'] ?? '';
-        $adresse_destinataire = $_POST['adresse_destinataire'] ?? '';
-        $date_expedition = $_POST['date_expedition'] ?? null;
-        $date_livraison = $_POST['date_livraison'] ?? null;
-        $kilos = $_POST['kilos'] ?? 0;
-        $images = $_FILES['imageColis'] ?? null;
-
-        $controller->InsertColis(
-            $nom,
-            $nom_expediteur,
-            $adresse_expediteur,
-            $nom_destinataire,
-            $adresse_destinataire,
-            $date_expedition,
-            $date_livraison,
-            $kilos,
-            $images
-        );
-
-        \Flight::redirect('/');
-
+        $app->render('Chauffeurs', [
+            'liste' => $controller->getChauffeur(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
     });
 
-    $router->get('/formInsert', function() use ($app) {
+    $router->post('/chauffeurs/add', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->addChauffeur();
+        Flight::redirect('/chauffeurs');
+    });
 
-        // Affiche la page InsertColis.php
-        $app->render('InsertColis', [
-            'csp_nonce' => \Flight::get('csp_nonce')
-        ]);
+    $router->post('/chauffeurs/delete/@id', function ($id) use ($app) {
+        $controller = new Controller($app);
+        $controller->deleteChauffeur($id);
+        Flight::redirect('/chauffeurs');
+    });
 
+<<<<<<< HEAD
 =======
 >>>>>>> 3b0f601295923f90600759e61035adc94e549efc
+=======
+>>>>>>> 326debdf86c45cf41c5934053c2d92903260496b
     $router->post('/insertColis', function () use ($app) {
         $controller = new Controller($app);
 
