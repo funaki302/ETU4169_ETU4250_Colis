@@ -167,4 +167,13 @@
                  -> [ok] gerer la form et appel de la fonction dans controller
                  -> [ok] envoie le resultat dans home.php 
 
+        - [] Ajouter un upload photo dans detailsColis.php 
+             - [] detailsColis.php
+               -> [] ajouter un input file pour limage
+
+             - [] model.php 
+               -> [] modifie updateColis()
+                  -> [] inserer la fonction upload et insertImgColis 
+
+                      
           
