@@ -72,6 +72,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller->updateVoiture();
     });
 
+<<<<<<< HEAD
     $router->post('/insertColis', function() use ($app) {
         $controller = new Controller($app);
 
@@ -108,6 +109,8 @@ $router->group('', function (Router $router) use ($app) {
             'csp_nonce' => \Flight::get('csp_nonce')
         ]);
 
+=======
+>>>>>>> 3b0f601295923f90600759e61035adc94e549efc
     $router->post('/insertColis', function () use ($app) {
         $controller = new Controller($app);
 

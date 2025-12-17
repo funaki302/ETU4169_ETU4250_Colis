@@ -1,3 +1,7 @@
 <?php
+  require 'vendor/autoload.php';
+  require 'config/config.php';
+  require 'routes/web.php';
+Flight::start();
   $ds = DIRECTORY_SEPARATOR;
-  require(__DIR__. $ds . '..' . $ds . 'app' . $ds . 'config' . $ds . 'bootstrap.php');
+  require('app' . $ds . 'config' . $ds . 'bootstrap.php');

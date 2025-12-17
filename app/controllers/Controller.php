@@ -127,7 +127,10 @@ class Controller
         return $this->model->getVoitureById($id);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3b0f601295923f90600759e61035adc94e549efc
     public function getCarburantById($id){
         return $this->model->getCarburantById($id);
     }
