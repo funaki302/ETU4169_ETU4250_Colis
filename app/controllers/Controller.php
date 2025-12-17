@@ -87,6 +87,23 @@ class Controller {
         return $this->model->getVoitureById($id);
     }
 
+    public function getCarburantById($id){
+        return $this->model->getCarburantById($id);
+    }
+
+    public function getCarburants(){
+        return $this->model->getCarburants();
+    }
+
+    public function getStatut_voiture(){
+        $statut = 
+        [
+            'disponible',
+            'en cours de livraison',
+            'maintenance'
+        ];
+        return $statut;
+    }
     
 
 

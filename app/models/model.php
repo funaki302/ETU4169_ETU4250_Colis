@@ -248,5 +248,18 @@ class Model
         return $this->db->lastInsertId();
     }
 
+    public function getCarburants(){
+        $sql = "SELECT * FROM gc_carburant";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getCarburantById($id){
+        if ($id === null) { return; }
+        $sql = "SELECT * FROM gc_carburant WHERE id_carburant = ? LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
 
 }
