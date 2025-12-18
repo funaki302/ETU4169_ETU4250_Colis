@@ -139,5 +139,19 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
+    $router->get('/livraisons', function () use ($app) {
+        $controller = new Controller($app);
+        $app->render('Livraison', [
+            'liste' => $controller->getLivraisons(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+    $router->post('/livraison/add', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->addLivraison();
+        Flight::redirect('/livraisons');
+    });
+    
 
 }, [SecurityHeadersMiddleware::class]);

@@ -402,4 +402,64 @@ class Model
         return $this->db->lastInsertId();
     }
 
+    public function getLivraisons(){
+        $sql = "SELECT * FROM gc_livraison";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getLivraisonById($id){
+        if ($id === null) {
+            return;
+        }
+        $sql = "SELECT * FROM gc_livraison WHERE id_livraison = ? LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteLivraison($id){
+        if ($id === null) {
+            return;
+        }
+        $sql = "DELETE FROM gc_livraison WHERE id_livraison = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
+    public function updateLivraison($data){
+        if ($data === null) {
+            return;
+        }
+        $sql = "UPDATE gc_livraison set id_colis = ?,
+        date_livraison = ? , heure_livraison = ?, id_statut = ?,
+        id_chauffeur = ?, id_voiture = ? WHERE id_livraison = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['id_colis'] ?? null,
+            $data['date_livraison'] ?? null,
+            $data['heure_livraison'] ?? null,
+            $data['id_statut'] ?? null,
+            $data['id_chauffeur'] ?? null,
+            $data['id_voiture'] ?? null,
+            $data['id_livraison'] ?? null
+        ]);
+    }
+
+    public function addLivraison($data){
+        $sql = "INSERT INTO gc_livraison 
+        (id_colis, date_livraison, heure_livraison, id_statut, id_chauffeur, id_voiture)
+        VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['id_colis'] ?? null,
+            $data['date_livraison'] ?? null,
+            $data['heure_livraison'] ?? null,
+            $data['id_statut'] ?? null,
+            $data['id_chauffeur'] ?? null,
+            $data['id_voiture'] ?? null
+        ]);
+        return $this->db->lastInsertId();
+    }
+
 }

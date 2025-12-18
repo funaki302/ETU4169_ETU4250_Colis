@@ -204,4 +204,33 @@ class Controller
         Flight::redirect('/chauffeurs');
     }
 
+    public function getLivraisons(){
+        return $this->model->getLivraisons();
+    }
+    
+    public function deleteLivraison($id){
+        return $this->model->deleteLivraison($id);
+    }
+    
+    public function getLivraisonById($id){
+        return $this->model->getLivraisonById($id);
+    }
+
+    public function updateLivraison(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        $this->model->updateLivraison($data);
+        Flight::redirect('/livraisons');
+    }
+
+    public function addLivraison(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        $this->model->addLivraison($data);
+        Flight::redirect('/livraisons');
+    }
+
+
+
+
 }

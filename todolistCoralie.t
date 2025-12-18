@@ -35,7 +35,7 @@
       - [ok] un formulaire pour modifier une voiture
     - [ok] Bouton supprimer une voiture
 
-- [] Chauffeurs.php : page pour ajouter un nouveau chauffeur 
+- [ok] Chauffeurs.php : page pour ajouter un nouveau chauffeur 
   - FONCTION :
     - [ok] getChauffeur()
     - [ok] getChauffeurById($id)
@@ -43,10 +43,26 @@
     - [ok] updateChauffeur()
     - [ok] deleteChauffeur()
   - Page :
-    - [] Afficher la liste de tous les chauffeurs
-    - [] Bouton ajouter nouveaux chauffeurs
-      - [] un formulaire pour ajouter un nouveau chauffeur
-    - [] Bouton modifier un chauffeur
-      - [] un formulaire pour modifier un chauffeur
-    - [] Bouton supprimer un chauffeur
+    - [ok] Afficher la liste de tous les chauffeurs
+    - [ok] Bouton ajouter nouveaux chauffeurs
+      - [ok] un formulaire pour ajouter un nouveau chauffeur
+    - [ok] Bouton voir les informations du chauffeur
+
+- [] detailsChauffeur.php
+  -Page:
+    - [ok] Afficher les informations du chauffeur
+    - [ok] un formulaire pres remplit pour modifier un chauffeur
+    - [] upload photo de profile
+
+- [] Livraison.php
+  - FONCTION:
+    - [ok] getLivraisons()
+    - [ok] getLivraisonById()
+    - [ok] updateLivraison()
+    - [ok] deleteLivraison()
+    - [ok] addLivraison()
+
+  - Page:
+   -[] Afficher la liste de tous les Livraison
+
 
