@@ -80,20 +80,20 @@ INSERT INTO gc_livraison (
     id_voiture
 ) VALUES
 (
-    1,
+    12,
     '2025-12-10',
     '10:30:00',
     1,
-    1,
-    1
+    8,
+    8
 ),
 (
-    2,
+    13,
     '2025-12-09',
     '15:45:00',
     2,
-    2,
-    2
+    9,
+    9
 );
 
 INSERT INTO gc_trajet_colis (id_colis, adresse_depart, adresse_arrivee) VALUES
