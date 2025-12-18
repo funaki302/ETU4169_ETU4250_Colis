@@ -42,7 +42,7 @@ class Model
             return null;
         }
 
-        $uniqueName = uniqid('colis_', true) . '.' . $ext;
+        $uniqueName = uniqid('IMG_', true) . '.' . $ext;
         $targetPath = $uploadDir . $uniqueName;
 
         error_log("Tentative de déplacement vers : " . $targetPath);
@@ -363,6 +363,17 @@ class Model
             return;
         }
 
+        $profil = "" ;
+          // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+        if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
+            $newname = $this->upload($data['profil']);
+            if ($newname) {
+              $profil = $newname;
+            } else {
+                error_log("Échec de l'upload pour le profil chauffeur");
+            }
+        }
+
         $sql = "UPDATE gc_chauffeur SET nom_chauffeur = ?, prenom_chauffeur = ?, 
         telephone_chauffeur = ?, email_chauffeur = ?,
         date_dassignation = ?, salaires_parLiv = ?, 
@@ -376,7 +387,7 @@ class Model
             $data['email_chauffeur'] ?? '',
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0,
-            $data['profile'] ?? '',
+            $profil ?? '',
             $data['statut'] ?? 'disponible',
             $id
         ]);
@@ -384,6 +395,17 @@ class Model
 
     public function addChauffeur($data)
     {
+         $profil = "" ;
+          // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+        if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
+            $newname = $this->upload($data['profil']);
+            if ($newname) {
+              $profil = $newname;
+            } else {
+                error_log("Échec de l'upload pour le profil chauffeur");
+            }
+        }
+        
         $sql = "INSERT INTO gc_chauffeur 
         (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
         date_dassignation, salaires_parLiv,profile, statut)
@@ -396,7 +418,7 @@ class Model
             $data['email_chauffeur'] ?? '',
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0.0,
-            $data['profile'] ?? '',
+            $profil ?? '',
             $data['statut'] ?? 'disponible'
         ]);
         return $this->db->lastInsertId();
@@ -431,6 +453,7 @@ class Model
         if ($data === null) {
             return;
         }
+        
         $sql = "UPDATE gc_livraison set id_colis = ?,
         date_livraison = ? , heure_livraison = ?, id_statut = ?,
         id_chauffeur = ?, id_voiture = ? WHERE id_livraison = ?";
