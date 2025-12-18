@@ -27,12 +27,12 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Insertion
+            Pages
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/formInsert">Inserer des colis</a></li>
             <li><a class="dropdown-item" href="/voitures">Voitures</a></li>
             <li><a class="dropdown-item" href="/chauffeurs">Chauffeurs</a></li>
+            <li><a class="dropdown-item" href="/livraisons">Livraisons</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>

@@ -147,19 +147,9 @@
                                 </div>
 
                                 <!-- Statut -->
-                                <div class="col-md-6">
-                                    <label for="id_statut" class="form-label fw-semibold text-dark">Statut</label>
-                                    <select name="id_statut" id="id_statut" class="form-select form-select-lg">
-                                        <?php foreach ($statuts as $statut): ?>
-                                            <option value="<?= $statut['id_statut'] ?>"
-                                                <?= ($statut['id_statut'] == $colis['id_statut']) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($statut['description_statut']) ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+                                <input type="hidden" name="id_statut" value="<?= htmlspecialchars($colis['id_statut'] ?? '') ?>">
 
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <label for="imageColis" class="form-label fw-semibold text-dark">Ajouter une
                                         photo</label>
                                     <input type="file" name="imageColis" id="imageColis" class="form-control"

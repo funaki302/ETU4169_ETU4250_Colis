@@ -15,6 +15,7 @@ $router->group('', function (Router $router) use ($app) {
 
         $app->render('home.php', [
             'liste' => $liste,
+            'statuts' => $controller->getStatut_CL(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -36,7 +37,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller = new Controller($app);
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
-            'statuts' => $controller->getStatuts(),
+            'statuts' => $controller->getStatut_CL(),
             'imageColis'=> $controller->getImgColis($id),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
@@ -52,7 +53,7 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('voitures', [
             'liste' => $controller->getVoiture(),
             'carburants' => $controller->getCarburants(),
-            'statut_voiture' => $controller->getStatut_voiture(),
+            'statut_voiture' => $controller->getStatut_Voiture(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -71,7 +72,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller = new Controller($app);
         $app->render('Chauffeurs', [
             'liste' => $controller->getChauffeur(),
-            'statut_chauffeur' => $controller->getStatut_chauffeur(),
+            'statut_chauffeur' => $controller->getStatut_Chauffeur(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -92,7 +93,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller = new Controller($app);
         $app->render('detailsChauffeur', [
             'chauffeur' => $controller->getChauffeurById($id),
-            'statut_chauffeur' => $controller->getStatut_chauffeur(),
+            'statuts' => $controller->getStatut_Chauffeur(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -143,15 +144,37 @@ $router->group('', function (Router $router) use ($app) {
         $controller = new Controller($app);
         $app->render('Livraison', [
             'liste' => $controller->getLivraisons(),
+            'voitures' => $controller->getvoituresDispo(),
+            'chauffeurs' => $controller->getChauffeurDispo(),
+            'colis' => $controller-> getColisDispo(),
+            'statuts' => $controller->getStatut_CL(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
 
     $router->post('/livraison/add', function () use ($app) {
         $controller = new Controller($app);
-        $controller->addLivraison();
+        $controller->insertLivraison();
         Flight::redirect('/livraisons');
     });
-    
+
+    $router->post('/livraison/update/', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->updateLivraison();
+        Flight::redirect('/livraisons');
+    });
+
+    $router->get('/livraison/@id', function ($id) use ($app) {
+        $controller = new Controller($app);
+        $livraison = $controller->getLivraisonById($id);
+        $app->render('detailsLivraison', [
+            'livraison' => $livraison,
+            'voiture' => $controller->getVoitureById($livraison['id_voiture']),
+            'chauffeur' => $controller->getChauffeurById($livraison['id_chauffeur']),
+            'colis' => $controller-> getColisById($livraison['id_colis']),
+            'statuts' => $controller->getStatut_CL(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
 
 }, [SecurityHeadersMiddleware::class]);

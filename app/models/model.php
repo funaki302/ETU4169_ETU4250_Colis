@@ -68,12 +68,14 @@ class Model
     {
         $this->db = $db;
     }
+
     public function getBenefitParAnne()
     {
         $sql = "SELECT * FROM V_gc_BeneficeAnnee";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
     public function getBenefitParJour()
     {
         $sql = "SELECT * FROM V_gc_BeneficeJour";
@@ -168,6 +170,27 @@ class Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function addColis($data)
+    {
+        $sql = "INSERT INTO gc_colis 
+        (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire,
+        date_expedition, date_livraison, kilos, id_statut)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['nom_colis'] ?? '',
+            $data['nom_expediteur'] ?? '',
+            $data['adresse_expediteur'] ?? '',
+            $data['nom_destinataire'] ?? '',
+            $data['adresse_destinataire'] ?? '',
+            $data['date_expedition'] ?? null,
+            $data['date_livraison'] ?? null,
+            $data['kilos'] ?? 0,
+            $data['id_statut'] ?? 1
+        ]);
+        return $this->db->lastInsertId();
+    }
+
     public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null)
     {
         $sql = "INSERT INTO gc_colis
@@ -195,9 +218,25 @@ class Model
         return $idColis;
     }
 
-    public function getStatuts()
+    public function getStatut_CL()
     {
-        $sql = "SELECT * FROM gc_statut_trajet";
+        $sql = "SELECT * FROM gc_statut_CL";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+    public function getStatut_Voiture()
+    {
+        $sql = "SELECT * FROM gc_statut_Voiture";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+    public function getStatut_Chauffeur()
+    {
+        $sql = "SELECT * FROM gc_statut_Chauffeur";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -229,7 +268,7 @@ class Model
         }
 
         $sql = "UPDATE gc_voiture SET immatriculation = ?, marque = ?, modele = ?,
-        capacite = ?,statut_voiture = ?, id_carburant = ? WHERE id_voiture = ?";
+        capacite = ?,statut_voiture = ?, id_carburant = ?, id_statut = ? WHERE id_voiture = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['immatriculation'] ?? '',
@@ -238,6 +277,7 @@ class Model
             $data['capacite'] ?? 1,
             $data['statut_voiture'] ?? '',
             $data['id_carburant'] ?? 1,
+            $data['id_statut'] ?? 1,
             $id
         ]);
     }
@@ -255,16 +295,17 @@ class Model
     public function addVoiture($data)
     {
         $sql = "INSERT INTO gc_voiture 
-        (immatriculation, marque, modele, capacite, statut_voiture, id_carburant)
-        VALUES (?, ?, ?, ?, ?, ?)";
+        (immatriculation, marque, modele, capacite, id_statut, id_carburant, id_statut)
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['immatriculation'] ?? '',
             $data['marque'] ?? '',
             $data['modele'] ?? '',
             $data['capacite'] ?? 1,
-            $data['statut_voiture'] ?? '',
-            $data['id_carburant'] ?? 1
+            $data['id_statut'] ?? '',
+            $data['id_carburant'] ?? 1,
+            $data['id_statut'] ?? 1
         ]);
         return $this->db->lastInsertId();
     }
@@ -275,6 +316,20 @@ class Model
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function addCarburant($data)
+    {
+        $sql = "INSERT INTO gc_carburant (type_carburant,prix_litre,date_dernier_approvisionnement) 
+        VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['type_carburant'] ?? '',
+            $data['prix_litre'] ?? 0.0,
+            $data['date_dernier_approvisionnement'] ?? null
+        ]);
+        return $this->db->lastInsertId();
+    }
+
     public function getImgColis($id_colis)
     {
         $sql = "SELECT imageColis FROM gc_photos_colis WHERE id_colis = ?";
@@ -363,6 +418,8 @@ class Model
             return;
         }
 
+        $profil_actuel = $data['profil_actuel'] ?? '' ;
+
         $profil = "" ;
           // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
         if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
@@ -373,11 +430,14 @@ class Model
                 error_log("Échec de l'upload pour le profil chauffeur");
             }
         }
+        if ($profil === "" ) {
+            $profil = $profil_actuel ;
+        }
 
         $sql = "UPDATE gc_chauffeur SET nom_chauffeur = ?, prenom_chauffeur = ?, 
         telephone_chauffeur = ?, email_chauffeur = ?,
         date_dassignation = ?, salaires_parLiv = ?, 
-        profile = ?, statut = ?
+        profil = ?, id_statut = ?
         WHERE id_chauffeur = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -388,7 +448,7 @@ class Model
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0,
             $profil ?? '',
-            $data['statut'] ?? 'disponible',
+            $data['id_statut'] ?? 1,
             $id
         ]);
     }
@@ -408,7 +468,7 @@ class Model
         
         $sql = "INSERT INTO gc_chauffeur 
         (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
-        date_dassignation, salaires_parLiv,profile, statut)
+        date_dassignation, salaires_parLiv,profil, id_statut)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -419,7 +479,7 @@ class Model
             $data['date_dassignation'] ?? null,
             $data['salaires_parLiv'] ?? 0.0,
             $profil ?? '',
-            $data['statut'] ?? 'disponible'
+            $data['id_statut'] ?? 1
         ]);
         return $this->db->lastInsertId();
     }
@@ -483,6 +543,182 @@ class Model
             $data['id_voiture'] ?? null
         ]);
         return $this->db->lastInsertId();
+    }
+
+    public function getChauffeurDispo(){
+        $sql = "SELECT * FROM gc_chauffeur WHERE id_statut = 1";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getColisDispo(){
+        $sql = "SELECT * FROM gc_colis WHERE id_statut = 1";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getVoitureDispo(){
+        $sql = "SELECT * FROM gc_voiture WHERE id_statut = 1";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getLivraisonByIdColis($id_colis){
+        $sql = "SELECT * FROM gc_livraison WHERE id_colis = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_colis]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function transactionLivraisonColis1( $data_livraison): bool
+    {
+        if (empty($data_livraison['id_colis']) || empty($data_livraison['id_statut'])) {
+            error_log("transactionLivraisonColis : données incomplètes");
+            return false;
+        }
+
+        $id_colis       = $data_livraison['id_colis'];
+        $nouveau_statut = (int) $data_livraison['id_statut'];
+        $date_livraison = $data_livraison['date_livraison'] ?? null;
+        $id_chauffeur   = $data_livraison['id_chauffeur'] ?? null;
+        $id_voiture     = $data_livraison['id_voiture'] ?? null;
+
+        // Définition des statuts "occupés"
+        $statut_occupé_chauffeur = 'en plein livraison';
+        $statut_libre_chauffeur  = 'disponible';
+
+        $this->db->beginTransaction();
+
+        try {
+            //  Récupérer le colis
+            $colis = $this->getColisById($id_colis);
+            if (!$colis) {
+                throw new \Exception("Colis introuvable (ID: $id_colis)");
+            }
+
+
+            //  Récupérer chauffeur et voiture
+            $chauffeur = $this->getChauffeurById($id_chauffeur);
+            $voiture   = $this->getVoitureById($id_voiture);
+
+            if (!$chauffeur || !$voiture) {
+                throw new \Exception("Chauffeur ou voiture introuvable");
+            }
+
+            $nouveau_statut_chauffeur = $data_livraison['id_statut'] === 1 ? $statut_occupé_chauffeur : $statut_libre_chauffeur;
+
+          // Préparer les données pour les mises à jour
+            // Mise à jour du COLIS
+            $data_colis = $colis;
+            $data_colis['id_statut']     = $nouveau_statut;
+            $data_colis['date_livraison']= $date_livraison;
+
+            // Mise à jour du CHAUFFEUR
+            $data_chauffeur = $chauffeur;
+            $data_chauffeur['id_chauffeur'] = $chauffeur['id_chauffeur'];
+            $data_chauffeur['statut']       = $nouveau_statut_chauffeur;
+
+            // Mise à jour de la VOITURE
+            $data_voiture = $voiture;
+            $data_voiture['id_voiture']     = $voiture['id_voiture'];
+
+            // 6. Exécuter les mises à jour
+            $idL = $this->addLivraison($data_livraison);
+            $this->updateColis($data_colis);
+            $this->updateChauffeur($data_chauffeur);
+            $this->updateVoiture($data_voiture);
+
+            $this->db->commit();
+            error_log("TransactionLivraisonColis réussie pour colis ID $id_colis (statut $nouveau_statut)");
+            return true;
+
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            error_log("Erreur transactionLivraisonColis (colis $id_colis) : " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Mise à jour uniquement du statut et date_livraison du colis
+    public function update_StatDate_Colis($id_colis, $id_statut, $date_livraison = null)
+    {
+        $sql = "UPDATE gc_colis SET id_statut = ?, date_livraison = ? WHERE id_colis = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_statut, $date_livraison, $id_colis]);
+    }
+
+    // Mise à jour uniquement du statut du chauffeur
+    public function update_Stat_Chauffeur($id_chauffeur, $id_statut)
+    {
+        $sql = "UPDATE gc_chauffeur SET id_statut = ? WHERE id_chauffeur = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_statut, $id_chauffeur]);
+    }
+
+    // Mise à jour uniquement du statut de la voiture (si tu en as besoin)
+    public function update_Stat_Voiture($id_voiture, $id_statut)
+    {
+        $sql = "UPDATE gc_voiture SET id_statut = ? WHERE id_voiture = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_statut, $id_voiture]);
+    }
+
+    public function transaction_Livraison_Colis($data_livraison): bool
+    {
+        if (empty($data_livraison['id_colis']) || empty($data_livraison['id_statut'])) {
+            error_log("transactionLivraisonColis : données incomplètes");
+            return false;
+        }
+
+        $id_colis       = $data_livraison['id_colis'];
+        $nouveau_statut = (int) $data_livraison['id_statut'];
+        $date_livraison = $data_livraison['date_livraison'] ?? null;
+        $id_chauffeur   = $data_livraison['id_chauffeur'] ?? null;
+        $id_voiture     = $data_livraison['id_voiture'] ?? null;
+
+        // Définition des statuts "occupés"
+        $statut_occupé_chauffeur = 2; // id pour "en plein livraison"
+        $statut_libre_chauffeur  = 1; // id pour "disponible"
+
+        $statut_occupé_voiture   = 2; // id pour "en livraison"
+        $statut_libre_voiture    = 1; // id pour "disponible"
+
+        $this->db->beginTransaction();
+        try {
+            //  Récupérer le colis
+            $colis = $this->getColisById($id_colis);
+            if (!$colis) {
+                throw new \Exception("Colis introuvable (ID: $id_colis)");
+            }
+
+
+            //  Récupérer chauffeur et voiture
+            $chauffeur = $this->getChauffeurById($id_chauffeur);
+            $voiture   = $this->getVoitureById($id_voiture);
+
+            if (!$chauffeur || !$voiture) {
+                throw new \Exception("Chauffeur ou voiture introuvable");
+            }
+
+            $nouveau_statut_chauffeur = $nouveau_statut == 1 ? $statut_occupé_chauffeur :$statut_libre_chauffeur;
+            $nouveau_statut_voiture   = $nouveau_statut == 1 ? $statut_occupé_voiture   :$statut_libre_voiture;
+
+            // 1. Update la livraison
+            $this->updateLivraison($data_livraison);
+
+            // 2. Mettre à jour seulement ce qui est nécessaire
+            $this->update_StatDate_Colis($id_colis, $nouveau_statut, $date_livraison);
+            $this->update_Stat_Chauffeur($id_chauffeur, $nouveau_statut_chauffeur);
+            $this->update_Stat_Voiture($id_voiture, $nouveau_statut_voiture);
+
+            $this->db->commit();
+            error_log("Transaction réussie pour colis $id_colis");
+            return true;
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            error_log("Erreur transaction : " . $e->getMessage());
+            return false;
+        }
     }
 
 }

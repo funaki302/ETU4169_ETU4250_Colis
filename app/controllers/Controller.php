@@ -89,11 +89,6 @@ class Controller
         );
     }
 
-    public function getStatuts()
-    {
-        return $this->model->getStatuts();
-    }
-
     public function getVoiture()
     {
         return $this->model->getVoiture();
@@ -134,17 +129,6 @@ class Controller
     public function getCarburants()
     {
         return $this->model->getCarburants();
-    }
-
-    public function getStatut_voiture()
-    {
-        $statut =
-            [
-                'disponible',
-                'en cours de livraison',
-                'maintenance'
-            ];
-        return $statut;
     }
 
     function getImgColis($id_colis)
@@ -197,15 +181,19 @@ class Controller
         return $this->model->deleteChauffeur($id);
     }
 
-    public function getStatut_chauffeur()
+    public function getStatut_Chauffeur()
     {
-        $statut =
-            [
-                'disponible',
-                'en plein livraison',
-                'en congé'
-            ];
-        return $statut;
+        return $this->model->getStatut_Chauffeur();
+    }
+
+    public function getStatut_Voiture()
+    {
+        return $this->model->getStatut_Voiture();
+    }
+
+    public function getStatut_CL()
+    {
+        return $this->model->getStatut_CL();
     }
 
     public function updateChauffeur()
@@ -256,7 +244,43 @@ class Controller
         Flight::redirect('/livraisons');
     }
 
+    public function getChauffeurDispo(){
+        return $this->model->getChauffeurDispo();
+    }
 
+    public function getColisDispo(){
+        return $this->model->getColisDispo();
+    }
+
+    public function getLivraisonByIdColis($id){
+        return $this->model->getLivraisonByIdColis($id);
+    }
+
+    public function insertLivraison()
+    {
+        $request = Flight::request();
+        $data = $request->data->getData();
+        $id_livraison = $this->model->addLivraison($data);
+        $livraison = $this->model->getLivraisonById($id_livraison);
+
+        $this->model->transaction_Livraison_Colis($livraison);
+
+        Flight::redirect('/livraisons');
+    }
+
+    public function editLivraison()
+    {
+        $request = Flight::request();
+        $data = $request->data->getData();
+        
+        $this->model->transaction_Livraison_Colis($data);
+
+        Flight::redirect('/livraisons');
+    }
+
+    public function getvoituresDispo(){
+        return $this->model->getVoitureDispo();
+    }
 
 
 }

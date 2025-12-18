@@ -1,0 +1,628 @@
+peux tu m'aide ra comprendre pourquoi ma fonction transactionLivraisonColis ne fonctionne pas : <?php
+namespace app\models;
+class Model
+{
+protected $db;
+public function upload($file)
+    {
+// Debug : affiche ce qu'on reçoit
+error_log("Fichier reçu dans upload : " . print_r($file, true));
+if (!$file || !isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+$errorCode = $file['error'] ?? 'inconnu';
+error_log("Erreur upload - Code : " . $errorCode);
+return null;
+        }
+$allowed = ['jpg', 'jpeg', 'png', 'webp'];
+$ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+if (!in_array($ext, $allowed)) {
+error_log("Extension non autorisée : " . $ext);
+return null;
+        }
+$uploadDir = **DIR** . '/../../public/images/';
+// Vérifie que le dossier existe
+if (!is_dir($uploadDir)) {
+error_log("Dossier d'upload inexistant : " . $uploadDir);
+if (!mkdir($uploadDir, 0777, true)) {
+error_log("Échec création dossier");
+return null;
+            }
+        }
+// Vérifie que c'est écrivable
+if (!is_writable($uploadDir)) {
+error_log("Dossier non écrivable : " . $uploadDir);
+return null;
+        }
+$uniqueName = uniqid('IMG_', true) . '.' . $ext;
+$targetPath = $uploadDir . $uniqueName;
+error_log("Tentative de déplacement vers : " . $targetPath);
+if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+error_log("Upload réussi : " . $uniqueName);
+return $uniqueName;
+        }
+error_log("Échec move_uploaded_file. tmp_name : " . $file['tmp_name']);
+return null;
+    }
+function insertImageColis($idColis, $image)
+    {
+$sql = 'INSERT into gc_photos_colis (id_colis , imageColis) values (?,?)';
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$idColis, $image]);
+    }
+public function __construct($db)
+    {
+$this->db = $db;
+    }
+public function getBenefitParAnne()
+    {
+$sql = "SELECT * FROM V_gc_BeneficeAnnee";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getBenefitParJour()
+    {
+$sql = "SELECT * FROM V_gc_BeneficeJour";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getBenefitParMois()
+    {
+$sql = "SELECT * FROM V_gc_BeneficeMois";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getColis()
+    {
+$sql = "SELECT * FROM gc_colis";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function updateColis($data)
+    {
+$id = $data['id_colis'] ?? null;
+if (!$id) {
+return;
+        }
+// === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+if (isset($data['imageColis']) && is_array($data['imageColis']) && $data['imageColis']['error'] === UPLOAD_ERR_OK) {
+$newname = $this->upload($data['imageColis']);
+if ($newname) {
+$this->insertImageColis($id, $newname);
+error_log("Image ajoutée avec succès pour le colis $id : $newname");
+            } else {
+error_log("Échec de l'upload pour le colis $id");
+            }
+        }
+// === GESTION DATE LIVRAISON SELON STATUT ===
+$date_livraison = null;
+if (isset($data['id_statut']) && $data['id_statut'] == 2) {
+$date_livraison = !empty($data['date_livraison']) ? $data['date_livraison'] : date('Y-m-d');
+        }
+// === MISE À JOUR DES CHAMPS DU COLIS ===
+$sql = "UPDATE gc_colis SET
+                nom_colis = ?,
+                nom_expediteur = ?,
+                adresse_expediteur = ?,
+                nom_destinataire = ?,
+                adresse_destinataire = ?,
+                date_expedition = ?,
+                date_livraison = ?,
+                kilos = ?,
+                id_statut = ?
+WHERE id_colis = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['nom_colis'] ?? '',
+$data['nom_expediteur'] ?? '',
+$data['adresse_expediteur'] ?? '',
+$data['nom_destinataire'] ?? '',
+$data['adresse_destinataire'] ?? '',
+$data['date_expedition'] ?? null,
+$date_livraison,
+$data['kilos'] ?? 0,
+$data['id_statut'] ?? 1,
+$id
+        ]);
+    }
+public function deleteColis($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "DELETE FROM gc_colis WHERE id_colis = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+    }
+public function getColisById($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "SELECT * FROM gc_colis WHERE id_colis = ? LIMIT 1";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null)
+    {
+$sql = "INSERT INTO gc_colis
+            (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos]);
+$idColis = $this->db->lastInsertId();
+error_log("Colis inséré avec ID : " . $idColis);
+if ($imageFile && $imageFile['error'] === UPLOAD_ERR_OK) {
+$newname = $this->upload($imageFile);
+if ($newname) {
+$this->insertImageColis($idColis, $newname);
+error_log("Image liée au colis : " . $newname);
+            } else {
+error_log("Échec upload de l'image pour colis " . $idColis);
+            }
+        } else {
+error_log("Aucun fichier image valide reçu");
+        }
+return $idColis;
+    }
+public function getStatuts()
+    {
+$sql = "SELECT * FROM gc_statut_trajet";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getVoiture()
+    {
+$sql = "SELECT * FROM gc_voiture";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getVoitureById($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "SELECT * FROM gc_voiture WHERE id_voiture = ? LIMIT 1";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+public function updateVoiture($data)
+    {
+$id = $data['id_voiture'] ?? null;
+if ($id === null) {
+return;
+        }
+$sql = "UPDATE gc_voiture SET immatriculation = ?, marque = ?, modele = ?,
+        capacite = ?,statut_voiture = ?, id_carburant = ? WHERE id_voiture = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['immatriculation'] ?? '',
+$data['marque'] ?? '',
+$data['modele'] ?? '',
+$data['capacite'] ?? 1,
+$data['statut_voiture'] ?? '',
+$data['id_carburant'] ?? 1,
+$id
+        ]);
+    }
+public function deleteVoiture($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "DELETE FROM gc_voiture WHERE id_voiture = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+    }
+public function addVoiture($data)
+    {
+$sql = "INSERT INTO gc_voiture
+        (immatriculation, marque, modele, capacite, statut_voiture, id_carburant)
+VALUES (?, ?, ?, ?, ?, ?)";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['immatriculation'] ?? '',
+$data['marque'] ?? '',
+$data['modele'] ?? '',
+$data['capacite'] ?? 1,
+$data['statut_voiture'] ?? '',
+$data['id_carburant'] ?? 1
+        ]);
+return $this->db->lastInsertId();
+    }
+public function getCarburants()
+    {
+$sql = "SELECT * FROM gc_carburant";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getImgColis($id_colis)
+    {
+$sql = "SELECT imageColis FROM gc_photos_colis WHERE id_colis = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id_colis]);
+$results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+// Si pas de résultat → tableau vide
+return $results ?: [];
+    }
+public function getCarburantById($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "SELECT * FROM gc_carburant WHERE id_carburant = ? LIMIT 1";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+    }
+public function critereColis($statut = null, $dateMin = null, $dateMax = null, $nom = null)
+    {
+$sql = "SELECT * FROM V_gc_ColisImg WHERE 1=1";
+$params = [];
+if ($statut !== null) {
+$sql .= " AND id_statut = ?";
+$params[] = (int) $statut;
+        }
+if ($dateMin !== null) {
+$sql .= " AND date_expedition >= ?";
+$params[] = $dateMin;
+        }
+if ($dateMax !== null) {
+$sql .= " AND date_expedition <= ?";
+$params[] = $dateMax;
+        }
+if ($nom !== null) {
+$sql .= " AND nom_colis LIKE ?";
+$params[] = '%' . $nom . '%';
+        }
+$sql .= " ORDER BY id_colis DESC";
+$stmt = $this->db->prepare($sql);
+$stmt->execute($params);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getChauffeur()
+    {
+$sql = "SELECT * FROM gc_chauffeur";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getChauffeurById($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "SELECT * FROM gc_chauffeur WHERE id_chauffeur = ? LIMIT 1";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+public function deleteChauffeur($id)
+    {
+if ($id === null) {
+return;
+        }
+$sql = "DELETE FROM gc_chauffeur WHERE id_chauffeur = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+    }
+public function updateChauffeur($data)
+    {
+$id = $data['id_chauffeur'] ?? null;
+if ($id === null) {
+return;
+        }
+$profil = "" ;
+// === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
+$newname = $this->upload($data['profil']);
+if ($newname) {
+$profil = $newname;
+            } else {
+error_log("Échec de l'upload pour le profil chauffeur");
+            }
+        }
+$sql = "UPDATE gc_chauffeur SET nom_chauffeur = ?, prenom_chauffeur = ?,
+        telephone_chauffeur = ?, email_chauffeur = ?,
+        date_dassignation = ?, salaires_parLiv = ?,
+profile = ?, statut = ?
+WHERE id_chauffeur = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['nom_chauffeur'] ?? '',
+$data['prenom_chauffeur'] ?? '',
+$data['telephone_chauffeur'] ?? '',
+$data['email_chauffeur'] ?? '',
+$data['date_dassignation'] ?? null,
+$data['salaires_parLiv'] ?? 0,
+$profil ?? '',
+$data['statut'] ?? 'disponible',
+$id
+        ]);
+    }
+public function addChauffeur($data)
+    {
+$profil = "" ;
+// === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
+$newname = $this->upload($data['profil']);
+if ($newname) {
+$profil = $newname;
+            } else {
+error_log("Échec de l'upload pour le profil chauffeur");
+            }
+        }
+$sql = "INSERT INTO gc_chauffeur
+        (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
+        date_dassignation, salaires_parLiv,profile, statut)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['nom_chauffeur'] ?? '',
+$data['prenom_chauffeur'] ?? '',
+$data['telephone_chauffeur'] ?? '',
+$data['email_chauffeur'] ?? '',
+$data['date_dassignation'] ?? null,
+$data['salaires_parLiv'] ?? 0.0,
+$profil ?? '',
+$data['statut'] ?? 'disponible'
+        ]);
+return $this->db->lastInsertId();
+    }
+public function getLivraisons(){
+$sql = "SELECT * FROM gc_livraison";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getLivraisonById($id){
+if ($id === null) {
+return;
+        }
+$sql = "SELECT * FROM gc_livraison WHERE id_livraison = ? LIMIT 1";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+public function deleteLivraison($id){
+if ($id === null) {
+return;
+        }
+$sql = "DELETE FROM gc_livraison WHERE id_livraison = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id]);
+    }
+public function updateLivraison($data){
+if ($data === null) {
+return;
+        }
+$sql = "UPDATE gc_livraison set id_colis = ?,
+        date_livraison = ? , heure_livraison = ?, id_statut = ?,
+        id_chauffeur = ?, id_voiture = ? WHERE id_livraison = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['id_colis'] ?? null,
+$data['date_livraison'] ?? null,
+$data['heure_livraison'] ?? null,
+$data['id_statut'] ?? null,
+$data['id_chauffeur'] ?? null,
+$data['id_voiture'] ?? null,
+$data['id_livraison'] ?? null
+        ]);
+    }
+public function addLivraison($data){
+$sql = "INSERT INTO gc_livraison
+        (id_colis, date_livraison, heure_livraison, id_statut, id_chauffeur, id_voiture)
+VALUES (?, ?, ?, ?, ?, ?)";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([
+$data['id_colis'] ?? null,
+$data['date_livraison'] ?? null,
+$data['heure_livraison'] ?? null,
+$data['id_statut'] ?? null,
+$data['id_chauffeur'] ?? null,
+$data['id_voiture'] ?? null
+        ]);
+return $this->db->lastInsertId();
+    }
+public function getChauffeurDispo(){
+$sql = "SELECT * FROM gc_chauffeur WHERE statut = 'disponible'";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getColisAnnule(){
+$sql = "SELECT * FROM gc_colis WHERE id_statut = 3";
+$stmt = $this->db->query($sql);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function getLivraisonByIdColis($id_colis){
+$sql = "SELECT * FROM gc_livraison WHERE id_colis = ?";
+$stmt = $this->db->prepare($sql);
+$stmt->execute([$id_colis]);
+return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+public function transactionLivraisonColis( $data_livraison): bool
+    {
+if (empty($data_livraison['id_colis']) || empty($data_livraison['id_statut'])) {
+error_log("transactionLivraisonColis : données incomplètes");
+return false;
+        }
+$id_colis = $data_livraison['id_colis'];
+$nouveau_statut = (int) $data_livraison['id_statut'];
+$date_livraison = $data_livraison['date_livraison'] ?? null;
+$id_chauffeur = $data_livraison['id_chauffeur'] ?? null;
+$id_voiture = $data_livraison['id_voiture'] ?? null;
+// Définition des statuts "occupés"
+$statut_occupé_chauffeur = 'en plein livraison';
+$statut_libre_chauffeur = 'disponible';
+$this->db->beginTransaction();
+try {
+// Récupérer le colis
+$colis = $this->getColisById($id_colis);
+if (!$colis) {
+throw new \Exception("Colis introuvable (ID: $id_colis)");
+            }
+// Récupérer chauffeur et voiture
+$chauffeur = $this->getChauffeurById($id_chauffeur);
+$voiture = $this->getVoitureById($id_voiture);
+if (!$chauffeur || !$voiture) {
+throw new \Exception("Chauffeur ou voiture introuvable");
+            }
+$nouveau_statut_chauffeur = $data_livraison['id_statut'] === 1 ? $statut_occupé_chauffeur : $statut_libre_chauffeur;
+// Préparer les données pour les mises à jour
+// Mise à jour du COLIS
+$data_colis = $colis;
+$data_colis['id_statut'] = $nouveau_statut;
+$data_colis['date_livraison']= $date_livraison;
+// Mise à jour du CHAUFFEUR
+$data_chauffeur = $chauffeur;
+$data_chauffeur['id_chauffeur'] = $chauffeur['id_chauffeur'];
+$data_chauffeur['statut'] = $nouveau_statut_chauffeur;
+// Mise à jour de la VOITURE
+$data_voiture = $voiture;
+$data_voiture['id_voiture'] = $voiture['id_voiture'];
+// 6. Exécuter les mises à jour
+$this->updateColis($data_colis);
+$this->updateLivraison($data_livraison);
+$this->updateChauffeur($data_chauffeur);
+$this->updateVoiture($data_voiture);
+$this->db->commit();
+error_log("TransactionLivraisonColis réussie pour colis ID $id_colis (statut $nouveau_statut)");
+return true;
+        } catch (\Exception $e) {
+$this->db->rollBack();
+error_log("Erreur transactionLivraisonColis (colis $id_colis) : " . $e->getMessage());
+return false;
+        }
+    }
+} voici mon routes.php : <?php
+use app\controllers\Controller;
+use app\middlewares\SecurityHeadersMiddleware;
+use flight\Engine;
+use flight\net\Router;
+$router->group('', function (Router $router) use ($app) {
+$router->get('/', function () use ($app) {
+$controller = new Controller($app);
+// On utilise la nouvelle méthode avec filtres
+$liste = $controller->listeColisAvecFiltres();
+$app->render('home.php', [
+'liste' => $liste,
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->get('/benefices', function () use ($app) {
+$controller = new Controller($app);
+$beneficeAnne = $controller->getBenefitParAnne();
+$beneficeMois = $controller->getBenefitParMois();
+$beneficeJour = $controller->getBenefitParJour();
+$app->render('Benefice', [
+'beneficeAnne' => $beneficeAnne,
+'beneficeMois' => $beneficeMois,
+'beneficeJour' => $beneficeJour,
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->get('/colis/@id', function ($id) use ($app) {
+$controller = new Controller($app);
+$app->render('detailsColis', [
+'colis' => $controller->getColisById($id),
+'statuts' => $controller->getStatuts(),
+'imageColis'=> $controller->getImgColis($id),
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->post('/colis/update/', function () use ($app) {
+$controller = new Controller($app);
+$controller->updateColis();
+    });
+$router->get('/voitures', function () use ($app) {
+$controller = new Controller($app);
+$app->render('voitures', [
+'liste' => $controller->getVoiture(),
+'carburants' => $controller->getCarburants(),
+'statut_voiture' => $controller->getStatut_voiture(),
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->post('/voitures/add', function () use ($app) {
+$controller = new Controller($app);
+$controller->addVoiture();
+    });
+$router->post('/voitures/update/', function() use ($app) {
+$controller = new Controller($app);
+$controller->updateVoiture();
+    });
+$router->get('/chauffeurs', function () use ($app) {
+$controller = new Controller($app);
+$app->render('Chauffeurs', [
+'liste' => $controller->getChauffeur(),
+'statut_chauffeur' => $controller->getStatut_chauffeur(),
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->post('/chauffeurs/add', function () use ($app) {
+$controller = new Controller($app);
+$controller->addChauffeur();
+Flight::redirect('/chauffeurs');
+    });
+$router->post('/chauffeurs/delete/@id', function ($id) use ($app) {
+$controller = new Controller($app);
+$controller->deleteChauffeur($id);
+Flight::redirect('/chauffeurs');
+    });
+$router->get('/chauffeur/@id', function ($id) use ($app) {
+$controller = new Controller($app);
+$app->render('detailsChauffeur', [
+'chauffeur' => $controller->getChauffeurById($id),
+'statuts' => $controller->getStatut_chauffeur(),
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->post('/chauffeur/update/', function() use ($app) {
+$controller = new Controller($app);
+$controller->updateChauffeur();
+    });
+$router->post('/insertColis', function () use ($app) {
+$controller = new Controller($app);
+$nom = $_POST['nom'] ?? '';
+$nom_expediteur = $_POST['nom_expediteur'] ?? '';
+$adresse_expediteur = $_POST['adresse_expediteur'] ?? '';
+$nom_destinataire = $_POST['nom_destinataire'] ?? '';
+$adresse_destinataire = $_POST['adresse_destinataire'] ?? '';
+$date_expedition = $_POST['date_expedition'] ?? null;
+$date_livraison = $_POST['date_livraison'] ?? null;
+$kilos = $_POST['kilos'] ?? 0;
+$images = $_FILES['imageColis'] ?? null;
+$controller->InsertColis(
+$nom,
+$nom_expediteur,
+$adresse_expediteur,
+$nom_destinataire,
+$adresse_destinataire,
+$date_expedition,
+$date_livraison,
+$kilos,
+$images
+        );
+        \Flight::redirect('/');
+    });
+$router->get('/formInsert', function () use ($app) {
+// Affiche la page InsertColis.php
+$app->render('InsertColis', [
+'csp_nonce' => \Flight::get('csp_nonce')
+        ]);
+    });
+$router->get('/livraisons', function () use ($app) {
+$controller = new Controller($app);
+$app->render('Livraison', [
+'liste' => $controller->getLivraisons(),
+'voitures' => $controller->getVoiture(),
+'chauffeurs' => $controller->getChauffeurDispo(),
+'colis' => $controller-> getColisAnnule(),
+'statuts' => $controller->getStatuts(),
+'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+$router->post('/livraison/add', function () use ($app) {
+$controller = new Controller($app);
+$controller->transactionLivraisonColis();
+Flight::redirect('/livraisons');
+    });
+}, [SecurityHeadersMiddleware::class]);

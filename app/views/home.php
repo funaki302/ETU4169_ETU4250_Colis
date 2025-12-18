@@ -3,7 +3,15 @@
 <main class="container my-5">
     <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
         Liste des colis
+        
     </h2>
+    <a href="/formInsert"
+        id="btnAddLiv"
+        class="btn btn-success btn-lg px-4 shadow-sm d-inline-flex align-items-center gap-2 ms-3">
+         <i class="bi bi-plus-circle"></i>
+        Ajouter
+    </a>
+    <br>
 
     <!-- Formulaire de filtres -->
     <div class="card mb-5 shadow-lg border-0 rounded-4">
@@ -13,9 +21,9 @@
                     <label for="statut" class="form-label fw-semibold">Statut</label>
                     <select name="statut" id="statut" class="form-select">
                         <option value="tous">Tous les statuts</option>
-                        <option value="1" <?= (isset($_GET['statut']) && $_GET['statut'] == 1) ? 'selected' : '' ?>>En attente</option>
-                        <option value="2" <?= (isset($_GET['statut']) && $_GET['statut'] == 2) ? 'selected' : '' ?>>Livré</option>
-                        <option value="3" <?= (isset($_GET['statut']) && $_GET['statut'] == 3) ? 'selected' : '' ?>>Annulé</option>
+                        <?php foreach ($statuts as $stat) { ?>
+                            <option value="<?= $stat['id_statut'] ?>"><?= $stat['statut'] ?></option>
+                        <?php } ?>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -50,9 +58,10 @@
                 // Statut avec couleurs harmonisées
                 $statutId = $row['id_statut'] ?? null;
                 switch ($statutId) {
-                    case 1: $statutTexte = "En attente"; $statutBadge = "bg-warning text-dark"; break;
-                    case 2: $statutTexte = "Livré"; $statutBadge = "bg-success"; break;
-                    case 3: $statutTexte = "Annulé"; $statutBadge = "bg-danger"; break;
+                    case 1: $statutTexte = "En attente"; $statutBadge = "bg-warning"; break;
+                    case 2: $statutTexte = "En cours de livraison"; $statutBadge = "bg-info"; break;
+                    case 3: $statutTexte = "Livré"; $statutBadge = "bg-success"; break;
+                    case 4: $statutTexte = "Annulé"; $statutBadge = "bg-danger"; break;
                     default: $statutTexte = "Inconnu"; $statutBadge = "bg-secondary"; break;
                 }
                 ?>

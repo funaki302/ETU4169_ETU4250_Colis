@@ -32,7 +32,7 @@
                     <select name="statut" id="statut" class="form-select">
                         <option value="tous">Tous les statuts</option>
                         <?php foreach ($statut_chauffeur as $statut): ?>
-                            <option value="<?= $statut ?>"><?= $statut ?></option>
+                            <option value="<?= $statut['id_statut'] ?>"><?= $statut['statut'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -49,23 +49,23 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($liste as $row): ?>
                 <?php
-                if ($row['statut'] === 'disponible') {
-                    $class = 'bg-success';
-                } else if ($row['statut'] === 'en plein livraison') {
-                    $class = 'bg-warning';
-                } else if ($row['statut'] === 'en congé') {
-                    $class = 'bg-danger';
+                $statutId = $row['id_statut'] ?? null;
+                switch ($statutId) {
+                    case 1: $statutTexte = "Disponible"; $class = "bg-success"; break;
+                    case 2: $statutTexte = "En plein livraison"; $class = "bg-warning"; break;
+                    case 3: $statutTexte = "En congé"; $class = "bg-danger"; break;
+                    default: $statutTexte = "Inconnu"; $class = "bg-secondary"; break;
                 }
                 ?>
                 <div class="col">
                     <div class="card h-100 shadow-sm hover-shadow transition">
                         <div class="position-absolute top-0 start-0 p-2 z-index-10">
-                            <span class="badge <?= $class ?> fs-6"><?= $row['statut'] ?></span>
+                            <span class="badge <?= $class ?> fs-6"><?= $statutTexte ?></span>
                         </div>
 
                         <div class="text-center bg-light" style="height: 250px; overflow: hidden;">
-                            <?php if ($row['profile']): ?>
-                                <img src="/images/<?= htmlspecialchars($row['profile']) ?>"
+                            <?php if ($row['profil']): ?>
+                                <img src="/images/<?= htmlspecialchars($row['profil']) ?>"
                                     class="card-img-top img-fluid h-100 w-100" style="object-fit: cover;" alt="">
                             <?php else: ?>
                                 <div class="d-flex flex-column justify-content-center align-items-center h-100 text-muted">

@@ -22,7 +22,7 @@
                     <th>Modèle</th>
                     <th>Capacité (Puissance)</th>
                     <th>Statut</th>
-                    <th>ID Carburant</th>
+                    <th>Carburant</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -55,31 +55,23 @@
                                 required>
                             </td>
                             <td>
-                                <select name="statut_voiture" class="form-control" required>
-                                    <option value="<?= htmlspecialchars($row['statut_voiture'] ?? '') ?>"><?= htmlspecialchars($row['statut_voiture'] ?? '') ?></option>
-                                    <?php if (isset($statut_voiture)) { 
-                                        foreach ($statut_voiture as $stat) { 
-                                            if ($stat != ($row['statut_voiture'])) { ?>
-                                                <option value="<?= $stat ?>"><?= $stat ?></option>
+                                <select name="id_statut" class="form-control" required>
+                                        <option value="<?= $row['id_statut'] ?>"><?= $statut_voiture[$row['id_statut']-1]['statut'] ?></option>
+                                        <?php foreach ($statut_voiture as $stat) { ?>
+                                            <?php if ($stat['id_statut'] !== ($row['id_statut'])) { ?>
+                                                <option value="<?= $stat['id_statut'] ?>"><?= $stat['statut'] ?></option>
                                             <?php }?>
                                         <?php } ?>
-                                    <?php } ?>
                                 </select>
                             </td>
                             <td>
                                 <select name="id_carburant" class="form-control" required>
-                                    <?php if (isset($carburants)) { 
-                                        foreach ($carburants as $carburant) { 
-                                            if ($carburant['id_carburant'] == ($row['id_carburant'])) { ?>
-                                                <option value="<?= $carburant['id_carburant'] ?>"><?= $carburant['type_carburant'] ?></option>
-                                            <?php }
-                                            if ($carburant['id_carburant'] != ($row['id_carburant'])) { ?>
+                                    <option value="<?= $row['id_carburant'] ?>"><?= $carburants[$row['id_carburant']-1]['type_carburant'] ?></option>
+                                        <?php foreach ($carburants as $carburant) { 
+                                            if ($carburant['id_carburant'] !== ($row['id_carburant'])) { ?>
                                                 <option value="<?= $carburant['id_carburant'] ?>"><?= $carburant['type_carburant'] ?></option>
                                             <?php }?>
                                         <?php } ?>    
-                                    <?php } else { ?>
-                                        <option value="1">Carburant par defaut 1</option>
-                                    <?php } ?>
                                 </select>
                             </td>
                             <td>
@@ -120,10 +112,10 @@
                     <select name="statut_voiture" class="form-control">
                         <?php if (isset($statut_voiture)) {   
                             foreach ($statut_voiture as $stat) { ?>
-                                <option value="<?= $stat ?>"><?= $stat ?></option>
+                                <option value="<?= $stat['id_statut'] ?>"><?= $stat['statut'] ?></option>
                             <?php } ?>
                         <?php }else { ?>
-                            <option value="disponnible">disponnible par defaut 1</option>
+                            <option value="1">disponnible par defaut 1</option>
                         <?php } ?>
                     </select>
                 </div>
@@ -138,6 +130,15 @@
                             <option value="1">Carburant par defaut 1</option>
                         <?php } ?>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="imageColis" class="form-label fw-semibold text-dark">Ajouter une
+                        photo</label>
+                    <input type="file" name="imageColis" id="imageColis" class="form-control"
+                        accept="image/*">
+                    <div class="form-text">Sélectionnez une image (JPG, PNG, WebP). Vous pouvez en ajouter
+                        plusieurs fois.</div>
+                    </div>
                 </div>
                 <button class="btn btn-primary">Enregistrer</button>
                 <button type="button" id="btnCancel" class="btn btn-secondary">Annuler</button>

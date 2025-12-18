@@ -48,11 +48,11 @@
       - [ok] un formulaire pour ajouter un nouveau chauffeur
     - [ok] Bouton voir les informations du chauffeur
 
-- [] detailsChauffeur.php
+- [ok] detailsChauffeur.php
   -Page:
     - [ok] Afficher les informations du chauffeur
     - [ok] un formulaire pres remplit pour modifier un chauffeur
-    - [] upload photo de profile
+    - [ok] upload photo de profile
 
 - [] Livraison.php
   - FONCTION:
@@ -61,8 +61,68 @@
     - [ok] updateLivraison()
     - [ok] deleteLivraison()
     - [ok] addLivraison()
+    - [ok] getChauffeurDispo()
+    - [ok] getColisDispo()
+    - [ok] getLivraisonByIdColis()
+    - [] transactionColisLivraison()
 
   - Page:
-   -[] Afficher la liste de tous les Livraison
+    - [ok] Afficher la liste de tous les Livraison
+    - [ok] Bouton + pour ajouter une nouvelle Livraison
+      - [ok] Formulaire a remplir
+    - [] Bouton qui permet de voir les details de cette Livraison
+
+  - Logique:
+    [] ajouter une statut EN COURS DE LIVRAISON
+    [] colis creer au depart, est EN COURS DE LIVRAISON par defaut
+
+    ____________COLIS____________LIVRAISON____________CHAUFFEUR____________VOITURE____________
+.statut       livrer             livrer               disponible        disponible
+
+.annule       annule             annule               disponible        disponible
+
+.en attente   en cours de         en cours de          en plein           en plein
+              livr                  livr                livr                livr
+
+.en attente    en attente         disponible            disponible               aucun
+de livr          de livr
+
+
+    [] quand on cree une livraison:
+         le statut du colis passe a EN COURS DE LIVRAISON
+    [] quand on assigne un chauffeur et une voiture:
+         le statut du chauffeur et de la voiture passe a EN PLEIN LIVRAISON
+    [] quand la livraison est terminee:
+         le statut du colis passe a LIVRE, 
+         le statut du chauffeur et de la voiture passe a DISPONIBLE
+    [] si on annule une livraison:
+         le statut du colis passe a ANNULE, 
+         le statut du chauffeur et de la voiture passe a DISPONIBLE
+
+
+STATUTS POSSIBLES:
+  [] colis / livraison :
+    - en attente
+    - en cours de livraison
+    - livre
+    - annule
+
+  [] chauffeur :
+    - disponible
+    - en plein livraisons 
+    - en congé
+
+  [] voiture :
+    - disponible
+    - en plein livraisons
+    - en maintenance
+    - hors service
+
+🟡 Jaune  → bg-warning
+🔵 Bleu   → bg-info
+🟢 Vert   → bg-success
+🔴 Rouge  → bg-danger
+
+
 
 
