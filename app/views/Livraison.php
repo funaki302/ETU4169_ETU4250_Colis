@@ -77,7 +77,7 @@
     <div id="formLivraison" class="card mt-4" style="display:none;">
         <div class="card-body">
             <h5 class="card-title">Ajouter une nouvelle livraison</h5>
-            <form method="post" action="/livraisons/add" enctype="multipart/form-data">
+            <form method="post" action="/livraison/add" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">Colis</label>
                     <select name="id_colis" class="form-select">
@@ -140,11 +140,6 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Remarques</label>
-                    <textarea name="remarques" class="form-control" rows="3"></textarea>
                 </div>
 
                 <button class="btn btn-primary">Enregistrer</button>

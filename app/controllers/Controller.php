@@ -99,6 +99,14 @@ class Controller
         $request = Flight::request();
         $data = $request->data->getData();
 
+        $imageFile = $_FILES['imageVoiture'] ?? null;
+
+        if ($imageFile && $imageFile['error'] === UPLOAD_ERR_OK) {
+            $data['imageVoiture'] = $imageFile;  // On passe le tableau complet
+        } else {
+            $data['imageVoiture'] = null;
+        }
+
         $this->model->addVoiture($data);
         Flight::redirect('/voitures');
     }
