@@ -66,3 +66,32 @@ FROM
     gc_colis AS c
 LEFT JOIN 
     gc_photos_colis AS p ON c.id_colis = p.id_colis GROUP by c.id_colis;
+
+/* CHANGEMENT  */
+CREATE OR REPLACE VIEW V_gc_ColisImg AS
+SELECT 
+    c.id_colis,
+    c.nom_colis,
+    c.nom_expediteur,
+    c.adresse_expediteur,
+    c.nom_destinataire,
+    c.adresse_destinataire,
+    c.date_expedition,
+    c.date_livraison,
+    c.kilos,
+    c.id_statut,
+    MIN(p.imageColis) AS imageColis
+FROM gc_colis c
+LEFT JOIN gc_photos_colis p 
+    ON c.id_colis = p.id_colis
+GROUP BY
+    c.id_colis,
+    c.nom_colis,
+    c.nom_expediteur,
+    c.adresse_expediteur,
+    c.nom_destinataire,
+    c.adresse_destinataire,
+    c.date_expedition,
+    c.date_livraison,
+    c.kilos,
+    c.id_statut;
