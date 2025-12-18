@@ -184,4 +184,6 @@
                   -> [ok] inserer la fonction upload et insertImgColis 
 
                       
+          CSS(AI) :
           
+
