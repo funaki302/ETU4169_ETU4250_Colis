@@ -126,24 +126,27 @@ class Controller
         return $this->model->getVoitureById($id);
     }
 
-    public function getCarburantById($id){
+    public function getCarburantById($id)
+    {
         return $this->model->getCarburantById($id);
     }
 
-    public function getCarburants(){
+    public function getCarburants()
+    {
         return $this->model->getCarburants();
     }
 
-    public function getStatut_voiture(){
-        $statut = 
-        [
-            'disponible',
-            'en cours de livraison',
-            'maintenance'
-        ];
+    public function getStatut_voiture()
+    {
+        $statut =
+            [
+                'disponible',
+                'en cours de livraison',
+                'maintenance'
+            ];
         return $statut;
     }
-    
+
     function getImgColis($id_colis)
     {
         return $this->model->getImgColis($id_colis);
@@ -172,7 +175,15 @@ class Controller
     {
         $request = Flight::request();
         $data = $request->data->getData();
+        // Récupère manuellement le fichier uploadé depuis $_FILES
+        $imageFile = $_FILES['profil'] ?? null;
 
+        // Si un fichier est uploadé, on l'ajoute aux données
+        if ($imageFile && $imageFile['error'] === UPLOAD_ERR_OK) {
+            $data['profil'] = $imageFile;  // On passe le tableau complet
+        } else {
+            $data['profil'] = null;
+        }
         $this->model->addChauffeur($data);
     }
 
@@ -186,13 +197,14 @@ class Controller
         return $this->model->deleteChauffeur($id);
     }
 
-    public function getStatut_chauffeur(){
-        $statut = 
-        [
-            'disponible',
-            'en plein livraison',
-            'en congé'
-        ];
+    public function getStatut_chauffeur()
+    {
+        $statut =
+            [
+                'disponible',
+                'en plein livraison',
+                'en congé'
+            ];
         return $statut;
     }
 
@@ -200,30 +212,44 @@ class Controller
     {
         $request = Flight::request();
         $data = $request->data->getData();
+        // Récupère manuellement le fichier uploadé depuis $_FILES
+        $imageFile = $_FILES['profil'] ?? null;
+
+        // Si un fichier est uploadé, on l'ajoute aux données
+        if ($imageFile && $imageFile['error'] === UPLOAD_ERR_OK) {
+            $data['profil'] = $imageFile;  // On passe le tableau complet
+        } else {
+            $data['profil'] = null;
+        }
         $this->model->updateChauffeur($data);
         Flight::redirect('/chauffeurs');
     }
 
-    public function getLivraisons(){
+    public function getLivraisons()
+    {
         return $this->model->getLivraisons();
     }
-    
-    public function deleteLivraison($id){
+
+    public function deleteLivraison($id)
+    {
         return $this->model->deleteLivraison($id);
     }
-    
-    public function getLivraisonById($id){
+
+    public function getLivraisonById($id)
+    {
         return $this->model->getLivraisonById($id);
     }
 
-    public function updateLivraison(){
+    public function updateLivraison()
+    {
         $request = Flight::request();
         $data = $request->data->getData();
         $this->model->updateLivraison($data);
         Flight::redirect('/livraisons');
     }
 
-    public function addLivraison(){
+    public function addLivraison()
+    {
         $request = Flight::request();
         $data = $request->data->getData();
         $this->model->addLivraison($data);

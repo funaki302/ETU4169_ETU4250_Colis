@@ -81,7 +81,7 @@
 
                         <div class="col-12">
                             <label class="form-label"><i class="bi bi-image me-2"></i>Photo de profil</label>
-                            <input type="file" name="profile" accept="image/*" class="form-control">
+                            <input type="file" name="profil" accept="image/*" class="form-control">
                             <?php if ($profileImage): ?>
                                 <small class="text-muted d-block mt-2">
                                     <i class="bi bi-check-circle text-success me-1"></i>
