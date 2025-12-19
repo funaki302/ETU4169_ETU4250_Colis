@@ -27,7 +27,7 @@ INSERT INTO gc_chauffeur
 (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur, date_dassignation, salaires_parLiv, profil, id_statut)
 VALUES
 ('Rakoto', 'Jean', '0341234567', 'rakoto.jean@email.com', '2024-12-01', 15, 'chauffeur1.jpg', 1),
-('Rabe', 'Paul', '0329876543', 'rabe.paul@email.com', '2024-12-10', 18, 'chauffeur2.jpg', 2),
+('Rabe', 'Paul', '0329876543', 'rabe.paul@email.com', '2024-12-10', 18, 'chauffeur2.jpg', 1),
 ('Randria', 'Marc', '0335558888', 'randria.marc@email.com', '2024-11-20', 20, 'chauffeur3.jpg', 1);
 
 INSERT INTO gc_colis
@@ -60,3 +60,5 @@ INSERT INTO gc_trajet_colis (id_colis, adresse_depart, adresse_arrivee) VALUES
 (3, 'Mahajanga', 'Antananarivo'),
 (4, 'Toliara', 'Morondava');
 
+INSERT INTO gc_voiture (immatriculation, marque, modele, capacite, id_carburant, id_statut,imageVoiture) VALUES
+('AB-123-CD', 'Tatata', 'Hilux', 1000, 2, 1, 'voiture1.jpg');

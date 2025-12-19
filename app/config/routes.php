@@ -160,7 +160,7 @@ $router->group('', function (Router $router) use ($app) {
 
     $router->post('/livraison/update/', function () use ($app) {
         $controller = new Controller($app);
-        $controller->updateLivraison();
+        $controller->editLivraison();
         Flight::redirect('/livraisons');
     });
 

@@ -711,8 +711,8 @@ class Model
                 throw new \Exception("Chauffeur ou voiture introuvable");
             }
 
-            $nouveau_statut_chauffeur = $nouveau_statut == 1 ? $statut_occupé_chauffeur :$statut_libre_chauffeur;
-            $nouveau_statut_voiture   = $nouveau_statut == 1 ? $statut_occupé_voiture   :$statut_libre_voiture;
+            $nouveau_statut_chauffeur = $nouveau_statut == 2 ? $statut_occupé_chauffeur : $statut_libre_chauffeur ;
+            $nouveau_statut_voiture   = $nouveau_statut == 2 ? $statut_occupé_voiture : $statut_libre_voiture ;
 
             // 1. Update la livraison
             $this->updateLivraison($data_livraison);

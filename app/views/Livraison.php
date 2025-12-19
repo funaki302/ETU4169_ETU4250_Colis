@@ -5,32 +5,6 @@
         <button id="btnAddLivraison" class="btn btn-success ms-3">+</button>
     </h2>
 
-    <!-- Filtres -->
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <form method="get" action="/livraisons" class="row g-3">
-
-                <div class="col-md-4">
-                    <label for="statut" class="form-label">Statut</label>
-                    <select name="statut" id="statut" class="form-select">
-                        <option value="tous">Tous</option>
-                        <option value="en_attente" <?= (($_GET['statut'] ?? '') === 'en_attente') ? 'selected' : '' ?>>En attente</option>
-                        <option value="en_cours" <?= (($_GET['statut'] ?? '') === 'en_cours') ? 'selected' : '' ?>>En cours</option>
-                        <option value="livree" <?= (($_GET['statut'] ?? '') === 'livree') ? 'selected' : '' ?>>Livrée</option>
-                        <option value="annulee" <?= (($_GET['statut'] ?? '') === 'annulee') ? 'selected' : '' ?>>Annulée</option>
-                    </select>
-                </div>
-
-                <div class="col-md-4 d-flex align-items-end justify-content-end">
-                    <div>
-                        <button type="submit" class="btn btn-primary me-2">Filtrer</button>
-                        <a href="/livraisons" class="btn btn-outline-secondary">Réinitialiser</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($liste as $row): ?>

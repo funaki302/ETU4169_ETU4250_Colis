@@ -5,46 +5,6 @@
         <button id="btnAddChauffeur" class="btn btn-success">+ Ajouter</button>
     </h2>
 
-    <!-- Formulaire de filtres -->
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <form method="get" action="/chauffeurs" class="row g-3">
-                <div class="col-md-3">
-                    <label for="nom" class="form-label">Nom du chauffeur</label>
-                    <input type="text" name="nom" id="nom" class="form-control" placeholder="Rechercher..."
-                        value="<?= htmlspecialchars($_GET['nom'] ?? '') ?>">
-                </div>
-
-                <div class="col-md-3">
-                    <label for="salaire_min" class="form-label">Salaire par livraison ≥</label>
-                    <input type="number" name="salaire_min" id="salaire_min" class="form-control"
-                        value="<?= htmlspecialchars($_GET['salaire_min'] ?? '') ?>">
-                </div>
-
-                <div class="col-md-3">
-                    <label for="salaire_max" class="form-label">Salaire par livraison ≤</label>
-                    <input type="number" name="salaire_max" id="salaire_max" class="form-control"
-                        value="<?= htmlspecialchars($_GET['salaire_max'] ?? '') ?>">
-                </div>
-
-                <div class="col-md-3">
-                    <label for="statut" class="form-label">Statut</label>
-                    <select name="statut" id="statut" class="form-select">
-                        <option value="tous">Tous les statuts</option>
-                        <?php foreach ($statut_chauffeur as $statut): ?>
-                            <option value="<?= $statut['id_statut'] ?>"><?= $statut['statut'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="col-md-12 text-end">
-                    <button type="submit" class="btn btn-primary me-2">Filtrer</button>
-                    <a href="/" class="btn btn-outline-secondary">Réinitialiser</a>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($liste as $row): ?>

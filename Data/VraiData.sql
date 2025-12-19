@@ -119,7 +119,7 @@ JOIN gc_chauffeur ch ON l.id_chauffeur = ch.id_chauffeur
 JOIN gc_voiture v ON l.id_voiture = v.id_voiture
 JOIN gc_carburant cb ON v.id_carburant = cb.id_carburant
 JOIN gc_tarifs t ON t.unite = 'kg'
-WHERE l.id_statut = 2
+WHERE l.id_statut = 3
 GROUP BY DATE(l.date_livraison);
 
 CREATE OR REPLACE VIEW V_gc_BeneficeMois AS
@@ -136,7 +136,7 @@ JOIN gc_chauffeur ch ON l.id_chauffeur = ch.id_chauffeur
 JOIN gc_voiture v ON l.id_voiture = v.id_voiture
 JOIN gc_carburant cb ON v.id_carburant = cb.id_carburant
 JOIN gc_tarifs t ON t.unite = 'kg'
-WHERE l.id_statut = 2
+WHERE l.id_statut = 3
 GROUP BY YEAR(l.date_livraison), MONTH(l.date_livraison);
 
 CREATE OR REPLACE VIEW V_gc_BeneficeAnnee AS
@@ -152,7 +152,7 @@ JOIN gc_chauffeur ch ON l.id_chauffeur = ch.id_chauffeur
 JOIN gc_voiture v ON l.id_voiture = v.id_voiture
 JOIN gc_carburant cb ON v.id_carburant = cb.id_carburant
 JOIN gc_tarifs t ON t.unite = 'kg'
-WHERE l.id_statut = 2
+WHERE l.id_statut = 3
 GROUP BY YEAR(l.date_livraison);
 
 
