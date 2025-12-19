@@ -733,6 +733,7 @@ class Model
         }
     }
 
+<<<<<<< HEAD
     public function getZone() {
         $sql = "SELECT * FROM gc_trajet_colis";
         $stmt = $this->db->query($sql);
@@ -781,4 +782,10 @@ class Model
     }
 
 
+=======
+    public function get_beneficeVoiture() {
+    $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
 }

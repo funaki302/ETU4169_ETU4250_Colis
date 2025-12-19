@@ -186,6 +186,7 @@ GROUP BY
     c.id_statut
 ORDER BY c.date_expedition DESC;
 
+<<<<<<< HEAD
 
     /*========== PARTIE 2 ============*/
 /* AjouteR colonne taux,dispo dans gc_trajet_colis*/
@@ -197,3 +198,40 @@ ORDER BY c.date_expedition DESC;
 /* Ajouter colonne id_trajet dans gc_colis */
     ALTER TABLE gc_colis 
      ADD id_trajet int;
+=======
+CREATE OR REPLACE VIEW V_gc_BeneficeParVoiture AS
+SELECT
+    v.id_voiture,
+    v.immatriculation,
+    v.marque,
+    v.modele,
+    v.capacite,
+    
+    COUNT(l.id_livraison) AS nombre_livraisons,
+    
+    COALESCE(SUM(c.kilos * t.prix), 0) AS chiffre_affaires,
+    
+    COALESCE(SUM(ch.salaires_parLiv), 0) AS cout_salaire_chauffeur,
+    
+    COALESCE(SUM(cb.prix_litre), 0) AS cout_carburant,
+    
+    COALESCE(SUM(c.kilos * t.prix), 0) 
+    - COALESCE(SUM(ch.salaires_parLiv), 0) 
+    - COALESCE(SUM(cb.prix_litre), 0) AS benefice_net
+
+FROM gc_voiture v
+LEFT JOIN gc_livraison l ON v.id_voiture = l.id_voiture AND l.id_statut = 3
+LEFT JOIN gc_colis c ON l.id_colis = c.id_colis
+LEFT JOIN gc_chauffeur ch ON l.id_chauffeur = ch.id_chauffeur
+LEFT JOIN gc_carburant cb ON v.id_carburant = cb.id_carburant
+LEFT JOIN gc_tarifs t ON t.unite = 'kg'
+
+GROUP BY 
+    v.id_voiture,
+    v.immatriculation,
+    v.marque,
+    v.modele,
+    v.capacite
+
+ORDER BY benefice_net DESC;
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69

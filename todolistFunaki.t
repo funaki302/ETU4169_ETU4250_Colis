@@ -183,7 +183,21 @@
                -> [ok] modifie updateChauffeur()
                   -> [ok] inserer la fonction upload et insertImgColis 
 
-                      
-          CSS(AI) :
+    ==== PARTIE 2 ======
+    [] Effacer toute les livraisons : 
+       [] - function deleteAllLivraison()
+       [] - Livraison.php :
+           -> [] Ajouter un bouton tout supprimer     
+
+    ===== PARTIE 3 =======
+    [ok] Details de benefice voitures :
+       nouvelle pages BeneficesVoitures :
+       - [ok] creation de Vue BeneficeParVoitures :
+            [ok]  qui somme tout les gains fait par une voiture et chaque depence                 
+       - [ok] creation dune fonction pour prendre tout ca 
+       - [ok] afficher dans BeneficesVoitures.php    
+                  
+
+    
           
 
