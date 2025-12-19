@@ -45,7 +45,12 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatut_CL(),
+<<<<<<< HEAD
+            'trajets' => $controller->getZone(),
+            'imageColis'=> $controller->getImgColis($id),
+=======
             'imageColis' => $controller->getImgColis($id),
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -184,14 +189,47 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
+<<<<<<< HEAD
+    $router->get('/zones', function () use ($app) {
+        $controller = new Controller($app);
+        $app->render('ZoneLivraison', [
+            'liste' => $controller->getZone(),
+=======
     $router->get('/voiture/benefice/', function () use ($app) {
         $controller = new Controller($app);
         $app->render('BeneficeVoiture', [
             'beneficeVoitures' => $controller->get_beneficeVoiture(),
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
 
+<<<<<<< HEAD
+    $router->get('/zone/@id', function ($id) use ($app) {
+        $controller = new Controller($app);
+        $zone = $controller->getZoneById($id);
+        $app->render('detailsZone', [
+            'zone' => $zone,
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
 
+    $router->get('/zone/update', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->updateZone();
+        Flight::redirect('/zones');
+    });
 
+    $router->post('/zone/add', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->addZone();
+        Flight::redirect('/zones');
+    });
+
+    $router->get('/zone/delete/@id', function ($id) use ($app)
+    {
+        $controller = new Controller($app);
+        $controller->deleteZone($id);
+        Flight::redirect('/zones');
+    });
 }, [SecurityHeadersMiddleware::class]);

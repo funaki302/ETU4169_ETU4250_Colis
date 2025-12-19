@@ -126,3 +126,42 @@ STATUTS POSSIBLES:
 
 
 
+============PARTIE  2 ================
+ZONE DE LIVRAISON:
+  DATA: 
+  table -> gc_trajet_colis :
+    - [ok] ajouter colonne taux de % de recomponse
+    - [ok] ajouter colonne dispo (pour gerer la suppression)
+  table -> gc_colis: 
+    - [ok] ajouter colonne id_trajet
+
+- ZoneLivraison.php:
+  - FONCTION :
+    - [ok] getZone()
+    - [ok] getZoneById()
+    - [ok] updateZone()
+    - [ok] addZone()
+    - [ok] deleteZone()
+
+  - Page :
+    - [] Afficher la liste de tous les zones de livraison
+    - [] Bouton ajouter nouvelles zones de livraison
+      - [] un formulaire pour ajouter une nouvelle zone de livraison
+    - [] Bouton modifier une zone de livraison
+      - [] un formulaire pour modifier une zone de livraison
+    - [] Bouton supprimer une zone de livraison
+
+
+- detailsColis.php :
+  Page:
+    - [] afficher le trajet du colis 
+  FONCTION
+  - [] getColi()  
+    -> modifier pour recuperer 
+    les infos du trajet 
+    en meme temps
+
+- InsertColis.php:
+  Page : 
+    - [] afficher le chois du trajet
+

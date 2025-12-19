@@ -290,9 +290,32 @@ class Controller
         return $this->model->getVoitureDispo();
     }
 
+    public function getZone(){
+        return $this->model->getZone();
+    }
+    public function updateZone(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        return $this->model->updateZone($data);
+    }
+    public function deleteZone($id){
+        return $this->model->deleteZone($id);
+    }
 
+<<<<<<< HEAD
+    public function addZone(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        return $this->model->addZone($data);
+    }
+    public function getZoneById($id){
+        return $this->model->getZoneById($id);
+    }
+}
+=======
     public function get_beneficeVoiture()
     {
         return $this->model->get_beneficeVoiture();
     }
 }
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69

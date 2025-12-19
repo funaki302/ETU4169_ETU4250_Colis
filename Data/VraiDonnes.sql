@@ -62,3 +62,21 @@ INSERT INTO gc_trajet_colis (id_colis, adresse_depart, adresse_arrivee) VALUES
 
 INSERT INTO gc_voiture (immatriculation, marque, modele, capacite, id_carburant, id_statut,imageVoiture) VALUES
 ('AB-123-CD', 'Tatata', 'Hilux', 1000, 2, 1, 'voiture1.jpg');
+
+
+
+/* PARTIE 2 */
+
+INSERT INTO gc_trajet_colis ( adresse_depart, adresse_arrivee, taux, dispo) VALUES
+('Antananarivo', 'Toamasina', 10, 0),
+('Fianarantsoa', 'Antsirabe', 15, 0),
+('Mahajanga', 'Antananarivo', 20, 0);
+
+INSERT INTO gc_colis
+(nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire,
+ date_expedition, date_livraison, kilos, id_statut,id_trajet)
+VALUES
+('Ordinateur portable', 'Eric', 'Antananarivo', 'Luc', 'Toamasina', '2025-01-10', '2025-01-11', 5, 2, 1),
+('Documents', 'Marie', 'Fianarantsoa', 'Paul', 'Antsirabe', '2025-01-12', NULL, 1, 1, 2),
+('Téléviseur', 'Jean', 'Mahajanga', 'Sophie', 'Antananarivo', '2025-01-09', '2025-01-10', 12, 2, 3)
+;

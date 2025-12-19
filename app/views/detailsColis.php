@@ -97,6 +97,24 @@
                                         value="<?= htmlspecialchars($colis['nom_colis'] ?? '') ?>" required>
                                 </div>
 
+                                <!-- Trajet -->
+                                <div class="col-12">
+                                    <label for="id_trajet" class="form-label fw-semibold text-dark">Trajet</label>
+                                    <select name="id_trajet" id="id_trajet" class="form-select">
+                                        <?php $zone = $trajets[$colis['id_trajet']-1]; ?>
+                                        <option value="<?= htmlspecialchars($zone['id_trajet']) ?>" <?= ($colis['id_trajet'] == $zone['id_trajet']) ? 'selected' : '' ?>>
+                                            DEPART: <?= htmlspecialchars($zone['adresse_depart']) ?> --------- ARRIVER: <?= htmlspecialchars($zone['adresse_arrivee']) ?>
+                                        </option>
+                                        <?php foreach ($trajets as $trajet): ?>
+                                            <?php if ($trajet['id_trajet'] != $zone['id_trajet']) { ?>
+                                                <option value="<?= htmlspecialchars($trajet['id_trajet']) ?>" <?= ($colis['id_trajet'] == $trajet['id_trajet']) ? 'selected' : '' ?>>
+                                                    DEPART: <?= htmlspecialchars($trajet['adresse_depart']) ?> --------- ARRIVER: <?= htmlspecialchars($trajet['adresse_arrivee']) ?>
+                                                </option>
+                                            <?php } ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
                                 <!-- Expéditeur -->
                                 <div class="col-md-6">
                                     <label for="nom_expediteur" class="form-label fw-semibold text-dark">Nom

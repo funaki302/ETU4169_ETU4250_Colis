@@ -131,7 +131,8 @@ class Model
                 date_expedition = ?,
                 date_livraison = ?,
                 kilos = ?,
-                id_statut = ?
+                id_statut = ?,
+                id_trajet = ?
             WHERE id_colis = ?";
 
         $stmt = $this->db->prepare($sql);
@@ -145,6 +146,7 @@ class Model
             $date_livraison,
             $data['kilos'] ?? 0,
             $data['id_statut'] ?? 1,
+            $data['id_trajet'] ?? null,
             $id
         ]);
     }
@@ -174,8 +176,8 @@ class Model
     {
         $sql = "INSERT INTO gc_colis 
         (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire,
-        date_expedition, date_livraison, kilos, id_statut)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        date_expedition, date_livraison, kilos, id_statut,id_trajet)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['nom_colis'] ?? '',
@@ -186,20 +188,20 @@ class Model
             $data['date_expedition'] ?? null,
             $data['date_livraison'] ?? null,
             $data['kilos'] ?? 0,
-            $data['id_statut'] ?? 1
+            $data['id_statut'] ?? 1,
+            $data['id_trajet'] ?? null,
         ]);
         return $this->db->lastInsertId();
     }
 
-    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null)
+    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null,$id_trajet)
     {
         $sql = "INSERT INTO gc_colis
-            (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
+            (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut, id_trajet)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?)";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos]);
-
+        $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, 1, $id_trajet]);
         $idColis = $this->db->lastInsertId();
         error_log("Colis inséré avec ID : " . $idColis);
 
@@ -731,8 +733,59 @@ class Model
         }
     }
 
+<<<<<<< HEAD
+    public function getZone() {
+        $sql = "SELECT * FROM gc_trajet_colis";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getZoneById($id){
+        $sql = "SELECT * FROM gc_trajet_colis WHERE id_trajet = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteZone($id){
+        $sql = "DELETE FROM gc_trajet_colis WHERE id_trajet = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
+    public function updateZone($data){
+        $sql = "UPDATE gc_trajet_colis SET adresse_depart = ?, adresse_arrivee = ?,
+        taux = ? , dispo = ? 
+        WHERE id_trajet = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['adresse_depart'] ?? '',
+            $data['adresse_arrivee'] ??'',
+            $data['taux'] ?? 0,
+            $data['dispo'] ?? 0,
+            $data['id_trajet']
+        ]);
+    }
+
+    public function addZone($data){
+        $sql = "INSERT INTO gc_trajet_colis(adresse_depart,adresse_arrivee,taux,dispo)
+        VALUE (?,?,?,?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['adresse_depart'] ?? '',
+            $data['adresse_arrivee'] ??'',
+            $data['taux'] ?? 0,
+            $data['dispo'] ?? 0
+        ]);
+
+        return $this->db->lastInsertId();
+    }
+
+
+=======
     public function get_beneficeVoiture() {
     $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
 }

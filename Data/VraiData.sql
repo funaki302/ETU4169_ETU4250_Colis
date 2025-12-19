@@ -97,10 +97,8 @@ CREATE TABLE gc_tarifs (
 
 CREATE TABLE gc_trajet_colis (
     id_trajet INT AUTO_INCREMENT PRIMARY KEY,
-    id_colis INT,
     adresse_depart VARCHAR(255) NOT NULL,
-    adresse_arrivee VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_colis) REFERENCES gc_colis(id_colis)
+    adresse_arrivee VARCHAR(255) NOT NULL
 );
 
 
@@ -188,6 +186,19 @@ GROUP BY
     c.id_statut
 ORDER BY c.date_expedition DESC;
 
+<<<<<<< HEAD
+
+    /*========== PARTIE 2 ============*/
+/* AjouteR colonne taux,dispo dans gc_trajet_colis*/
+    ALTER TABLE gc_trajet_colis 
+     ADD taux DECIMAL(10,2),
+     ADD dispo DECIMAL(1,0)
+    ;
+
+/* Ajouter colonne id_trajet dans gc_colis */
+    ALTER TABLE gc_colis 
+     ADD id_trajet int;
+=======
 CREATE OR REPLACE VIEW V_gc_BeneficeParVoiture AS
 SELECT
     v.id_voiture,
@@ -223,3 +234,4 @@ GROUP BY
     v.capacite
 
 ORDER BY benefice_net DESC;
+>>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
