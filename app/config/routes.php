@@ -9,11 +9,18 @@ use flight\net\Router;
 $router->group('', function (Router $router) use ($app) {
     $router->get('/', function () use ($app) {
         $controller = new Controller($app);
+        $app->render('accueil', [
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+    $router->get('/colis', function () use ($app) {
+        $controller = new Controller($app);
 
         // On utilise la nouvelle méthode avec filtres
         $liste = $controller->listeColisAvecFiltres();
 
-        $app->render('home.php', [
+        $app->render('home', [
             'liste' => $liste,
             'statuts' => $controller->getStatut_CL(),
             'csp_nonce' => Flight::get('csp_nonce')
@@ -128,7 +135,7 @@ $router->group('', function (Router $router) use ($app) {
             $images
         );
 
-        \Flight::redirect('/');
+        \Flight::redirect('/colis');
 
     });
 
@@ -173,13 +180,6 @@ $router->group('', function (Router $router) use ($app) {
             'chauffeur' => $controller->getChauffeurById($livraison['id_chauffeur']),
             'colis' => $controller-> getColisById($livraison['id_colis']),
             'statuts' => $controller->getStatut_CL(),
-            'csp_nonce' => Flight::get('csp_nonce')
-        ]);
-    });
-
-    $router->get('/accueil', function () use ($app) {
-        $controller = new Controller($app);
-        $app->render('accueil', [
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });

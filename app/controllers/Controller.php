@@ -22,7 +22,7 @@ class Controller
     public function deleteColis($id)
     {
         $this->model->deleteColis($id);
-        Flight::redirect('/');
+        Flight::redirect('/colis');
     }
     public function updateColis()
     {
@@ -44,7 +44,7 @@ class Controller
         // On passe les données (texte + fichier) au modèle
         $this->model->updateColis($data);
 
-        Flight::redirect('/');
+        Flight::redirect('/colis');
     }
     public function addColis()
     {
@@ -52,7 +52,7 @@ class Controller
         $data = $request->data->getData();
 
         $this->model->addColis($data);
-        Flight::redirect('/');
+        Flight::redirect('/colis');
     }
     public function getColisById($id)
     {

@@ -54,7 +54,7 @@
                     <p class="text-muted">
                         Gérez l'inventaire de tous vos colis en attente de livraison.
                     </p>
-                    <a href="/" class="stretched-link text-decoration-none text-primary fw-bold">
+                    <a href="/colis" class="stretched-link text-decoration-none text-primary fw-bold">
                         Gérer les colis →
                     </a>
                     <div class="card-glow"></div>
