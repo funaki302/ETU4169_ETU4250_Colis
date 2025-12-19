@@ -1,20 +1,17 @@
 <?php include("inc/header.php"); ?>
-
 <main class="container my-5">
-    <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+    <h2 class="mb-5 text-center fw-bold display-5 text-primary">
         Liste des colis
-        
     </h2>
-    <a href="/formInsert"
-        id="btnAddLiv"
-        class="btn btn-success btn-lg px-4 shadow-sm d-inline-flex align-items-center gap-2 ms-3">
-         <i class="bi bi-plus-circle"></i>
-        Ajouter
-    </a>
-    <br>
+
+    <div class="text-end mb-4">
+        <a href="/formInsert" class="btn btn-primary btn-lg px-4 shadow-sm d-inline-flex align-items-center gap-2">
+            <i class="bi bi-plus-circle"></i> Ajouter
+        </a>
+    </div>
 
     <!-- Formulaire de filtres -->
-    <div class="card mb-5 shadow-lg border-0 rounded-4">
+    <div class="card mb-5 border-0 shadow-sm rounded-4 bg-light">
         <div class="card-body p-4">
             <form method="get" action="/" class="row g-3 align-items-end">
                 <div class="col-md-3">
@@ -54,30 +51,28 @@
                 $id = $row['id_colis'] ?? '';
                 $nomColis = htmlspecialchars($row['nom_colis'] ?? 'Colis sans nom');
                 $image = $row['imageColis'] ?? null;
-
                 // Statut avec couleurs harmonisées
                 $statutId = $row['id_statut'] ?? null;
                 switch ($statutId) {
-                    case 1: $statutTexte = "En attente"; $statutBadge = "bg-warning"; break;
-                    case 2: $statutTexte = "En cours de livraison"; $statutBadge = "bg-info"; break;
+                    case 1: $statutTexte = "En attente"; $statutBadge = "bg-warning text-dark"; break;
+                    case 2: $statutTexte = "En cours"; $statutBadge = "bg-info text-dark"; break;
                     case 3: $statutTexte = "Livré"; $statutBadge = "bg-success"; break;
                     case 4: $statutTexte = "Annulé"; $statutBadge = "bg-danger"; break;
                     default: $statutTexte = "Inconnu"; $statutBadge = "bg-secondary"; break;
                 }
                 ?>
                 <div class="col">
-                    <div class="card h-100 border-0 shadow hover-shadow transition rounded-4 overflow-hidden">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden transition">
                         <!-- Badge statut -->
                         <div class="position-absolute top-0 start-0 p-3 z-3">
-                            <span class="badge <?= $statutBadge ?> fs-6 px-3 py-2 rounded-pill shadow-sm"><?= $statutTexte ?></span>
+                            <span class="badge <?= $statutBadge ?> fs-6 px-3 py-2 rounded-pill"><?= $statutTexte ?></span>
                         </div>
-
                         <!-- Image -->
                         <div class="bg-light" style="height: 260px; overflow: hidden;">
                             <?php if ($image): ?>
                                 <img src="/images/<?= htmlspecialchars($image) ?>"
                                      class="card-img-top img-fluid h-100 w-100"
-                                     style="object-fit: cover; transition: transform 0.4s ease;"
+                                     style="object-fit: cover; transition: transform 0.5s ease;"
                                      alt="<?= $nomColis ?>">
                             <?php else: ?>
                                 <div class="d-flex flex-column justify-content-center align-items-center h-100 text-muted">
@@ -86,19 +81,16 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-
                         <!-- Corps de la carte -->
                         <div class="card-body d-flex flex-column p-4">
-                            <h5 class="card-title text-center mb-4 text-primary fw-bold"><?= $nomColis ?></h5>
-
+                            <h5 class="card-title text-center mb-4 fw-bold text-dark"><?= $nomColis ?></h5>
                             <div class="small text-muted mb-4 flex-grow-1">
                                 <div class="mb-2"><strong>Expédition :</strong> <?= htmlspecialchars($row['date_expedition'] ?? '') ?></div>
                                 <div><strong>Poids :</strong> <?= htmlspecialchars($row['kilos'] ?? '') ?> kg</div>
                             </div>
-
                             <div class="text-center mt-auto">
                                 <a href="/colis/<?= htmlspecialchars($id) ?>"
-                                   class="btn btn-primary btn-lg w-100 shadow-sm">
+                                   class="btn btn-primary w-100 shadow-sm">
                                     <i class="bi bi-eye me-2"></i> Voir détails
                                 </a>
                             </div>
@@ -119,37 +111,53 @@
     <?php endif; ?>
 </main>
 
-<!-- Styles personnalisés pour fluidité et professionnalisme -->
+<!-- Styles personnalisés professionnels -->
 <style>
+    body {
+        background: #f8fbff; /* Fond très clair pour luminosité */
+    }
     .transition {
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
     }
-    .hover-shadow {
-        transition: all 0.4s ease;
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(13, 110, 253, 0.15) !important; /* Ombre bleue subtile */
     }
-    .hover-shadow:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
-    }
-    .hover-shadow img:hover {
-        transform: scale(1.08);
-    }
-    .card {
-        border: none !important;
+    .card img:hover {
+        transform: scale(1.05);
     }
     .btn-primary {
-        background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+        background: linear-gradient(to right, #0d6efd, #0d8bfd); /* Dégradé bleu subtil */
         border: none;
+        transition: all 0.3s ease;
     }
     .btn-primary:hover {
-        background: linear-gradient(135deg, #0a58ca, #0aa2c0);
-        transform: translateY(-2px);
+        background: linear-gradient(to right, #0a58ca, #0a6fd8);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+    }
+    .card {
+        background: white;
+    }
+    .bg-light {
+        background: linear-gradient(to bottom, #f1f8ff, #ffffff) !important; /* Dégradé très léger pour les sections */
+    }
+    h2 {
+        position: relative;
+    }
+    h2::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(to right, #0d6efd, #0dcaf0);
+        margin: 20px auto 0;
+        border-radius: 2px;
     }
 </style>
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
 <?php include("inc/footer.php"); ?>
 </body>
 </html>
