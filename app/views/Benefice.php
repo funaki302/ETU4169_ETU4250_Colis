@@ -4,10 +4,11 @@
 
 <div class="container">
     <h1>📊 Rapport des Bénéfices</h1>
-
+    
     <!-- ================== PAR JOUR ================== -->
     <section class="bloc">
         <h2>📅 Bénéfice par Jour</h2>
+        <div><strong>benefice: </strong><a href=" /voiture/benefice/">voir benefice par voiture</a> </div>
         <table>
             <thead>
                 <tr>

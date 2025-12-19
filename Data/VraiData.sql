@@ -186,6 +186,7 @@ GROUP BY
     c.id_statut
 ORDER BY c.date_expedition DESC;
 
+<<<<<<< HEAD
     /*========== PARTIE 2 ============*/
 /* AjouteR colonne taux,dispo dans gc_trajet_colis*/
     ALTER TABLE gc_trajet_colis 
@@ -197,6 +198,8 @@ ORDER BY c.date_expedition DESC;
     ALTER TABLE gc_colis 
      ADD id_trajet int;
 
+=======
+>>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
 CREATE OR REPLACE VIEW V_gc_BeneficeParVoiture AS
 SELECT
     v.id_voiture,

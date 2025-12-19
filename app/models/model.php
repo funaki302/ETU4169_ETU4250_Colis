@@ -194,7 +194,7 @@ class Model
         return $this->db->lastInsertId();
     }
 
-    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null,$id_trajet)
+    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageFile = null, $id_trajet)
     {
         $sql = "INSERT INTO gc_colis
             (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut, id_trajet)
@@ -296,12 +296,12 @@ class Model
 
     public function addVoiture($data)
     {
-        $imageVoiture = "" ;
-          // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+        $imageVoiture = "";
+        // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
         if (isset($data['imageVoiture']) && is_array($data['imageVoiture']) && $data['imageVoiture']['error'] === UPLOAD_ERR_OK) {
             $newname = $this->upload($data['imageVoiture']);
             if ($newname) {
-              $imageVoiture = $newname;
+                $imageVoiture = $newname;
             } else {
                 error_log("Échec de l'upload pour le imageVoiture chauffeur");
             }
@@ -430,20 +430,20 @@ class Model
             return;
         }
 
-        $profil_actuel = $data['profil_actuel'] ?? '' ;
+        $profil_actuel = $data['profil_actuel'] ?? '';
 
-        $profil = "" ;
-          // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+        $profil = "";
+        // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
         if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
             $newname = $this->upload($data['profil']);
             if ($newname) {
-              $profil = $newname;
+                $profil = $newname;
             } else {
                 error_log("Échec de l'upload pour le profil chauffeur");
             }
         }
-        if ($profil === "" ) {
-            $profil = $profil_actuel ;
+        if ($profil === "") {
+            $profil = $profil_actuel;
         }
 
         $sql = "UPDATE gc_chauffeur SET nom_chauffeur = ?, prenom_chauffeur = ?, 
@@ -467,17 +467,17 @@ class Model
 
     public function addChauffeur($data)
     {
-        $profil = "" ;
-          // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
+        $profil = "";
+        // === UPLOAD IMAGE SI UNE PHOTO EST ENVOYÉE ===
         if (isset($data['profil']) && is_array($data['profil']) && $data['profil']['error'] === UPLOAD_ERR_OK) {
             $newname = $this->upload($data['profil']);
             if ($newname) {
-              $profil = $newname;
+                $profil = $newname;
             } else {
                 error_log("Échec de l'upload pour le profil chauffeur");
             }
         }
-        
+
         $sql = "INSERT INTO gc_chauffeur 
         (nom_chauffeur, prenom_chauffeur, telephone_chauffeur, email_chauffeur,
         date_dassignation, salaires_parLiv,profil, id_statut)
@@ -496,13 +496,15 @@ class Model
         return $this->db->lastInsertId();
     }
 
-    public function getLivraisons(){
+    public function getLivraisons()
+    {
         $sql = "SELECT * FROM gc_livraison";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getLivraisonById($id){
+    public function getLivraisonById($id)
+    {
         if ($id === null) {
             return;
         }
@@ -512,7 +514,8 @@ class Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function deleteLivraison($id){
+    public function deleteLivraison($id)
+    {
         if ($id === null) {
             return;
         }
@@ -521,11 +524,12 @@ class Model
         $stmt->execute([$id]);
     }
 
-    public function updateLivraison($data){
+    public function updateLivraison($data)
+    {
         if ($data === null) {
             return;
         }
-        
+
         $sql = "UPDATE gc_livraison set id_colis = ?,
         date_livraison = ? , heure_livraison = ?, id_statut = ?,
         id_chauffeur = ?, id_voiture = ? WHERE id_livraison = ?";
@@ -541,7 +545,8 @@ class Model
         ]);
     }
 
-    public function addLivraison($data){
+    public function addLivraison($data)
+    {
         $sql = "INSERT INTO gc_livraison 
         (id_colis, date_livraison, heure_livraison, id_statut, id_chauffeur, id_voiture)
         VALUES (?, ?, ?, ?, ?, ?)";
@@ -557,47 +562,51 @@ class Model
         return $this->db->lastInsertId();
     }
 
-    public function getChauffeurDispo(){
+    public function getChauffeurDispo()
+    {
         $sql = "SELECT * FROM gc_chauffeur WHERE id_statut = 1";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getColisDispo(){
+    public function getColisDispo()
+    {
         $sql = "SELECT * FROM gc_colis WHERE id_statut = 1";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getVoitureDispo(){
+    public function getVoitureDispo()
+    {
         $sql = "SELECT * FROM gc_voiture WHERE id_statut = 1";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getLivraisonByIdColis($id_colis){
+    public function getLivraisonByIdColis($id_colis)
+    {
         $sql = "SELECT * FROM gc_livraison WHERE id_colis = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_colis]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function transactionLivraisonColis1( $data_livraison): bool
+    public function transactionLivraisonColis1($data_livraison): bool
     {
         if (empty($data_livraison['id_colis']) || empty($data_livraison['id_statut'])) {
             error_log("transactionLivraisonColis : données incomplètes");
             return false;
         }
 
-        $id_colis       = $data_livraison['id_colis'];
+        $id_colis = $data_livraison['id_colis'];
         $nouveau_statut = (int) $data_livraison['id_statut'];
         $date_livraison = $data_livraison['date_livraison'] ?? null;
-        $id_chauffeur   = $data_livraison['id_chauffeur'] ?? null;
-        $id_voiture     = $data_livraison['id_voiture'] ?? null;
+        $id_chauffeur = $data_livraison['id_chauffeur'] ?? null;
+        $id_voiture = $data_livraison['id_voiture'] ?? null;
 
         // Définition des statuts "occupés"
         $statut_occupé_chauffeur = 'en plein livraison';
-        $statut_libre_chauffeur  = 'disponible';
+        $statut_libre_chauffeur = 'disponible';
 
         $this->db->beginTransaction();
 
@@ -611,7 +620,7 @@ class Model
 
             //  Récupérer chauffeur et voiture
             $chauffeur = $this->getChauffeurById($id_chauffeur);
-            $voiture   = $this->getVoitureById($id_voiture);
+            $voiture = $this->getVoitureById($id_voiture);
 
             if (!$chauffeur || !$voiture) {
                 throw new \Exception("Chauffeur ou voiture introuvable");
@@ -619,20 +628,20 @@ class Model
 
             $nouveau_statut_chauffeur = $data_livraison['id_statut'] === 1 ? $statut_occupé_chauffeur : $statut_libre_chauffeur;
 
-          // Préparer les données pour les mises à jour
+            // Préparer les données pour les mises à jour
             // Mise à jour du COLIS
             $data_colis = $colis;
-            $data_colis['id_statut']     = $nouveau_statut;
-            $data_colis['date_livraison']= $date_livraison;
+            $data_colis['id_statut'] = $nouveau_statut;
+            $data_colis['date_livraison'] = $date_livraison;
 
             // Mise à jour du CHAUFFEUR
             $data_chauffeur = $chauffeur;
             $data_chauffeur['id_chauffeur'] = $chauffeur['id_chauffeur'];
-            $data_chauffeur['statut']       = $nouveau_statut_chauffeur;
+            $data_chauffeur['statut'] = $nouveau_statut_chauffeur;
 
             // Mise à jour de la VOITURE
             $data_voiture = $voiture;
-            $data_voiture['id_voiture']     = $voiture['id_voiture'];
+            $data_voiture['id_voiture'] = $voiture['id_voiture'];
 
             // 6. Exécuter les mises à jour
             $idL = $this->addLivraison($data_livraison);
@@ -682,18 +691,18 @@ class Model
             return false;
         }
 
-        $id_colis       = $data_livraison['id_colis'];
+        $id_colis = $data_livraison['id_colis'];
         $nouveau_statut = (int) $data_livraison['id_statut'];
         $date_livraison = $data_livraison['date_livraison'] ?? null;
-        $id_chauffeur   = $data_livraison['id_chauffeur'] ?? null;
-        $id_voiture     = $data_livraison['id_voiture'] ?? null;
+        $id_chauffeur = $data_livraison['id_chauffeur'] ?? null;
+        $id_voiture = $data_livraison['id_voiture'] ?? null;
 
         // Définition des statuts "occupés"
         $statut_occupé_chauffeur = 2; // id pour "en plein livraison"
-        $statut_libre_chauffeur  = 1; // id pour "disponible"
+        $statut_libre_chauffeur = 1; // id pour "disponible"
 
-        $statut_occupé_voiture   = 2; // id pour "en livraison"
-        $statut_libre_voiture    = 1; // id pour "disponible"
+        $statut_occupé_voiture = 2; // id pour "en livraison"
+        $statut_libre_voiture = 1; // id pour "disponible"
 
         $this->db->beginTransaction();
         try {
@@ -706,14 +715,14 @@ class Model
 
             //  Récupérer chauffeur et voiture
             $chauffeur = $this->getChauffeurById($id_chauffeur);
-            $voiture   = $this->getVoitureById($id_voiture);
+            $voiture = $this->getVoitureById($id_voiture);
 
             if (!$chauffeur || !$voiture) {
                 throw new \Exception("Chauffeur ou voiture introuvable");
             }
 
-            $nouveau_statut_chauffeur = $nouveau_statut == 2 ? $statut_occupé_chauffeur : $statut_libre_chauffeur ;
-            $nouveau_statut_voiture   = $nouveau_statut == 2 ? $statut_occupé_voiture : $statut_libre_voiture ;
+            $nouveau_statut_chauffeur = $nouveau_statut == 2 ? $statut_occupé_chauffeur : $statut_libre_chauffeur;
+            $nouveau_statut_voiture = $nouveau_statut == 2 ? $statut_occupé_voiture : $statut_libre_voiture;
 
             // 1. Update la livraison
             $this->updateLivraison($data_livraison);
@@ -733,46 +742,56 @@ class Model
         }
     }
 
+<<<<<<< HEAD
     public function getZone() {
+=======
+
+    public function getZone()
+    {
+>>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
         $sql = "SELECT * FROM gc_trajet_colis";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getZoneById($id){
+    public function getZoneById($id)
+    {
         $sql = "SELECT * FROM gc_trajet_colis WHERE id_trajet = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function deleteZone($id){
+    public function deleteZone($id)
+    {
         $sql = "DELETE FROM gc_trajet_colis WHERE id_trajet = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
 
-    public function updateZone($data){
+    public function updateZone($data)
+    {
         $sql = "UPDATE gc_trajet_colis SET adresse_depart = ?, adresse_arrivee = ?,
         taux = ? , dispo = ? 
         WHERE id_trajet = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['adresse_depart'] ?? '',
-            $data['adresse_arrivee'] ??'',
+            $data['adresse_arrivee'] ?? '',
             $data['taux'] ?? 0,
             $data['dispo'] ?? 0,
             $data['id_trajet']
         ]);
     }
 
-    public function addZone($data){
+    public function addZone($data)
+    {
         $sql = "INSERT INTO gc_trajet_colis(adresse_depart,adresse_arrivee,taux,dispo)
         VALUE (?,?,?,?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['adresse_depart'] ?? '',
-            $data['adresse_arrivee'] ??'',
+            $data['adresse_arrivee'] ?? '',
             $data['taux'] ?? 0,
             $data['dispo'] ?? 0
         ]);
@@ -780,8 +799,24 @@ class Model
         return $this->db->lastInsertId();
     }
 
+<<<<<<< HEAD
     public function get_beneficeVoiture() {
     $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
+=======
+
+    public function get_beneficeVoiture()
+    {
+        $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function get_beneficeById($id){
+        $stmt = $this->db->prepare("SELECT * FROM V_gc_BeneficeParVoiture where id_voiture = ? ORDER BY benefice_net DESC");
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+>>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
 }

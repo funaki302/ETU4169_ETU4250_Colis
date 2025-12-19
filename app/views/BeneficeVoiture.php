@@ -35,7 +35,7 @@
                                   (($row['benefice_net'] < 0) ? 'perte' : 'neutre');
                         ?>
                         <tr class="<?= $classe ?>">
-                            <td><strong><?= htmlspecialchars($row['immatriculation']) ?></strong></td>
+                            <td> <a href="/voitures/details/<?= $row['id_voiture'] ?>"><strong><?= htmlspecialchars($row['immatriculation']) ?></strong></a></td>
                             <td><?= htmlspecialchars($row['marque'] . ' ' . $row['modele']) ?></td>
                             <td><?= htmlspecialchars($row['capacite']) ?> t</td>
                             <td><?= number_format($row['nombre_livraisons'], 0, '', ' ') ?></td>
