@@ -56,6 +56,8 @@
                             <div class="mb-3 small text-muted">
                                 <div><strong>Capacité:</strong> <?= $capacite ?></div>
                                 <div><strong>Carburant:</strong> <?= $carburant ?></div>
+                                <div><strong>benefice:</strong><a href=" /voiture/benefice/">voir benefice</a> </div>
+                               
                             </div>
 
                         </div>

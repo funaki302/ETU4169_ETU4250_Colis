@@ -731,4 +731,8 @@ class Model
         }
     }
 
+    public function get_beneficeVoiture() {
+    $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
 }

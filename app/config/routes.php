@@ -45,7 +45,7 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatut_CL(),
-            'imageColis'=> $controller->getImgColis($id),
+            'imageColis' => $controller->getImgColis($id),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -70,7 +70,7 @@ $router->group('', function (Router $router) use ($app) {
         $controller->addVoiture();
     });
 
-    $router->post('/voitures/update/', function() use ($app) {
+    $router->post('/voitures/update/', function () use ($app) {
         $controller = new Controller($app);
         $controller->updateVoiture();
     });
@@ -105,7 +105,7 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
-    $router->post('/chauffeur/update/', function() use ($app) {
+    $router->post('/chauffeur/update/', function () use ($app) {
         $controller = new Controller($app);
         $controller->updateChauffeur();
     });
@@ -153,7 +153,7 @@ $router->group('', function (Router $router) use ($app) {
             'liste' => $controller->getLivraisons(),
             'voitures' => $controller->getvoituresDispo(),
             'chauffeurs' => $controller->getChauffeurDispo(),
-            'colis' => $controller-> getColisDispo(),
+            'colis' => $controller->getColisDispo(),
             'statuts' => $controller->getStatut_CL(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
@@ -178,10 +178,20 @@ $router->group('', function (Router $router) use ($app) {
             'livraison' => $livraison,
             'voiture' => $controller->getVoitureById($livraison['id_voiture']),
             'chauffeur' => $controller->getChauffeurById($livraison['id_chauffeur']),
-            'colis' => $controller-> getColisById($livraison['id_colis']),
+            'colis' => $controller->getColisById($livraison['id_colis']),
             'statuts' => $controller->getStatut_CL(),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
+
+    $router->get('/voiture/benefice/', function () use ($app) {
+        $controller = new Controller($app);
+        $app->render('BeneficeVoiture', [
+            'beneficeVoitures' => $controller->get_beneficeVoiture(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+
 
 }, [SecurityHeadersMiddleware::class]);

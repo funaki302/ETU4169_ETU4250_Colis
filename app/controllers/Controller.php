@@ -291,4 +291,8 @@ class Controller
     }
 
 
+    public function get_beneficeVoiture()
+    {
+        return $this->model->get_beneficeVoiture();
+    }
 }
