@@ -185,4 +185,5 @@ GROUP BY
     c.date_expedition,
     c.date_livraison,
     c.kilos,
-    c.id_statut;
+    c.id_statut
+ORDER BY c.date_expedition DESC;
