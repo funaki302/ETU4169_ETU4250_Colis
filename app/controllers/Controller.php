@@ -252,15 +252,18 @@ class Controller
         Flight::redirect('/livraisons');
     }
 
-    public function getChauffeurDispo(){
+    public function getChauffeurDispo()
+    {
         return $this->model->getChauffeurDispo();
     }
 
-    public function getColisDispo(){
+    public function getColisDispo()
+    {
         return $this->model->getColisDispo();
     }
 
-    public function getLivraisonByIdColis($id){
+    public function getLivraisonByIdColis($id)
+    {
         return $this->model->getLivraisonByIdColis($id);
     }
 
@@ -280,42 +283,54 @@ class Controller
     {
         $request = Flight::request();
         $data = $request->data->getData();
-        
+
         $this->model->transaction_Livraison_Colis($data);
 
         Flight::redirect('/livraisons');
     }
 
-    public function getvoituresDispo(){
+    public function getvoituresDispo()
+    {
         return $this->model->getVoitureDispo();
     }
 
-    public function getZone(){
+    public function getZone()
+    {
         return $this->model->getZone();
     }
-    public function updateZone(){
+    public function updateZone()
+    {
         $request = Flight::request();
         $data = $request->data->getData();
         return $this->model->updateZone($data);
     }
-    public function deleteZone($id){
+    public function deleteZone($id)
+    {
         return $this->model->deleteZone($id);
     }
 
-<<<<<<< HEAD
-    public function addZone(){
+
+    public function addZone()
+    {
         $request = Flight::request();
         $data = $request->data->getData();
         return $this->model->addZone($data);
     }
-    public function getZoneById($id){
+    public function getZoneById($id)
+    {
         return $this->model->getZoneById($id);
     }
-}
-=======
+
     public function get_beneficeVoiture()
     {
         return $this->model->get_beneficeVoiture();
     }
+
+
+    public function get_beneficeById($id)
+    {
+        return $this->model->get_beneficeById($id);
+    }
+
+
 }
->>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69

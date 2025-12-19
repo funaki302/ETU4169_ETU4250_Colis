@@ -45,12 +45,11 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatut_CL(),
-<<<<<<< HEAD
+
             'trajets' => $controller->getZone(),
             'imageColis'=> $controller->getImgColis($id),
-=======
+
             'imageColis' => $controller->getImgColis($id),
->>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -189,22 +188,22 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
-<<<<<<< HEAD
+
     $router->get('/zones', function () use ($app) {
         $controller = new Controller($app);
         $app->render('ZoneLivraison', [
-            'liste' => $controller->getZone(),
-=======
+            'liste' => $controller->getZone(),'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
     $router->get('/voiture/benefice/', function () use ($app) {
         $controller = new Controller($app);
         $app->render('BeneficeVoiture', [
             'beneficeVoitures' => $controller->get_beneficeVoiture(),
->>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
 
-<<<<<<< HEAD
     $router->get('/zone/@id', function ($id) use ($app) {
         $controller = new Controller($app);
         $zone = $controller->getZoneById($id);
@@ -232,4 +231,17 @@ $router->group('', function (Router $router) use ($app) {
         $controller->deleteZone($id);
         Flight::redirect('/zones');
     });
+
+    $router->get('/voitures/details//@id', function ($id) use ($app)
+    {
+        $controller = new Controller($app);
+         $zone = $controller->get_beneficeById( $id );
+        $app->render('detailsVoiture', [
+            'benefice' => $zone,
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+       
+    });
+
+
 }, [SecurityHeadersMiddleware::class]);

@@ -196,7 +196,10 @@
             [ok]  qui somme tout les gains fait par une voiture et chaque depence                 
        - [ok] creation dune fonction pour prendre tout ca 
        - [ok] afficher dans BeneficesVoitures.php    
-                  
+       - [] afficher les details d une voiture specifique
+       - [] creation de fonction get_beneficeVoitId($id_voiture);
+       - [] creation page detailsVoitureBenefice.php :
+             Afficher les details de benefices pour cette voitures.           
 
     
           
