@@ -18,6 +18,18 @@
                     <input type="text" name="nom" required>
                 </div>
 
+                <!-- Trajet -->
+                <div class="insert-colis-group">
+                    <label>Choisir un trajet</label>
+                    <select name="id_trajet" id="id_trajet" class="form-select">
+                        <?php foreach ($trajets as $trajet): ?>
+                            <option value="<?= htmlspecialchars($trajet['id_trajet']) ?>">
+                                DEPART: <?= htmlspecialchars($trajet['adresse_depart']) ?> --------- ARRIVER: <?= htmlspecialchars($trajet['adresse_arrivee']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
                 <div class="insert-colis-group">
                     <label>Nom expéditeur</label>
                     <input type="text" name="nom_expediteur" required>

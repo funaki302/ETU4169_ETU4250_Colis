@@ -198,7 +198,7 @@ class Model
     {
         $sql = "INSERT INTO gc_colis
             (nom_colis, nom_expediteur, adresse_expediteur, nom_destinataire, adresse_destinataire, date_expedition, date_livraison, kilos, id_statut, id_trajet)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?)";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, 1, $id_trajet]);
@@ -733,7 +733,6 @@ class Model
         }
     }
 
-<<<<<<< HEAD
     public function getZone() {
         $sql = "SELECT * FROM gc_trajet_colis";
         $stmt = $this->db->query($sql);
@@ -781,11 +780,8 @@ class Model
         return $this->db->lastInsertId();
     }
 
-
-=======
     public function get_beneficeVoiture() {
     $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
->>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
 }

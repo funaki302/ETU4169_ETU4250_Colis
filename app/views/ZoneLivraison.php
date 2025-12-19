@@ -26,7 +26,7 @@
 							</div>
 
 							<div class="mt-auto text-end">
-								<a href="/zone-livraison/<?= htmlspecialchars($row['id_trajet'] ?? $row['id'] ?? '') ?>" class="btn btn-primary btn-sm">Détails</a>
+								<a href="/zone/<?= htmlspecialchars($row['id_trajet'] ?? $row['id'] ?? '') ?>" class="btn btn-primary btn-sm">Détails</a>
 							</div>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 
 			<div id="errorMessageTrajet" class="alert alert-danger" style="display:none;"></div>
 
-			<form id="formAddTrajet" method="post" action="/zone-livraison/add">
+			<form id="formAddTrajet" method="post" action="/zone/add">
 
 				<div class="row">
 					<div class="col-md-6 mb-3">

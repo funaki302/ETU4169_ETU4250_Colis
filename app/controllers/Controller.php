@@ -74,7 +74,7 @@ class Controller
         return $this->model->getBenefitParJour();
     }
 
-    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageColis)
+    public function InsertColis($nom, $nom_expediteur, $adresse_expediteur, $nom_destinataire, $adresse_destinataire, $date_expedition, $date_livraison, $kilos, $imageColis,$id_trajet)
     {
         return $this->model->InsertColis(
             $nom,
@@ -85,7 +85,8 @@ class Controller
             $date_expedition,
             $date_livraison,
             $kilos,
-            $imageColis
+            $imageColis,
+            $id_trajet
         );
     }
 
@@ -301,8 +302,6 @@ class Controller
     public function deleteZone($id){
         return $this->model->deleteZone($id);
     }
-
-<<<<<<< HEAD
     public function addZone(){
         $request = Flight::request();
         $data = $request->data->getData();
@@ -311,11 +310,8 @@ class Controller
     public function getZoneById($id){
         return $this->model->getZoneById($id);
     }
-}
-=======
     public function get_beneficeVoiture()
     {
         return $this->model->get_beneficeVoiture();
     }
 }
->>>>>>> c8f7dcd16057ac6e6caf8c562618b74907acfb69
