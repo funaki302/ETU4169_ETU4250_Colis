@@ -37,6 +37,7 @@
 								<div class="col-md-6">
 									<label class="form-label">Colis</label>
 									<p><strong><?= htmlspecialchars($colis['nom_colis'] ?? 'Colis non spécifié') ?></strong></p>
+                                    <input type="hidden" name="id_colis" value="<?= htmlspecialchars($colis['id_colis'] ?? '') ?>">
 								</div>
 
 								<div class="col-md-6">
@@ -67,11 +68,13 @@
 
 								<div class="col-md-6">
 									<label class="form-label">Chauffeur</label>
+                                    <input type="hidden" name="id_chauffeur" value="<?= htmlspecialchars($chauffeur['id_chauffeur'] ?? '') ?>">
                                     <p><strong><?= htmlspecialchars($chauffeur['prenom_chauffeur'] ?? '') ?> <?= htmlspecialchars($chauffeur['nom_chauffeur'] ?? '') ?></strong></p>
 								</div>
 
 								<div class="col-md-6">
 									<label class="form-label">Voiture</label>
+                                    <input type="hidden" name="id_voiture" value="<?= htmlspecialchars($voiture['id_voiture'] ?? '') ?>">
                                     <p><strong><?= htmlspecialchars($voiture['marque'] ?? '') ?> <?= htmlspecialchars($voiture['modele'] ?? '') ?></strong></p>
 								</div>
 
