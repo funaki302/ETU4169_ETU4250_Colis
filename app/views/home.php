@@ -1,5 +1,6 @@
 <?php include("inc/header.php"); ?>
 <main class="container my-5">
+<<<<<<< HEAD
     <h2 class="mb-5 text-center fw-bold display-5 text-primary">
         Liste des colis
     </h2>
@@ -9,6 +10,18 @@
             <i class="bi bi-plus-circle"></i> Ajouter
         </a>
     </div>
+=======
+    
+    <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Liste des Colis
+        <button id="btnAddChauffeur" class="btn btn-success" style="-webkit-text-fill-color: white !important; color: white !important;">
+           <a href="/formInsert">
+            + Ajouter
+           </a> 
+        </button>
+    </h2>
+    <br>
+>>>>>>> 7e66d60903aaabe69b24c9a54e2fac2c8cf020ec
 
     <!-- Formulaire de filtres -->
     <div class="card mb-5 border-0 shadow-sm rounded-4 bg-light">

@@ -7,10 +7,12 @@
 </style>
 
 <main class="container my-5">
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <h2 class="mb-0">Liste des voitures</h2>
-        <button id="btnAdd" class="btn btn-success">+ Ajouter</button>
-    </div>
+    <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Liste des Voitures
+        <button id="btnAdd" class="btn btn-success" style="-webkit-text-fill-color: white !important; color: white !important;">
+            + Ajouter
+        </button>
+    </h2>
 
     <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">

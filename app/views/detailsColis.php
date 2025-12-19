@@ -164,7 +164,7 @@
                                 <button type="submit" class="btn btn-success btn-lg px-5 shadow-sm me-3">
                                     <i class="bi bi-check-circle-fill me-2"></i> Mettre à jour
                                 </button>
-                                <a href="/" class="btn btn-outline-secondary btn-lg px-5 shadow-sm">
+                                <a href="/colis" class="btn btn-outline-secondary btn-lg px-5 shadow-sm">
                                     <i class="bi bi-arrow-left-circle me-2"></i> Retour à la liste
                                 </a>
                             </div>
@@ -177,7 +177,7 @@
                     <i class="bi bi-box-seam display-1 text-muted mb-4"></i>
                     <h3 class="text-muted">Colis introuvable</h3>
                     <p class="text-muted mb-4">Le colis demandé n'existe pas.</p>
-                    <a href="/" class="btn btn-primary btn-lg px-5 shadow-sm">
+                    <a href="/colis" class="btn btn-primary btn-lg px-5 shadow-sm">
                         <i class="bi bi-house-door me-2"></i> Retour
                     </a>
                 </div>

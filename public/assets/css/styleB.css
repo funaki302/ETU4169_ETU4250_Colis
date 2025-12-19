@@ -1,0 +1,179 @@
+/* styleB.css - Rapport Bénéfices : même thème clair et vivant que l'accueil */
+
+/* Fond global identique à l'accueil */
+body {
+    background: linear-gradient(135deg, #f8fbff 0%, #e6f0ff 100%);
+    min-height: 100vh;
+    padding-top: 80px; /* Au cas où ta navbar est fixed */
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    color: #1e3c72;
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 50px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Chaque section (bloc) */
+.bloc {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 20px rgba(0, 100, 200, 0.08);
+    border: 1px solid #d0e0ff;
+    transition: all 0.3s ease;
+}
+
+.bloc:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.15);
+    border-color: #007bff;
+}
+
+/* Titres des sections */
+.bloc h2 {
+    color: #1e3c72;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.bloc h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #007bff, #4da6ff);
+    border-radius: 2px;
+}
+
+/* Tableaux - Style moderne et lisible */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+thead {
+    background: linear-gradient(135deg, #007bff, #4da6ff);
+    color: #ffffff;
+}
+
+thead th {
+    padding: 16px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody td {
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 1rem;
+    color: #2c3e50;
+    border-bottom: 1px solid #e6f0ff;
+}
+
+/* Lignes alternées */
+tbody tr:nth-child(even) {
+    background-color: #f8fbff;
+}
+
+/* Hover sur les lignes */
+tbody tr:hover {
+    background-color: #e6f3ff;
+    transition: background 0.3s ease;
+}
+
+/* États Gain / Perte / Neutre */
+.gain {
+    background-color: #e8f5e8 !important;
+    font-weight: 600;
+}
+
+.gain td:last-child {
+    color: #28a745;
+}
+
+.perte {
+    background-color: #fdecea !important;
+    font-weight: 600;
+}
+
+.perte td:last-child {
+    color: #dc3545;
+}
+
+.neutre {
+    background-color: #f2f3f4 !important;
+    font-weight: 600;
+}
+
+.neutre td:last-child {
+    color: #6c757d;
+}
+
+/* Étiquette état (Gain/Perte/Aucun) */
+.etat {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .bloc {
+        padding: 20px;
+    }
+    thead th, tbody td {
+        padding: 12px 8px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9rem;
+    }
+    thead th, tbody td {
+        padding: 10px 6px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .bloc h2 {
+        font-size: 1.6rem;
+    }
+}

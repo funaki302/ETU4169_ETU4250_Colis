@@ -1,8 +1,11 @@
 <?php include("inc/header.php"); ?>
 
 <main class="container my-5">
-    <h2 class="mb-4 text-center fw-bold">Liste des livraisons
-        <button id="btnAddLivraison" class="btn btn-success ms-3">+</button>
+    <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Liste des Livraisons
+        <button id="btnAddLivraison" class="btn btn-success" style="-webkit-text-fill-color: white !important; color: white !important;">
+            + Ajouter
+        </button>
     </h2>
 
     <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
@@ -51,72 +54,96 @@
     <div id="formLivraison" class="card mt-4" style="display:none;">
         <div class="card-body">
             <h5 class="card-title">Ajouter une nouvelle livraison</h5>
-            <form method="post" action="/livraison/add" enctype="multipart/form-data">
+
+            <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
+
+            <!-- Message d'avertissement si des éléments manquent -->
+            <?php if (empty($colis) || empty($chauffeurs) || empty($voitures)): ?>
+                <div class="alert alert-warning mb-4">
+                    <strong>Attention :</strong> Certains éléments requis sont actuellement indisponibles :<br>
+                    <?php if (empty($colis)): ?>• Aucun colis disponible<br><?php endif; ?>
+                    <?php if (empty($chauffeurs)): ?>• Aucun chauffeur disponible<br><?php endif; ?>
+                    <?php if (empty($voitures)): ?>• Aucune voiture disponible<br><?php endif; ?>
+                    Vous ne pourrez pas enregistrer la livraison tant que ces éléments ne seront pas ajoutés.
+                </div>
+            <?php endif; ?>
+
+            <form id="formAddLivraison" method="post" action="/livraison/add" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label class="form-label">Colis</label>
-                    <select name="id_colis" class="form-select">
+                    <label class="form-label">Colis </label>
+                    <select name="id_colis" class="form-select" required>
+                        <option value="">Sélectionner un colis</option>
                         <?php if (!empty($colis)): ?>
                             <?php foreach ($colis as $col): ?>
-                                <option value="<?= htmlspecialchars($col['id_colis']) ?>"><?= htmlspecialchars($col['nom_colis'] ?? ($col['description'] ?? 'Colis')) ?> (ID: <?= htmlspecialchars($col['id_colis']) ?>)</option>
+                                <option value="<?= htmlspecialchars($col['id_colis']) ?>">
+                                    <?= htmlspecialchars($col['nom_colis'] ?? $col['description'] ?? 'Colis') ?> (ID: <?= htmlspecialchars($col['id_colis']) ?>)
+                                </option>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <option value="">Aucun colis disponible</option>
                         <?php endif; ?>
                     </select>
+                    <?php if (empty($colis)): ?>
+                        <small class="text-danger">Aucun colis disponible pour le moment.</small>
+                    <?php endif; ?>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Date livraison</label>
-                        <input name="date_livraison" type="date" class="form-control" />
+                        <label class="form-label">Date livraison </label>
+                        <input name="date_livraison" type="date" class="form-control" required />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Heure livraison</label>
-                        <input name="heure_livraison" type="time" class="form-control" />
+                        <label class="form-label">Heure livraison </label>
+                        <input name="heure_livraison" type="time" class="form-control" required />
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Statut</label>
-                    <select name="id_statut" class="form-select">
-                        <?php if (!empty($statuts)): ?>
-                            <?php foreach ($statuts as $s): ?>
-                                <option value="<?= htmlspecialchars($s['id_statut']) ?>"><?= htmlspecialchars($s['statut']) ?></option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <option value="">Aucun statut disponible</option>
-                        <?php endif; ?>
+                    <label class="form-label">Statut </label>
+                    <select name="id_statut" class="form-select" required>
+                        <option value="">Sélectionner un statut</option>
+                        <?php foreach ($statuts as $s): ?>
+                            <option value="<?= htmlspecialchars($s['id_statut']) ?>"><?= htmlspecialchars($s['statut']) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Chauffeur</label>
-                        <select name="id_chauffeur" class="form-select">
+                        <label class="form-label">Chauffeur </label>
+                        <select name="id_chauffeur" class="form-select" required>
+                            <option value="">Sélectionner un chauffeur</option>
                             <?php if (!empty($chauffeurs)): ?>
                                 <?php foreach ($chauffeurs as $ch): ?>
-                                    <option value="<?= htmlspecialchars($ch['id_chauffeur']) ?>"><?= htmlspecialchars(($ch['prenom_chauffeur'] ?? '') . ' ' . ($ch['nom_chauffeur'] ?? '')) ?></option>
+                                    <option value="<?= htmlspecialchars($ch['id_chauffeur']) ?>">
+                                        <?= htmlspecialchars(trim(($ch['prenom_chauffeur'] ?? '') . ' ' . ($ch['nom_chauffeur'] ?? ''))) ?>
+                                    </option>
                                 <?php endforeach; ?>
-                            <?php else: ?>
-                                <option value="">Aucun chauffeur disponible</option>
                             <?php endif; ?>
                         </select>
+                        <?php if (empty($chauffeurs)): ?>
+                            <small class="text-danger">Aucun chauffeur disponible.</small>
+                        <?php endif; ?>
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Voiture</label>
-                        <select name="id_voiture" class="form-select">
+                        <label class="form-label">Voiture </label>
+                        <select name="id_voiture" class="form-select" required>
+                            <option value="">Sélectionner une voiture</option>
                             <?php if (!empty($voitures)): ?>
                                 <?php foreach ($voitures as $v): ?>
-                                    <option value="<?= htmlspecialchars($v['id_voiture']) ?>"><?= htmlspecialchars(($v['marque'] ?? '') . ' ' . ($v['modele'] ?? '')) ?></option>
+                                    <option value="<?= htmlspecialchars($v['id_voiture']) ?>">
+                                        <?= htmlspecialchars(trim(($v['marque'] ?? '') . ' ' . ($v['modele'] ?? ''))) ?>
+                                    </option>
                                 <?php endforeach; ?>
-                            <?php else: ?>
-                                <option value="">Aucune voiture disponible</option>
                             <?php endif; ?>
                         </select>
+                        <?php if (empty($voitures)): ?>
+                            <small class="text-danger">Aucune voiture disponible.</small>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <button class="btn btn-primary">Enregistrer</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Enregistrer</button>
                 <button type="button" id="btnCancelLivraison" class="btn btn-secondary ms-2">Annuler</button>
             </form>
         </div>
@@ -127,12 +154,46 @@
 <?php include("inc/footer.php"); ?>
 
 <script nonce="<?= htmlspecialchars($csp_nonce ?? '') ?>">
-    document.getElementById('btnAddLivraison').addEventListener('click', function () {
-        document.getElementById('formLivraison').style.display = 'block';
-        window.location.hash = '#formLivraison';
+    const btnAdd = document.getElementById('btnAddLivraison');
+    const formLivraison = document.getElementById('formLivraison');
+    const btnCancel = document.getElementById('btnCancelLivraison');
+    const form = document.getElementById('formAddLivraison');
+    const errorMessage = document.getElementById('errorMessage');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    // Toujours autoriser l'ouverture du formulaire
+    btnAdd.addEventListener('click', function () {
+        formLivraison.style.display = 'block';
+        formLivraison.scrollIntoView({ behavior: 'smooth' });
+        errorMessage.style.display = 'none'; 
     });
-    document.getElementById('btnCancelLivraison').addEventListener('click', function () {
-        document.getElementById('formLivraison').style.display = 'none';
+
+    btnCancel.addEventListener('click', function () {
+        formLivraison.style.display = 'none';
+        errorMessage.style.display = 'none';
+    });
+
+    // Interception de la soumission
+    form.addEventListener('submit', function (e) {
+        errorMessage.style.display = 'none';
+        errorMessage.innerHTML = '';
+
+        const hasColis = <?= !empty($colis) ? 'true' : 'false' ?>;
+        const hasChauffeurs = <?= !empty($chauffeurs) ? 'true' : 'false' ?>;
+        const hasVoitures = <?= !empty($voitures) ? 'true' : 'false' ?>;
+
+        let errors = [];
+
+        if (!hasColis) errors.push("Aucun colis disponible. Vous devez d'abord en ajouter un.");
+        if (!hasChauffeurs) errors.push("Aucun chauffeur disponible. Vous devez d'abord en ajouter un.");
+        if (!hasVoitures) errors.push("Aucune voiture disponible. Vous devez d'abord en ajouter une.");
+
+        if (errors.length > 0) {
+            e.preventDefault(); // Empeche l'envoi
+            errorMessage.innerHTML = '<strong>Impossible d’enregistrer la livraison :</strong><br>' + errors.join('<br>');
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
     });
 </script>
 </body>

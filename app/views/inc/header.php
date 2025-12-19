@@ -30,11 +30,11 @@
             Pages
           </a>
           <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/colis">Colis</a></li>
             <li><a class="dropdown-item" href="/voitures">Voitures</a></li>
             <li><a class="dropdown-item" href="/chauffeurs">Chauffeurs</a></li>
             <li><a class="dropdown-item" href="/livraisons">Livraisons</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            
           </ul>
         </li>
         <li class="nav-item">

@@ -1,5 +1,7 @@
 
 <?php include ("inc/header.php"); ?>
+<link href="/assets/css/styleB.css" rel="stylesheet">
+
 <div class="container">
     <h1>📊 Rapport des Bénéfices</h1>
 

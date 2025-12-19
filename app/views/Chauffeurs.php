@@ -1,10 +1,12 @@
 <?php include("inc/header.php"); ?>
 
 <main class="container my-5">
-    <h2 class="mb-4 text-center fw-bold">Liste des Chauffeurs
-        <button id="btnAddChauffeur" class="btn btn-success">+ Ajouter</button>
+    <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Liste des Chauffeurs
+        <button id="btnAddChauffeur" class="btn btn-success" style="-webkit-text-fill-color: white !important; color: white !important;">
+            + Ajouter
+        </button>
     </h2>
-
     <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($liste as $row): ?>
