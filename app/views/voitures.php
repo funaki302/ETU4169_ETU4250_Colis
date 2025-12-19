@@ -29,7 +29,7 @@
                         case 3: $badgeClass = 'bg-danger'; $statutText = 'En panne'; break;
                         default: $badgeClass = 'bg-secondary'; $statutText = $statut_voiture[($statutIdx-1)]['statut'] ?? 'Inconnu'; break;
                     }
-                    $image = !empty($row['image']) ? '/images/' . htmlspecialchars($row['image']) : null;
+                    $image = !empty($row['imageVoiture']) ? '/images/' . htmlspecialchars($row['imageVoiture']) : null;
                 ?>
 
                 <div class="col">
