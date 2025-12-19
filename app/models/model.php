@@ -305,17 +305,16 @@ class Model
             }
         }
         $sql = "INSERT INTO gc_voiture 
-        (immatriculation, marque, modele, capacite, id_statut, id_carburant, id_statut,imageVoiture)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        (immatriculation, marque, modele, capacite, id_statut, id_carburant,imageVoiture)
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             $data['immatriculation'] ?? '',
             $data['marque'] ?? '',
             $data['modele'] ?? '',
             $data['capacite'] ?? 1,
-            $data['id_statut'] ?? '',
-            $data['id_carburant'] ?? 1,
             $data['id_statut'] ?? 1,
+            $data['id_carburant'] ?? 1,
             $imageVoiture ?? ''
         ]);
         return $this->db->lastInsertId();
