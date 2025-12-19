@@ -1,0 +1,156 @@
+/* ===== PAGE D'ACCUEIL - THÈME CLAIR, VIVANT & DYNAMIQUE ===== */
+
+/* Fond global de la page - Clair et homogène */
+body {
+    background: linear-gradient(135deg, #f8fbff 0%, #e6f0ff 100%); /* Bleu très clair vivant */
+    min-height: 100vh;
+}
+
+/* Bannière Hero - Vivante avec gradient clair et icônes flottantes */
+.hero-banner {
+    background: linear-gradient(135deg, #ffffff 0%, #e6f3ff 100%);
+    min-height: 80vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+}
+
+/* Couche d'icônes flottantes (comme des étoiles qui défilent lentement) */
+.floating-icons {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-icons::before,
+.floating-icons::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-repeat: repeat;
+    opacity: 0.07; /* Très subtil pour ne pas alourdir */
+    animation: float 60s linear infinite;
+}
+
+.floating-icons::before {
+    background-image: 
+        url('https://www.shutterstock.com/image-vector/3d-vector-render-illustration-icon-600nw-2582040635.jpg'), /* Van */
+        url('https://media.istockphoto.com/id/1314506530/vector/fast-delivery-truck-icon-set-fast-shipping-design-for-website-and-mobile-apps-vector.jpg?s=612x612&w=0&k=20&c=iC3zmdi0a9W0wZ3VRkCaNzHby68y4jac7tGNCFNSyFY='), /* Truck icons */
+        url('https://www.shutterstock.com/image-illustration/3d-orange-truck-delivery-back-600nw-2410639343.jpg'), /* Truck 3D */
+        url('https://thumbs.dreamstime.com/b/vector-cartoon-delivery-man-carton-box-car-illustration-isolated-white-background-flat-style-concept-business-92053286.jpg'), /* Livreur avec colis */
+        url('https://media.istockphoto.com/id/1390768356/vector/fast-delivery-truck-icon-fast-shipping-design-for-website-and-mobile-apps-vector-illustration.jpg?s=612x612&w=0&k=20&c=Prj0I-bjq31gfCyecjoXR4w7jz8sX8ch4gwhKilgq5U='), /* Truck simple */
+        url('https://static.vecteezy.com/system/resources/thumbnails/059/543/455/small_2x/3d-render-illustration-of-an-orange-delivery-truck-icon-with-gold-coins-floating-around-logistics-concept-freight-e-commerce-business-payments-cash-on-delivery-income-shipping-costs-vector.jpg'); /* Truck avec éléments */
+    background-size: 80px auto, 70px auto, 90px auto, 100px auto, 75px auto, 85px auto;
+    background-position: 10% 20%, 30% 70%, 60% 40%, 80% 80%, 50% 10%, 20% 50%;
+    animation-direction: normal;
+}
+
+.floating-icons::after {
+    background-image: inherit;
+    background-size: inherit;
+    background-position: 70% 50%, 90% 20%, 20% 80%, 40% 30%, 10% 60%, 60% 10%;
+    animation-duration: 80s;
+    animation-direction: reverse;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-50%, -50%); }
+}
+
+/* Onde de transition douce */
+.wave-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to top, #f8fbff, transparent);
+}
+
+/* Section cartes - Fond clair homogène */
+#dashboard-cards {
+    background: #f8fbff;
+    padding: 80px 0;
+    position: relative;
+}
+
+/* Cartes - Blanches, modernes, avec accents bleus homogènes */
+.dashboard-card {
+    background: #ffffff;
+    border: 1px solid #d0e0ff;
+    border-radius: 14px;
+    padding: 30px;
+    height: 100%;
+    transition: all 0.35s ease;
+    box-shadow: 0 6px 18px rgba(0, 100, 200, 0.08);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 123, 255, 0.18);
+    border-color: #007bff;
+}
+
+/* Icône cercle - Bleu homogène et vivant */
+.icon-circle {
+    width: 75px;
+    height: 75px;
+    background: linear-gradient(135deg, #007bff, #4da6ff);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.25);
+}
+
+.dashboard-card:hover .icon-circle {
+    transform: scale(1.1);
+}
+
+/* Carte principale Livraisons - Plus mise en avant */
+.featured-card {
+    background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+    border: 2px solid #a8d0ff;
+    border-radius: 18px;
+    min-height: 360px;
+    text-align: center;
+}
+
+.featured-card .icon-circle {
+    width: 95px;
+    height: 95px;
+    background: linear-gradient(135deg, #0056b3, #007bff);
+}
+
+/* Textes homogènes */
+h1, h3, h4 {
+    color: #1e3c72; /* Bleu profond de ta navbar */
+}
+
+p {
+    color: #495057;
+}
+
+a {
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .floating-icons::before, .floating-icons::after {
+        background-size: 60px auto !important;
+    }
+    .hero-banner h1 {
+        font-size: 2.6rem;
+    }
+}

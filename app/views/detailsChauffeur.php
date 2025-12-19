@@ -97,12 +97,13 @@
                                     <select name="id_statut" class="form-select">
                                         <option value="<?= htmlspecialchars($chauffeur['id_statut']) ?>"><?= $statuts[$chauffeur['id_statut'] - 1]['statut'] ?>
                                            </option>
-                                        <?php foreach ($statuts as $statut): ?>
-                                            <?php if ($statut['id_statut'] !== ($chauffeur['id_statut'])) { ?>
-                                                <option value="<?= htmlspecialchars($statut['id_statut']) ?>"><?= $statut['statut'] ?>
+                                        <?php $taille = count($statuts); ?>
+                                        <?php for ($i = 1; $i < $taille; $i++): ?>
+                                            <?php if ($statuts[$i]['id_statut'] !== ($chauffeur['id_statut'])) { ?>
+                                                <option value="<?= htmlspecialchars($statuts[$i]['id_statut']) ?>"><?= $statuts[$i]['statut'] ?>
                                                 </option>
                                             <?php }
-                                        endforeach; ?>
+                                        endfor; ?>
                                     </select>
                                 </div>
                             </div>

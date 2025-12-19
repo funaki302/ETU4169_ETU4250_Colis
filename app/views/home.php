@@ -1,16 +1,15 @@
 <?php include("inc/header.php"); ?>
 
 <main class="container my-5">
+    
     <h2 class="mb-5 text-center fw-bold display-5" style="background: linear-gradient(135deg, #0d6efd, #dc3545); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        Liste des colis
-        
+        Liste des Colis
+        <button id="btnAddChauffeur" class="btn btn-success" style="-webkit-text-fill-color: white !important; color: white !important;">
+           <a href="/formInsert">
+            + Ajouter
+           </a> 
+        </button>
     </h2>
-    <a href="/formInsert"
-        id="btnAddLiv"
-        class="btn btn-success btn-lg px-4 shadow-sm d-inline-flex align-items-center gap-2 ms-3">
-         <i class="bi bi-plus-circle"></i>
-        Ajouter
-    </a>
     <br>
 
     <!-- Formulaire de filtres -->

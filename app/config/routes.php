@@ -177,4 +177,11 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
+    $router->get('/accueil', function () use ($app) {
+        $controller = new Controller($app);
+        $app->render('accueil', [
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
 }, [SecurityHeadersMiddleware::class]);
