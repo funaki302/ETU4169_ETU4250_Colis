@@ -742,13 +742,7 @@ class Model
         }
     }
 
-<<<<<<< HEAD
     public function getZone() {
-=======
-
-    public function getZone()
-    {
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
         $sql = "SELECT * FROM gc_trajet_colis";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -799,13 +793,6 @@ class Model
         return $this->db->lastInsertId();
     }
 
-<<<<<<< HEAD
-    public function get_beneficeVoiture() {
-    $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-}
-=======
-
     public function get_beneficeVoiture()
     {
         $stmt = $this->db->query("SELECT * FROM V_gc_BeneficeParVoiture ORDER BY benefice_net DESC");
@@ -818,5 +805,4 @@ class Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
 }

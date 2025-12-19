@@ -309,14 +309,9 @@ class Controller
     {
         return $this->model->deleteZone($id);
     }
-<<<<<<< HEAD
-    public function addZone(){
-=======
-
 
     public function addZone()
     {
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
         $request = Flight::request();
         $data = $request->data->getData();
         return $this->model->addZone($data);
@@ -325,24 +320,15 @@ class Controller
     {
         return $this->model->getZoneById($id);
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
+    
     public function get_beneficeVoiture()
     {
         return $this->model->get_beneficeVoiture();
     }
-<<<<<<< HEAD
-}
-=======
-
 
     public function get_beneficeById($id)
     {
         return $this->model->get_beneficeById($id);
     }
 
-
 }
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2

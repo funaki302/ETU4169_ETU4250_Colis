@@ -45,15 +45,8 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatut_CL(),
-<<<<<<< HEAD
-            'trajets' => $controller->getZone(),
-=======
-
             'trajets' => $controller->getZone(),
             'imageColis'=> $controller->getImgColis($id),
-
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
-            'imageColis' => $controller->getImgColis($id),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
     });
@@ -196,16 +189,6 @@ $router->group('', function (Router $router) use ($app) {
     });
 
 
-<<<<<<< HEAD
-=======
-    $router->get('/zones', function () use ($app) {
-        $controller = new Controller($app);
-        $app->render('ZoneLivraison', [
-            'liste' => $controller->getZone(),'csp_nonce' => Flight::get('csp_nonce')
-        ]);
-    });
-
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
     $router->get('/voiture/benefice/', function () use ($app) {
         $controller = new Controller($app);
         $app->render('BeneficeVoiture', [
@@ -214,7 +197,6 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
-<<<<<<< HEAD
     $router->get('/zones', function () use ($app) {
         $controller = new Controller($app);
         $app->render('ZoneLivraison', [
@@ -223,9 +205,6 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
-
-=======
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
     $router->get('/zone/@id', function ($id) use ($app) {
         $controller = new Controller($app);
         $zone = $controller->getZoneById($id);
@@ -254,8 +233,6 @@ $router->group('', function (Router $router) use ($app) {
         Flight::redirect('/zones');
     });
 
-<<<<<<< HEAD
-=======
     $router->get('/voitures/details//@id', function ($id) use ($app)
     {
         $controller = new Controller($app);
@@ -268,5 +245,4 @@ $router->group('', function (Router $router) use ($app) {
     });
 
 
->>>>>>> 12a01a96f6d76592f017bec23ea7406ca8bbb6f2
 }, [SecurityHeadersMiddleware::class]);
