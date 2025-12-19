@@ -34,6 +34,7 @@
             <li><a class="dropdown-item" href="/voitures">Voitures</a></li>
             <li><a class="dropdown-item" href="/chauffeurs">Chauffeurs</a></li>
             <li><a class="dropdown-item" href="/livraisons">Livraisons</a></li>
+            <li><a class="dropdown-item" href="/zones">Zone de Livraison</a></li>
             
           </ul>
         </li>

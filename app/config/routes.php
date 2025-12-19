@@ -45,6 +45,7 @@ $router->group('', function (Router $router) use ($app) {
         $app->render('detailsColis', [
             'colis' => $controller->getColisById($id),
             'statuts' => $controller->getStatut_CL(),
+            'trajets' => $controller->getZone(),
             'imageColis'=> $controller->getImgColis($id),
             'csp_nonce' => Flight::get('csp_nonce')
         ]);
@@ -184,4 +185,39 @@ $router->group('', function (Router $router) use ($app) {
         ]);
     });
 
+    $router->get('/zones', function () use ($app) {
+        $controller = new Controller($app);
+        $app->render('ZoneLivraison', [
+            'liste' => $controller->getZone(),
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+    $router->get('/zone/@id', function ($id) use ($app) {
+        $controller = new Controller($app);
+        $zone = $controller->getZoneById($id);
+        $app->render('detailsZone', [
+            'zone' => $zone,
+            'csp_nonce' => Flight::get('csp_nonce')
+        ]);
+    });
+
+    $router->get('/zone/update', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->updateZone();
+        Flight::redirect('/zones');
+    });
+
+    $router->post('/zone/add', function () use ($app) {
+        $controller = new Controller($app);
+        $controller->addZone();
+        Flight::redirect('/zones');
+    });
+
+    $router->get('/zone/delete/@id', function ($id) use ($app)
+    {
+        $controller = new Controller($app);
+        $controller->deleteZone($id);
+        Flight::redirect('/zones');
+    });
 }, [SecurityHeadersMiddleware::class]);

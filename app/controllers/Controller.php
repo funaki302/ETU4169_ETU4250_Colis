@@ -290,5 +290,24 @@ class Controller
         return $this->model->getVoitureDispo();
     }
 
+    public function getZone(){
+        return $this->model->getZone();
+    }
+    public function updateZone(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        return $this->model->updateZone($data);
+    }
+    public function deleteZone($id){
+        return $this->model->deleteZone($id);
+    }
 
+    public function addZone(){
+        $request = Flight::request();
+        $data = $request->data->getData();
+        return $this->model->addZone($data);
+    }
+    public function getZoneById($id){
+        return $this->model->getZoneById($id);
+    }
 }
